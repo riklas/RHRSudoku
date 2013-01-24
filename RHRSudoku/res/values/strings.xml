@@ -2,7 +2,10 @@
 <resources>
 
     <string name="app_name">RHRSudoku</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="kids">KIDS</string>
+    <string name="easy">EASY</string>
+    <string name="skilled">SKILLED</string>
+    <string name="master">MASTER</string>
     <string name="menu_settings">Settings</string>
 
 </resources>
