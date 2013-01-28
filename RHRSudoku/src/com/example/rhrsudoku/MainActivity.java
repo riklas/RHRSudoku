@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
 
 	public void setKids(View view) {
 		difficulty = 0;
-		createIntent(difficulty);
+		createIntent(difficulty);		
 	}
 	
 	public void setEasy(View view) {
@@ -45,7 +45,7 @@ public class MainActivity extends Activity {
 	}
 	
 	public void createIntent(int difficulty) {
-		Intent intent = new Intent(this, SudokuPuzzle.class);
+		Intent intent = new Intent(this, GameActivity.class);
 		intent.putExtra(DIFFICULTY, difficulty);
 		startActivity(intent);
 	}
