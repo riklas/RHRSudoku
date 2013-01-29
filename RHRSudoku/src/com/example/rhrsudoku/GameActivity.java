@@ -26,7 +26,10 @@ public class GameActivity extends Activity {
 		TextView test = new TextView(this);
 		test.setText(Integer.toString(difficulty));
 		
-		//Call the generator
+		//Call the generator (at the moment implemented for hard-coded puzzles)
+		//HardcodedPuzzles hardcode = new HardcodedPuzzles();
+		//SmallBox[] smallboxarray = hardcode.getPuzzle(difficulty);
+		//generator returns array of small boxes to pass to constructor of sudokupuzzle
 		
 		setContentView(test);
 		
