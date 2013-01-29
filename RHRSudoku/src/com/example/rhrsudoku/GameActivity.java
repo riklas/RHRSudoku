@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 public class GameActivity extends Activity {
 
-	int difficulty = -1;
+	int difficulty = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
