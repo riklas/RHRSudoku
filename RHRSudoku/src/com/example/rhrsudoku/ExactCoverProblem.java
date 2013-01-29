@@ -2,7 +2,7 @@ package com.example.rhrsudoku;
 
 import java.util.Set;
 
-public class ExactHittingSetProblem<E> {
+public class ExactCoverProblem<E> {
 	/*
 	 * represents an exact hitting set problem
 	 */
