@@ -5,9 +5,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import com.google.common.collect.*;
 
 public class ExactCoverSolver<E> {	
-
 
 	public Set<Set<E>> solve(ExactCoverProblem<E> p) {
 			/*
@@ -54,7 +54,8 @@ public class ExactCoverSolver<E> {
 	}
 	
 	Set<Integer> solveMatrix(Matrix matrix) {
-		/*
+		/*				return null;
+
 		 * try to solve the matrix. if solvable, return the set of integers
 		 * identifying the subsets/rows
 		 * if unsolvable, return null
@@ -74,35 +75,46 @@ public class ExactCoverSolver<E> {
 		MatrixHeaderStarter columnStarter, rowStarter;
 		columnStarter = new MatrixHeaderStarter(null);
 		rowStarter = new MatrixHeaderStarter(null);
+		initializeHeaders(columnStarter, mapX);
+		initializeHeaders(rowStarter, mapS);
+		initializeMatrixCells(p, mapX, mapS);
+		
+		Matrix matrix = new Matrix(columnStarter, rowStarter);
+		return matrix;
+		}
+	
+	void initializeHeaders(MatrixHeaderStarter headersStarter, Map<Integer, ?> map) {
 		boolean initializedStarter = false;
-		for (Map.Entry<Integer, E> entry : mapX.entrySet()) {
+		for (Map.Entry<Integer, ?> entry : map.entrySet()) {
 			
 			if (!initializedStarter) {
 				MatrixCellHeader header = new MatrixCellHeader(entry.getKey(), null, null);
-				columnStarter.starter = header;
-				columnStarter.starter.next = columnStarter.starter;
-				columnStarter.starter.previous = columnStarter.starter;
+				headersStarter.starter = header;
+				headersStarter.starter.next = headersStarter.starter;
+				headersStarter.starter.previous = headersStarter.starter;
 				initializedStarter = true;
 				continue;
 			}
 			
 			MatrixCellHeader columnHeader = new MatrixCellHeader(entry.getKey(),
-					columnStarter.starter, columnStarter.starter.next);
+					headersStarter.starter, headersStarter.starter.next);
 			
-			columnStarter.starter.next.previous = columnHeader;
-			columnStarter.starter.next = columnHeader;
-			
+			columnHeader.previous.next = columnHeader;
+			columnHeader.next.previous = columnHeader;
 		}
-		
-		/*
-		 * Column headers have now been initialized
-		 */
-		
-				return null;
+	}
+	
+	void initializeMatrixCells(ExactCoverProblem p, Map<Integer, E> mapX,
+			Map<Integer, Set<E>> mapS) {
+		}
 	}
 	
 	class Matrix {
-		MatrixHeaderStarter starter;
+		MatrixHeaderStarter columnStarter, rowStarter;
+		public Matrix( MatrixHeaderStarter columnStarter, MatrixHeaderStarter rowStarter) {
+			this.columnStarter = columnStarter;
+			this.rowStarter = rowStarter;
+		}
 	}
 	class MatrixCell {
 		MatrixCell north, east, south, west;
