@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+
+import com.google.common.base.Optional;
 import com.google.common.collect.*;
 
 public class ExactCoverSolver<E> {	
@@ -26,9 +28,11 @@ public class ExactCoverSolver<E> {
 			 * 5) the identifiers are using to identify the subsets to return
 			 * 
 			 */
+		
 		int id = 1;
-		Map<Integer, E> mapX = new HashMap<Integer, E>();
-		Map<Integer, Set<E>> mapS = new HashMap<Integer, Set<E>>();
+		BiMap<Integer, E> mapX = HashBiMap.create(p.setX.size());
+		BiMap<Integer, Set<E>> mapS = HashBiMap.create(p.setS.size());
+
 		Iterator it = p.setX.iterator();
 		while (it.hasNext()) {
 			mapX.put(id, (E) it.next() );
@@ -62,11 +66,11 @@ public class ExactCoverSolver<E> {
 		 */
 		
 		
-		return null;
+		return null;// CHANGE
 	}
 	
-	Matrix buildMatrix(ExactCoverProblem<E> p, Map<Integer, E> mapX,
-			Map<Integer, Set<E>> mapS ) {
+	Matrix buildMatrix(ExactCoverProblem<E> p, BiMap<Integer, E> mapX,
+			BiMap<Integer, Set<E>> mapS ) {
 		/*
 		 * 1) build the headers (rows and columns)
 		 * 2) build the cells, linking with each othert and the headers
@@ -77,13 +81,13 @@ public class ExactCoverSolver<E> {
 		rowStarter = new MatrixHeaderStarter(null);
 		initializeHeaders(columnStarter, mapX);
 		initializeHeaders(rowStarter, mapS);
-		initializeMatrixCells(p, mapX, mapS);
-		
 		Matrix matrix = new Matrix(columnStarter, rowStarter);
+		initializeMatrixCells(p, mapX, mapS, matrix);
+		
 		return matrix;
 		}
 	
-	void initializeHeaders(MatrixHeaderStarter headersStarter, Map<Integer, ?> map) {
+	void initializeHeaders(MatrixHeaderStarter headersStarter, BiMap<Integer, ?> map) {
 		boolean initializedStarter = false;
 		for (Map.Entry<Integer, ?> entry : map.entrySet()) {
 			
@@ -104,12 +108,31 @@ public class ExactCoverSolver<E> {
 		}
 	}
 	
-	void initializeMatrixCells(ExactCoverProblem p, Map<Integer, E> mapX,
-			Map<Integer, Set<E>> mapS) {
+	void initializeMatrixCells(ExactCoverProblem p, BiMap<Integer, E> mapX,
+			BiMap<Integer, Set<E>> mapS, Matrix matrix) {
+		/*
+		 * iterate through each subset.
+		 * for each element, create a new MatrixCell
+		 */
+		Iterator it = p.setS.iterator();
+		while (it.hasNext()) {
+			Set<E> subset = (Set<E>) it.next();
+			for (E element : subset) {
+				int rowID = mapS.inverse().get(subset);
+				int columnID = mapX.inverse().get(element);
+				MatrixCellHeader rowHeader = matrix.rowStarter.findHeader(rowID).get();
+				MatrixCellHeader columnHeader = matrix.columnStarter.findHeader(columnID).get();
+				MatrixCell cell = new MatrixCell(columnHeader, rowHeader);
+				rowHeader.addCell(cell, Matrix.HORIZONTAL);
+				columnHeader.addCell(cell, Matrix.VERTICAL);
+			}
+		}
 		}
 	}
 	
 	class Matrix {
+		final static int VERTICAL = 1;
+		final static int HORIZONTAL = 2;
 		MatrixHeaderStarter columnStarter, rowStarter;
 		public Matrix( MatrixHeaderStarter columnStarter, MatrixHeaderStarter rowStarter) {
 			this.columnStarter = columnStarter;
@@ -118,7 +141,13 @@ public class ExactCoverSolver<E> {
 	}
 	class MatrixCell {
 		MatrixCell north, east, south, west;
+		{ north = east = south = west = this; }
+
 		MatrixCellHeader columnHeader, rowHeader;
+		public MatrixCell(MatrixCellHeader columnHeader, MatrixCellHeader rowHeader) {
+			this.columnHeader = columnHeader;
+			this.rowHeader = rowHeader;
+		}		
 	}
 	class MatrixCellHeader {
 		final int id;
@@ -128,12 +157,46 @@ public class ExactCoverSolver<E> {
 			this.next = next;
 			this.previous = previous;
 		}
+		MatrixCell starter;
+		boolean starterInitialized = false;
+		void addCell(MatrixCell c, int orientation ) {
+			if (!starterInitialized) {
+				starter = c;
+				starterInitialized = true;
+				return;
+			}
+			if (orientation == Matrix.VERTICAL) {
+				c.north = starter;
+				c.south = starter.south;
+				c.north.south = c;
+				c.south.north = c;
+			}
+			else if (orientation == Matrix.HORIZONTAL) {
+				c.west = starter;
+				c.east = starter.east;
+				c.west.east = c;
+				c.east.west = c;
+			}
+		}
 	}
 	class MatrixHeaderStarter {
 		MatrixCellHeader starter;
 		public MatrixHeaderStarter (MatrixCellHeader starter) {
 			this.starter = starter;
 		}
-	}
+		
+		Optional<MatrixCellHeader> findHeader(int ID) {
+			int startingID = starter.id;
+			MatrixCellHeader header1 = starter;
+			while(true) {
+				if (header1.id == ID)
+					return Optional.of(header1);
+				else
+					header1 = header1.next;
+				if (header1.id == startingID)
+					return Optional.absent();
+			}
+		}
+	
 	
 }
