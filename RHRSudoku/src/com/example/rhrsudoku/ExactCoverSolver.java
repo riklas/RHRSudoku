@@ -52,12 +52,14 @@ public class ExactCoverSolver<E> {
 		Set<Set<E>> result2 = new HashSet<Set<E>>();
 		it = result1.iterator();
 		while(it.hasNext()) {
+			
 			result2.add(mapS.get(it.next()));
 		}
 		return result2;
 	}
 	
 	Set<Integer> solveMatrix(Matrix matrix) {
+		Set<Integer> solution = new HashSet<Integer>();
 		/*				return null;
 
 		 * try to solve the matrix. if solvable, return the set of integers
@@ -65,9 +67,40 @@ public class ExactCoverSolver<E> {
 		 * if unsolvable, return null
 		 */
 		
-		
+		/* 0) if there are no columns, we have succeeded
+		 * 1) deterministically pick a column
+		 * 2) non-deterministically pick a row
+		 * 			if there are no rows, we columnHeaderhave failed. backtrace and pick a different row
+		 * 3) include that row in the partial solution
+		 * 4) for each column that intersects with the row
+		 * 		remove all rows that intersect with that column
+		 * 5)   remove the column
+		 * 6)
+		 */
 		return null;// CHANGE
 	}
+	
+	boolean solveMatrix2() {
+		return false;
+		
+	}
+	boolean solveMatrix3() {
+		return false;
+		
+	}
+	boolean solveMatrix4() {
+		return false;
+		
+	}
+	boolean solveMatrix5() {
+		return false;
+		
+	}
+	boolean solveMatrix6() {
+		return false;
+		
+	}
+	
 	
 	Matrix buildMatrix(ExactCoverProblem<E> p, BiMap<Integer, E> mapX,
 			BiMap<Integer, Set<E>> mapS ) {
