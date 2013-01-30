@@ -59,7 +59,7 @@ public class ExactCoverSolver<E> {
 	}
 	
 	Set<Integer> solveMatrix(Matrix matrix) {
-		Set<Integer> solution = new HashSet<Integer>();
+		Set<Integer> solutions = new HashSet<Integer>();
 		/*				return null;
 
 		 * try to solve the matrix. if solvable, return the set of integers
@@ -67,29 +67,51 @@ public class ExactCoverSolver<E> {
 		 * if unsolvable, return null
 		 */
 		
-		/* 0) if there are no columns, we have succeeded
-		 * 1) deterministically pick a column
-		 * 2) non-deterministically pick a row
-		 * 			if there are no rows, we columnHeaderhave failed. backtrace and pick a different row
-		 * 3) include that row in the partial solution
-		 * 4) for each column that intersects with the row
-		 * 		remove all rows that intersect with that column
-		 * 5)   remove the column
-		 * 6)
-		 */
 		return null;// CHANGE
 	}
 	
-	boolean solveMatrix2() {
-		return false;
+	boolean solveMatrix1(Matrix matrix, Set<Integer> solutions) {
+		if(matrix.isEmpty())
+			return true;
+		return solveMatrix2(matrix, solutions);
+		}
+	
+	boolean solveMatrix2(Matrix matrix, Set<Integer> solutions) {
+		MatrixCellHeader chosenColumn = matrix.columnStarter.starter;
+		return solveMatrix3(matrix, solutions, chosenColumn);
 		
 	}
-	boolean solveMatrix3() {
-		return false;
+	boolean solveMatrix3(Matrix matrix, Set<Integer> solutions, MatrixCellHeader chosenColumn) {
+		if (chosenColumn.isEmpty())
+			return false;
+		MatrixCellHeader chosenRow = chosenColumn.starter.rowHeader;
+		boolean value = solveMatrix4(matrix, solutions, chosenColumn, chosenRow);
+		if(value == false) {
+			matrix.rowStarter.removeCellHeader(chosenRow, Matrix.HORIZONTAL);
+			return solveMatrix3(matrix, solutions, chosenColumn);			
+		}
+		else
+			return true;
 		
 	}
-	boolean solveMatrix4() {
-		return false;
+	boolean solveMatrix4(Matrix matrix, Set<Integer> solutions, 
+			MatrixCellHeader chosenColumn, MatrixCellHeader chosenRow) {
+		solutions.add(chosenRow.id);
+		for (MatrixCellHeader columnHeader : chosenRow.getIntersectingHeaders(Matrix.HORIZONTAL)) {
+			for (MatrixCellHeader rowHeader2 : columnHeader.getIntersectingHeaders(Matrix.VERTICAL)) {
+				matrix.rowStarter.removeCellHeader(rowHeader2, Matrix.HORIZONTAL);
+			}
+			matrix.columnStarter.removeCellHeader(columnHeader, Matrix.VERTICAL);
+		}
+		boolean value = solveMatrix1(matrix, solutions);
+		if (value == false) {
+			/*
+			 * uh oh.. must add back all the stuff we removed
+			 * and remove chosenRow from the partial solution
+			 * and return false
+			 */
+			
+		}
 		
 	}
 	boolean solveMatrix5() {
@@ -106,12 +128,12 @@ public class ExactCoverSolver<E> {
 			BiMap<Integer, Set<E>> mapS ) {
 		/*
 		 * 1) build the headers (rows and columns)
-		 * 2) build the cells, linking with each othert and the headers
+		 * 2) build the cells, linking with each other and the headers
 		 * 3) build the Matrix
 		 */
 		MatrixHeaderStarter columnStarter, rowStarter;
-		columnStarter = new MatrixHeaderStarter(null);
-		rowStarter = new MatrixHeaderStarter(null);
+		columnStarter = new MatrixHeaderStarter(null, Matrix.VERTICAL);
+		rowStarter = new MatrixHeaderStarter(null, Matrix.HORIZONTAL);
 		initializeHeaders(columnStarter, mapX);
 		initializeHeaders(rowStarter, mapS);
 		Matrix matrix = new Matrix(columnStarter, rowStarter);
@@ -125,7 +147,8 @@ public class ExactCoverSolver<E> {
 		for (Map.Entry<Integer, ?> entry : map.entrySet()) {
 			
 			if (!initializedStarter) {
-				MatrixCellHeader header = new MatrixCellHeader(entry.getKey(), null, null);
+				MatrixCellHeader header = new MatrixCellHeader(entry.getKey(),
+						null, null, headersStarter.orientation);
 				headersStarter.starter = header;
 				headersStarter.starter.next = headersStarter.starter;
 				headersStarter.starter.previous = headersStarter.starter;
@@ -133,11 +156,11 @@ public class ExactCoverSolver<E> {
 				continue;
 			}
 			
-			MatrixCellHeader columnHeader = new MatrixCellHeader(entry.getKey(),
-					headersStarter.starter, headersStarter.starter.next);
+			MatrixCellHeader header2 = new MatrixCellHeader(entry.getKey(), headersStarter.starter,
+					headersStarter.starter.next, headersStarter.orientation);
 			
-			columnHeader.previous.next = columnHeader;
-			columnHeader.next.previous = columnHeader;
+			header2.previous.next = header2;
+			header2.next.previous = header2;
 		}
 	}
 	
@@ -156,10 +179,9 @@ public class ExactCoverSolver<E> {
 				MatrixCellHeader rowHeader = matrix.rowStarter.findHeader(rowID).get();
 				MatrixCellHeader columnHeader = matrix.columnStarter.findHeader(columnID).get();
 				MatrixCell cell = new MatrixCell(columnHeader, rowHeader);
-				rowHeader.addCell(cell, Matrix.HORIZONTAL);
-				columnHeader.addCell(cell, Matrix.VERTICAL);
+				rowHeader.addCell(cell);
+				columnHeader.addCell(cell);
 			}
-		}
 		}
 	}
 	
@@ -170,6 +192,9 @@ public class ExactCoverSolver<E> {
 		public Matrix( MatrixHeaderStarter columnStarter, MatrixHeaderStarter rowStarter) {
 			this.columnStarter = columnStarter;
 			this.rowStarter = rowStarter;
+		}
+		boolean isEmpty() {
+			return columnStarter.isEmpty();		
 		}
 	}
 	class MatrixCell {
@@ -184,15 +209,19 @@ public class ExactCoverSolver<E> {
 	}
 	class MatrixCellHeader {
 		final int id;
+		final int orientation;
+		boolean isRemoved = false;
 		MatrixCellHeader next, previous;
-		public MatrixCellHeader(int id, MatrixCellHeader previous, MatrixCellHeader next) {
+		public MatrixCellHeader(int id, MatrixCellHeader previous, MatrixCellHeader next,
+				int orientation) {
 			this.id = id;
 			this.next = next;
 			this.previous = previous;
+			this.orientation = orientation;
 		}
 		MatrixCell starter;
 		boolean starterInitialized = false;
-		void addCell(MatrixCell c, int orientation ) {
+		void addCell(MatrixCell c) {
 			if (!starterInitialized) {
 				starter = c;
 				starterInitialized = true;
@@ -211,11 +240,100 @@ public class ExactCoverSolver<E> {
 				c.east.west = c;
 			}
 		}
+		boolean isEmpty() {
+			if (starter == null)
+				return true;
+			return false;
+		}
+		void removeCells(int orientation) {
+			if (starter == null) {
+				return;
+			}
+			if (orientation == Matrix.HORIZONTAL) {
+				int startingColumnID = starter.columnHeader.id;
+				MatrixCell cell1 = starter;
+				while(true) {
+					if (cell1.columnHeader.starter == cell1)
+						cell1.columnHeader.starter = cell1.south;
+					cell1.north.south = cell1.south;
+					cell1.south.north = cell1.north;
+					if (cell1.columnHeader.starter == cell1)
+						cell1.columnHeader.starter = null;
+					
+					cell1 = cell1.east;
+					if(cell1.columnHeader.id == startingColumnID)
+						break;
+				}
+			}
+			else if (orientation == Matrix.VERTICAL) {
+				int startingRowID = starter.rowHeader.id;
+				MatrixCell cell1 = starter;
+				while(true) {
+					if (cell1.rowHeader.starter == cell1)
+						cell1.rowHeader.starter = cell1.east;
+					cell1.east.west = cell1.west;
+					cell1.west.east = cell1.east;
+					if (cell1.rowHeader.starter == cell1)
+						cell1.rowHeader.starter = null;
+					cell1 = cell1.south;
+					if (cell1.rowHeader.id == startingRowID)
+						break;
+				}
+			}
+		}
+		Set<MatrixCellHeader> getIntersectingHeaders(int orientation) {
+			Set<MatrixCellHeader> headers = new HashSet<MatrixCellHeader>();
+			if (isEmpty())
+				return headers;
+			MatrixCell cell = starter;
+			if (orientation == Matrix.HORIZONTAL) {
+				int startingID = cell.columnHeader.id;
+				while(true) {
+					headers.add(cell.columnHeader);
+					cell = cell.east;
+					if(cell.columnHeader.id == startingID)
+						break;
+				}
+			}
+			else if (orientation == Matrix.VERTICAL) {
+				int startingID = cell.rowHeader.id;
+				while(true) {
+					headers.add(cell.rowHeader);
+					cell = cell.south;
+					if (cell.rowHeader.id == startingID)
+						break;
+				}
+				
+			}
+			return headers;
+		}
 	}
 	class MatrixHeaderStarter {
 		MatrixCellHeader starter;
-		public MatrixHeaderStarter (MatrixCellHeader starter) {
+		final int orientation;
+		public MatrixHeaderStarter (MatrixCellHeader starter, int orientation) {
 			this.starter = starter;
+			this.orientation = orientation;
+		}
+		
+		boolean isEmpty() {
+			if(starter == null)
+				return true;
+			return false;
+		}
+		
+		Set<MatrixCellHeader> getCellHeaders() {
+			Set<MatrixCellHeader> headers = new HashSet<MatrixCellHeader>();
+			if (isEmpty())
+				return headers;
+			MatrixCellHeader header1 = starter;
+			while(true) {
+				headers.add(header1);
+				header1 = header1.next;
+				if (header1 == starter)
+					break;
+			}
+			return headers;
 		}
 		
 		Optional<MatrixCellHeader> findHeader(int ID) {
@@ -230,6 +348,27 @@ public class ExactCoverSolver<E> {
 					return Optional.absent();
 			}
 		}
-	
-	
+		
+		void removeCellHeader(MatrixCellHeader header, int orientation) {
+			if (header.isRemoved)
+				return;
+			header.removeCells(orientation);
+			if (header == starter)
+				starter = header.next;
+			header.previous.next = header.next;
+			header.next.previous = header.previous;
+			if (header == starter)
+				starter = null;
+			header.isRemoved = true;
+		}
+		
+		boolean removeCellHeader(int ID, int orientation) {
+			Optional<MatrixCellHeader> header1 = findHeader(ID);
+			if (!header1.isPresent())
+				return false;
+			MatrixCellHeader header2 = header1.get();
+			removeCellHeader(header2, orientation);
+			return true;
+		}
+	}
 }
