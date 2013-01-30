@@ -24,7 +24,10 @@ public class ExactCoverSolver<E> {
 			 * 5) the identifiers are using to identify the subsets to return
 			 * 
 			 */
-		
+		if (!allElementsAreInSetX(p)) {
+			System.out.println("Error: Some sets in setS contain elements not in setX");
+			return null;
+		}
 		int id = 1;
 		BiMap<Integer, E> mapX = HashBiMap.create(p.setX.size());
 		BiMap<Integer, Set<E>> mapS = HashBiMap.create(p.setS.size());
@@ -34,7 +37,6 @@ public class ExactCoverSolver<E> {
 			mapX.put(id, (E) it.next() );
 			id++;
 		}
-		id=1;
 		it = (Iterator<E>) p.setS.iterator();
 		while (it.hasNext()) {
 			mapS.put(id, (Set<E>) it.next());
@@ -54,6 +56,17 @@ public class ExactCoverSolver<E> {
 		return result2;
 	}
 	
+	private boolean allElementsAreInSetX(ExactCoverProblem<E> p) {
+		for (Set<E> subset : p.setS) {
+			for (E element : subset) {
+				if(!p.setX.contains(element)) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
 	Set<Integer> solveMatrix(Matrix matrix) {
 		Set<Integer> solutions = new HashSet<Integer>();
 		/*				return null;
@@ -101,9 +114,13 @@ public class ExactCoverSolver<E> {
 		
 		for (MatrixCellHeader columnHeader : chosenRow.getIntersectingHeaders()) {
 			for (MatrixCellHeader rowHeader2 : columnHeader.getIntersectingHeaders()) {
+				if (rowHeader2.isRemoved)
+					continue;
 				matrix.rowStarter.removeCellHeader(rowHeader2);
 				removedHeaders.add(rowHeader2);
 			}
+			if (columnHeader.isRemoved)
+				continue;
 			matrix.columnStarter.removeCellHeader(columnHeader);
 			removedHeaders.add(columnHeader);
 		}
@@ -116,7 +133,7 @@ public class ExactCoverSolver<E> {
 				else if (removedHeader1.orientation == Matrix.VERTICAL)
 					matrix.columnStarter.restoreCellHeader(removedHeader1);
 			}
-			solutions.remove(chosenRow);
+			solutions.remove(chosenRow.id);
 			return false;
 		}
 		else
