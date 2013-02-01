@@ -1,0 +1,36 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:orientation="vertical"
+  	android:gravity="center_vertical" >
+
+    <Button
+        android:id="@+id/kids"
+        style="@style/button"        
+        android:text="@string/kids"
+        android:onClick="setKids"
+     	 />
+    
+    <Button
+        android:id="@+id/easy"
+        style="@style/button"             
+        android:text="@string/easy"   
+        android:onClick="setEasy"     
+        />
+    
+    <Button
+        android:id="@+id/medium"
+        style="@style/button"             
+        android:text="@string/skilled"
+        android:onClick="setMedium" 
+    	/>    
+    
+    <Button
+        android:id="@+id/hard"
+        style="@style/button"                       
+        android:text="@string/master" 
+        android:onClick="setHard"        
+        />
+
+</LinearLayout>

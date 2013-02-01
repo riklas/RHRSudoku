@@ -1,5 +1,5 @@
 package com.example.rhrsudoku;
 
 public interface SudokuGenerator {
-	SmallBox[] getPuzzle(int difficulty); 
+	SudokuPuzzle getPuzzle(int difficulty); 
 }

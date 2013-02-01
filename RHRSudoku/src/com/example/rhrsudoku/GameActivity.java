@@ -27,7 +27,8 @@ public class GameActivity extends Activity {
 		test.setText(Integer.toString(difficulty));
 		
 		//Call the generator (at the moment implemented for hard-coded puzzles)
-		//HardcodedPuzzles hardcode = new HardcodedPuzzles();
+		HardcodedPuzzles hardcode = new HardcodedPuzzles();
+		SudokuPuzzle puzzle = hardcode.getPuzzle(difficulty);
 		//SmallBox[] smallboxarray = hardcode.getPuzzle(difficulty);
 		//generator returns array of small boxes to pass to constructor of sudokupuzzle
 		

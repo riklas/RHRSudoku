@@ -10,8 +10,8 @@ public class SmallBox extends View {
 	int ID;
 	boolean hasFinalValue;
 	int[] possibleValues;
-	boolean isEditable;
-	boolean isSelected;
+	boolean isEditable = true;	// when the small boxes are created, boxes with values can be set as isEditable = false
+	boolean isSelected;			
 
 	public SmallBox(Context context) {
 		super(context);
