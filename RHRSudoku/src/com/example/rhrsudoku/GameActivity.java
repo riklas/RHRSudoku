@@ -7,7 +7,8 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
 
 public class GameActivity extends Activity {
 
@@ -23,8 +24,15 @@ public class GameActivity extends Activity {
 		difficulty = intent.getIntExtra(MainActivity.DIFFICULTY, 0);	  	
 						
 		//test code to see if integer was passed
-		TextView test = new TextView(this);
-		test.setText(Integer.toString(difficulty));
+		//TextView test = new TextView(this);
+		//test.setText(Integer.toString(difficulty));
+		/*RelativeLayout rlayout = (RelativeLayout) findViewById(R.id.rlayout);
+		RelativeLayout.LayoutParams lprams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+		EditText edt = new EditText(this);
+		edt.setText("difficulty: " + Integer.toString(difficulty));
+		edt.setLayoutParams(lprams);
+		rlayout.addView(edt);
+		*/
 		
 		//Call the generator (at the moment implemented for hard-coded puzzles)
 		HardcodedPuzzles hardcode = new HardcodedPuzzles();
@@ -32,7 +40,7 @@ public class GameActivity extends Activity {
 		//SmallBox[] smallboxarray = hardcode.getPuzzle(difficulty);
 		//generator returns array of small boxes to pass to constructor of sudokupuzzle
 		
-		setContentView(test);
+		setContentView(R.layout.activity_game);
 		
 		// Show the Up button in the action bar.
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {

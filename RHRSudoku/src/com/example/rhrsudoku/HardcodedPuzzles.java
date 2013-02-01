@@ -12,6 +12,10 @@ public class HardcodedPuzzles implements SudokuGenerator {
 		SmallBox[] segPuzzle = new SmallBox[81];
 		
 		//set the values of the smallbox views to that the values retrieved from the database
+		
+		for(int i = 0; i < segPuzzle.length; i++) {
+			//segPuzzle[i].setText=
+		}
 		//create sudoku puzzle object passing in the array of small boxes
 		SudokuPuzzle puzzle = new SudokuPuzzle(segPuzzle);
 		return puzzle;
