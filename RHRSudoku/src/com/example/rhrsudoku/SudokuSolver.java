@@ -162,7 +162,19 @@ public class SudokuSolver {
 		}
 		
 		Set<Set<Integer>> setW = new HashSet<Set<Integer>>();
-		
+		for (SudokuPuzzleCell[] cell1 : puzzle.puzzle) {
+			for (SudokuPuzzleCell cell2 : cell1) {
+				if (cell2.hasValue) {
+					if (!cell2.isValid())
+						System.err.println("Cell "+cell2.rowNumber + "," +
+								" " + cell2.columnNumber + " has invalid value of " + cell2.value);
+					else {
+						Choice chc1 = new Choice(cell2.rowNumber, cell2.columnNumber, cell2.value);
+						setW.add(Choice.ChoiceToConstraintSet(chc1));
+					}
+				}
+			}
+		}
 		return new ExactCoverProblem<Integer>(setX, setS, setW);
 	}
 }
