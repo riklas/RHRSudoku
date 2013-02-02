@@ -131,10 +131,29 @@ public class SudokuSolver {
 		
 	}
 	int numberOfSolutions(SudokuPuzzle puzzle) {
+		//TODO
 		return 0;
 		
 	}
 	SudokuPuzzle solvePuzzle(SudokuPuzzle puzzle) {
+		// convert into exactcoverproblem
+		// solve
+		// convert constraint sets of answer into choices
+		// use choices to fill in sudoku puzzle
+		// check it is solved
+		// return it
+		
+		ExactCoverProblem<Integer> p1 = puzzleToExactCover(puzzle);
+		ExactCoverSolver<Integer> s1 = new ExactCoverSolver<Integer>();
+		Set<Set<Integer>> solution =  s1.solve(p1);
+		for (Set<Integer> subset : solution) {
+			Choice chc1 = Choice.ConstraintSetToChoice(subset);
+			SudokuPuzzleCell cell1 = puzzle.puzzle[chc1.row][chc1.column];
+			if (cell1.hasValue)
+				continue;
+			cell1.setValue(chc1.value, SudokuPuzzleCell.SOLVER_GENERATED);
+			
+		}
 		return puzzle;
 	
 	}
@@ -167,9 +186,9 @@ public class SudokuSolver {
 				if (cell2.hasValue) {
 					if (!cell2.isValid())
 						System.err.println("Cell "+cell2.rowNumber + "," +
-								" " + cell2.columnNumber + " has invalid value of " + cell2.value);
+								" " + cell2.columnNumber + " has invalid value of " + cell2.getValue());
 					else {
-						Choice chc1 = new Choice(cell2.rowNumber, cell2.columnNumber, cell2.value);
+						Choice chc1 = new Choice(cell2.rowNumber, cell2.columnNumber, cell2.getValue());
 						setW.add(Choice.ChoiceToConstraintSet(chc1));
 					}
 				}
