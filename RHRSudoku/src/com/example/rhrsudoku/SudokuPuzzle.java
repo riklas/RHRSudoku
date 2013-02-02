@@ -69,13 +69,33 @@ public class SudokuPuzzle {
 		return null;
 	}
 	boolean isConflicting() {
-		// Conflicting is defined as two numbers in the same row/column/big box conflicting
-		// this function could easily be made more efficient, but its not necessary
 			for (SudokuPuzzleCell[] row1 : puzzle)
 				for (SudokuPuzzleCell cell2 : row1)
 					if (cell2.isConflicting())
 						return true;
 		return false;
+	}
+	
+	boolean isFilled() {
+		for (SudokuPuzzleCell[] row1 : puzzle)
+			for (SudokuPuzzleCell cell2 : row1)
+				if (!cell2.hasValue)
+					return false;
+		return true;
+	}
+	
+	boolean isValid() {
+		for (SudokuPuzzleCell[] row1 : puzzle)
+			for (SudokuPuzzleCell cell2 : row1)
+				if (!cell2.isValid())
+					return false;
+		return true;
+	}
+	
+	boolean isSolved() {
+		if (!isFilled() || !isValid() || isConflicting())
+			return false;
+		return true;
 	}
 	
 	void printPuzzle() {

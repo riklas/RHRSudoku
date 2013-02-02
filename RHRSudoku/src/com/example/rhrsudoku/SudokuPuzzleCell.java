@@ -53,7 +53,6 @@ public class SudokuPuzzleCell {
 			return false;
 		else
 			return true;
-			
 	}
 	
 }

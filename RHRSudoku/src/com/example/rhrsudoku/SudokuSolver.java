@@ -146,15 +146,23 @@ public class SudokuSolver {
 		ExactCoverProblem<Integer> p1 = puzzleToExactCover(puzzle);
 		ExactCoverSolver<Integer> s1 = new ExactCoverSolver<Integer>();
 		Set<Set<Integer>> solution =  s1.solve(p1);
+		if (solution == null) {
+			System.out.println("No solution found");
+			return null;
+		}
 		for (Set<Integer> subset : solution) {
 			Choice chc1 = Choice.ConstraintSetToChoice(subset);
 			SudokuPuzzleCell cell1 = puzzle.puzzle[chc1.row][chc1.column];
 			if (cell1.hasValue)
 				continue;
 			cell1.setValue(chc1.value, SudokuPuzzleCell.SOLVER_GENERATED);
-			
 		}
-		return puzzle;
+		if (puzzle.isSolved())
+			return puzzle;
+		else {
+			System.err.println("Error Solving Puzzle");
+			return null;
+		}
 	
 	}
 	
