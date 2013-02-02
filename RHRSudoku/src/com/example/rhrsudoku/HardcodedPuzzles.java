@@ -17,9 +17,8 @@ public class HardcodedPuzzles implements SudokuGenerator {
 			//segPuzzle[i].setText=
 		}
 		//create sudoku puzzle object passing in the array of small boxes
-		//SudokuPuzzle puzzle = new SudokuPuzzle(segPuzzle);
-		//return puzzle;
-		return null;
+		SudokuPuzzle puzzle = new SudokuPuzzle(segPuzzle);
+		return puzzle;
 	}
 
 }

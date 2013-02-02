@@ -5,13 +5,9 @@ public class SudokuPuzzle {
 	 * This class represent a sudoku puzzle
 	 */
 	
-	public static void main(String[] args) {
-		SudokuPuzzle puzzle  = new SudokuPuzzle();
-		puzzle.printPuzzle();
-	}
-	
 	SudokuPuzzleCell[][] puzzle = new SudokuPuzzleCell[9][9]; 
 	// puzzle[a][b] refers to row a, column b. origin is at top left, with puzzle[0][0];
+	//bottom middle cell is puzzle[8][4];
 	
 	
 	public SudokuPuzzle() {
@@ -83,10 +79,19 @@ public class SudokuPuzzle {
 	}
 	
 	void printPuzzle() {
-		System.out.println("========================");
+		System.out.println("=========================");
 		for (int row1=0;row1<9;row1++) {
+			if (row1==3 || row1==6)
+				System.out.println("------------------------");
 			for (int col1=0;col1<9;col1++) {
-				System.out.print(puzzle[row1][col1].value + "  ");
+				if (col1==3 || col1==6)
+					System.out.print("| ");
+				String value;
+				if (puzzle[row1][col1].hasValue)
+					 value = Integer.toString(puzzle[row1][col1].value);
+				else
+					value = "*";
+				System.out.print(value + " ");
 			}
 			System.out.println();
 		}
