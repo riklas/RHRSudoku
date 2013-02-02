@@ -144,11 +144,6 @@ public class SudokuSolver {
 			System.out.println("Puzzle is Conflicting");
 			return null;
 		}
-		return null;
-
-	}
-	
-	ExactCoverProblem<Integer> blankSudokuGrid() {
 		// create a setS containing 324 subsets, each of size 9
 		// create a setX containing 729 elements,
 		// give each subset in setS an ID
@@ -165,7 +160,10 @@ public class SudokuSolver {
 			Choice c = Choice.IntToChoice(i);
 			setS.add(Choice.ChoiceToConstraintSet(c));
 		}
-		return new ExactCoverProblem<Integer>(setX, setS);
+		
+		Set<Set<Integer>> setW = new HashSet<Set<Integer>>();
+		
+		return new ExactCoverProblem<Integer>(setX, setS, setW);
 	}
 }
 
