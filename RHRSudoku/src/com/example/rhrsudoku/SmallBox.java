@@ -25,6 +25,11 @@ public class SmallBox extends View {
 	//	this.neighbours = neighbours;
 	//}
 	
+	@Override
+	//protected void onDraw(Canvas canvas)
+	
+	
+	
 	boolean isConflicting() {
 		if (!hasFinalValue)
 			return false;

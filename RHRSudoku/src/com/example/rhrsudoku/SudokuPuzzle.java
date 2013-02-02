@@ -88,7 +88,7 @@ public class SudokuPuzzle {
 					System.out.print("| ");
 				String value;
 				if (puzzle[row1][col1].hasValue)
-					 value = Integer.toString(puzzle[row1][col1].value);
+					 value = Integer.toString(puzzle[row1][col1].getValue());
 				else
 					value = "*";
 				System.out.print(value + " ");

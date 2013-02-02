@@ -8,17 +8,31 @@ public class SudokuPuzzleCell {
 	static final int GENERATED = 1;
 	static final int USER_INPUT = 2;
 	static final int NONE = 3;
+	static final int SOLVER_GENERATED = 4;
 	
 	int rowNumber, columnNumber; // from 0-8
 	boolean hasValue = false;
 	boolean isEditable = true;
-	int value;
+	private int value;
 	int inputMethod = NONE;			// change when set by a generator or the user resp.
 	SudokuPuzzleCell[] neighbours;
 	
 	public SudokuPuzzleCell(int rowNumber, int columnNumber){
 		this.rowNumber = rowNumber;
 		this.columnNumber = columnNumber;
+	}
+	
+	public void setValue(int value, int inputMethod) {
+		this.value = value;
+		this.hasValue = true;
+		this.inputMethod = inputMethod;
+	}
+	
+	public int getValue() {
+		if (this.hasValue)
+			return value;
+		else
+			return (Integer) null;
 	}
 	
 	public void setNeighbours(SudokuPuzzleCell[] neighbours) {

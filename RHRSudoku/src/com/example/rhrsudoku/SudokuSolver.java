@@ -131,10 +131,29 @@ public class SudokuSolver {
 		
 	}
 	int numberOfSolutions(SudokuPuzzle puzzle) {
+		//TODO
 		return 0;
 		
 	}
 	SudokuPuzzle solvePuzzle(SudokuPuzzle puzzle) {
+		// convert into exactcoverproblem
+		// solve
+		// convert constraint sets of answer into choices
+		// use choices to fill in sudoku puzzle
+		// check it is solved
+		// return it
+		
+		ExactCoverProblem<Integer> p1 = puzzleToExactCover(puzzle);
+		ExactCoverSolver<Integer> s1 = new ExactCoverSolver<Integer>();
+		Set<Set<Integer>> solution =  s1.solve(p1);
+		for (Set<Integer> subset : solution) {
+			Choice chc1 = Choice.ConstraintSetToChoice(subset);
+			SudokuPuzzleCell cell1 = puzzle.puzzle[chc1.row][chc1.column];
+			if (cell1.hasValue)
+				continue;
+			cell1.setValue(chc1.value, SudokuPuzzleCell.SOLVER_GENERATED);
+			
+		}
 		return puzzle;
 	
 	}
@@ -144,11 +163,6 @@ public class SudokuSolver {
 			System.out.println("Puzzle is Conflicting");
 			return null;
 		}
-		return null;
-
-	}
-	
-	ExactCoverProblem<Integer> blankSudokuGrid() {
 		// create a setS containing 324 subsets, each of size 9
 		// create a setX containing 729 elements,
 		// give each subset in setS an ID
@@ -165,7 +179,22 @@ public class SudokuSolver {
 			Choice c = Choice.IntToChoice(i);
 			setS.add(Choice.ChoiceToConstraintSet(c));
 		}
-		return new ExactCoverProblem<Integer>(setX, setS);
+		
+		Set<Set<Integer>> setW = new HashSet<Set<Integer>>();
+		for (SudokuPuzzleCell[] cell1 : puzzle.puzzle) {
+			for (SudokuPuzzleCell cell2 : cell1) {
+				if (cell2.hasValue) {
+					if (!cell2.isValid())
+						System.err.println("Cell "+cell2.rowNumber + "," +
+								" " + cell2.columnNumber + " has invalid value of " + cell2.getValue());
+					else {
+						Choice chc1 = new Choice(cell2.rowNumber, cell2.columnNumber, cell2.getValue());
+						setW.add(Choice.ChoiceToConstraintSet(chc1));
+					}
+				}
+			}
+		}
+		return new ExactCoverProblem<Integer>(setX, setS, setW);
 	}
 }
 
