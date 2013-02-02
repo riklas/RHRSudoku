@@ -40,6 +40,8 @@ public class GameActivity extends Activity {
 		//SmallBox[] smallboxarray = hardcode.getPuzzle(difficulty);
 		//generator returns array of small boxes to pass to constructor of sudokupuzzle
 		
+		//Dynamically set the text properties of the small box object using the values in the returned puzzle
+		
 		setContentView(R.layout.activity_game);
 		
 		// Show the Up button in the action bar.
