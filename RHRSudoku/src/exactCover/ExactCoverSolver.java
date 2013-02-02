@@ -204,15 +204,6 @@ public class ExactCoverSolver<E> {
 			return true;
 		
 	}
-	boolean solveMatrix5() {
-		return false;
-		
-	}
-	boolean solveMatrix6() {
-		return false;
-		
-	}
-	
 	
 	Matrix buildMatrix(ExactCoverProblem<E> p, BiMap<Integer, E> mapX,
 			BiMap<Integer, Set<E>> mapS ) {
