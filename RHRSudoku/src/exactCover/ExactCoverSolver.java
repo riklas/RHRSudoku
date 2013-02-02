@@ -24,7 +24,7 @@ public class ExactCoverSolver<E> {
 			 * this function tries to solve the problem,
 			 * if a solution is found it is returned
 			 * if no solution is found, null is returned
-			 * 
+			 * status
 			 * 1) each element in SetX is given an identifier
 			 * 2) each element in Sets is given an identifier
 			 * 3) a matrix is created using the identifiers
@@ -49,6 +49,9 @@ public class ExactCoverSolver<E> {
 		case IS_VALID:
 			break;
 		}
+		
+		
+		
 		int id = 1;
 		BiMap<Integer, E> mapX = HashBiMap.create(p.setX.size());
 		BiMap<Integer, Set<E>> mapS = HashBiMap.create(p.setS.size());
@@ -72,6 +75,8 @@ public class ExactCoverSolver<E> {
 		}
 		
 		Matrix matrix = buildMatrix(p, mapX, mapS);
+		processRowInclusions1(matrix, p, mapS);
+		
 		Set<Integer> result1 = solveMatrix(matrix);
 		if (result1 == null)
 			return null;
@@ -215,6 +220,35 @@ public class ExactCoverSolver<E> {
 	boolean solveMatrix6() {
 		return false;
 		
+	}
+	
+	void processRowInclusions1(Matrix matrix, ExactCoverProblem<E> p, BiMap<Integer,Set<E>> mapS ) {
+		if (p.setW == null)
+			return;
+		if (!p.setS.containsAll(p.setW)) {
+			System.err.println("ERROR: setW is not a strict subset of setS");
+			return;
+		}
+		for (Set<E> subset: p.setW) {
+			int rowID = mapS.inverse().get(subset);
+			Optional<MatrixCellHeader> row2 = matrix.rowStarter.findHeader(rowID);
+			if (row2.isPresent())
+				processRowInclusions2(matrix, row2.get());
+		}
+	}
+	
+	
+	void processRowInclusions2(Matrix matrix, MatrixCellHeader chosenRow) {
+		for (MatrixCellHeader columnHeader : chosenRow.getIntersectingHeaders()) {
+			for (MatrixCellHeader rowHeader2 : columnHeader.getIntersectingHeaders()) {
+				if (rowHeader2.isRemoved)
+					continue;
+				matrix.rowStarter.removeCellHeader(rowHeader2);
+			}
+			if (columnHeader.isRemoved)
+				continue;
+			matrix.columnStarter.removeCellHeader(columnHeader);
+		}
 	}
 	
 	
