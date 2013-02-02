@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import com.lairofthemottleddragon.exactCover.ExactCoverProblem;
+import exactCover.*;
 
 public class SudokuSolver {
 	static class Choice {
