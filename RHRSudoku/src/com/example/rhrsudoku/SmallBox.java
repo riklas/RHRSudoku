@@ -25,7 +25,7 @@ public class SmallBox extends View {
 	//	this.neighbours = neighbours;
 	//}
 	
-	@Override
+	//@Override
 	//protected void onDraw(Canvas canvas)
 	
 	

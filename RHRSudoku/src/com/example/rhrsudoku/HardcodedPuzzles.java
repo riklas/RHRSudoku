@@ -24,9 +24,7 @@ public class HardcodedPuzzles implements SudokuGenerator {
 		for(int row=0; row<9; row++) {
 			for(int column=0; column<9; column++) {
 				if (hardcodePuzzle[row][column] != 0) {
-					targetPuzzle[row][column].value = hardcodePuzzle[row][column];
-					targetPuzzle[row][column].hasValue = true;
-					targetPuzzle[row][column].isEditable = false;
+					targetPuzzle[row][column].setValue(hardcodePuzzle[row][column], SudokuPuzzleCell.GENERATED);
 				}				
 			}
 		}

@@ -23,9 +23,14 @@ public class SudokuPuzzleCell {
 	}
 	
 	public void setValue(int value, int inputMethod) {
-		this.value = value;
-		this.hasValue = true;
-		this.inputMethod = inputMethod;
+		if (this.isEditable) {
+			this.value = value;
+			this.hasValue = true;
+			this.inputMethod = inputMethod;
+			if (this.inputMethod == GENERATED) {
+				this.isEditable = false; //if called by generator, the value can no longer be edited 
+			}
+		}
 	}
 	
 	public int getValue() {
