@@ -7,18 +7,23 @@ public class HardcodedPuzzles implements SudokuGenerator {
 	}
 
 	@Override
-	public SudokuPuzzle getPuzzle(int difficulty) {
-		//get array of smallbox view. 
-		SmallBox[] segPuzzle = new SmallBox[81];
+	public SudokuPuzzleCell[][] getPuzzle(int difficulty) {
+		
+		SudokuPuzzle puzzle = new SudokuPuzzle();
+		
+		//get harcodepuzzle (int[][]) from database
+		Database hrd = new Database();
 		
 		//set the values of the smallbox views to that the values retrieved from the database
+		//database: [x][y] = "3", -> set .iseditable = false, .hasvalue=true
+		//database: [x][y] = null -> set .iseditable = true, .hasvalue=false
+		puzzle = setValues(puzzle, int[][] hardcodePuzzle);
 		
-		for(int i = 0; i < segPuzzle.length; i++) {
-			//segPuzzle[i].setText=
-		}
-		//create sudoku puzzle object passing in the array of small boxes
-		SudokuPuzzle puzzle = new SudokuPuzzle(segPuzzle);
-		return puzzle;
+		return puzzle.puzzle;		
+	}
+	
+	public SudokuPuzzleCell[][] setValues(SudokuPuzzleCell[][] targetPuzzle, int[][] hardcodePuzzle) {
+		return targetPuzzle;
 	}
 
 }

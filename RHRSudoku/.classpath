@@ -6,6 +6,6 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="lib" path="libs/guava-14.0-rc1.jar"/>
 	<classpathentry kind="lib" path="libs/ExactCover.jar"/>
-	<classpathentry kind="src" path="/ExactCover"/>
+	<classpathentry exported="true" kind="src" path="/ExactCover"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
