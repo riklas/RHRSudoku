@@ -1,6 +1,8 @@
 package exactCover;
 
 import java.util.*;
+import java.util.Random;
+
 import com.google.common.base.Optional;
 import com.google.common.collect.*;
 
@@ -10,8 +12,8 @@ public class ExactCoverSolver<E> {
 	private final static int IS_VALID = 3;
 	private final static int SETS_EMPTY = 4;
 	private final static int SETX_EMPTY = 5;
-	private final boolean PRINT_WORKING = false;
-	private static final boolean PRINT_MATRIX = false;
+	private final boolean PRINT_WORKING = true;
+	private static final boolean PRINT_MATRIX = true;
 
 	public Set<Set<E>> solve(ExactCoverProblem<E> p) {
 			/*
@@ -22,7 +24,7 @@ public class ExactCoverSolver<E> {
 			 * this function tries to solve the problem,
 			 * if a solution is found it is returned
 			 * if no solution is found, null is returned
-			 * 
+			 * status
 			 * 1) each element in SetX is given an identifier
 			 * 2) each element in Sets is given an identifier
 			 * 3) a matrix is created using the identifiers
@@ -47,6 +49,9 @@ public class ExactCoverSolver<E> {
 		case IS_VALID:
 			break;
 		}
+		
+		
+		
 		int id = 1;
 		BiMap<Integer, E> mapX = HashBiMap.create(p.setX.size());
 		BiMap<Integer, Set<E>> mapS = HashBiMap.create(p.setS.size());
@@ -70,6 +75,8 @@ public class ExactCoverSolver<E> {
 		}
 		
 		Matrix matrix = buildMatrix(p, mapX, mapS);
+		processRowInclusions1(matrix, p, mapS);
+		
 		Set<Integer> result1 = solveMatrix(matrix);
 		if (result1 == null)
 			return null;
@@ -129,6 +136,10 @@ public class ExactCoverSolver<E> {
 	
 	boolean solveMatrix2(Matrix matrix, Set<Integer> solutions) {
 		MatrixCellHeader chosenColumn = matrix.columnStarter.starter;
+		Random randGen = new Random();
+		int rand1 = randGen.nextInt(matrix.getColumnsM());
+		for (int i=0; i<rand1; i++)
+			chosenColumn = chosenColumn.next;
 		if (PRINT_WORKING)
 			System.out.println("chosenColumn with ID: " + chosenColumn.id);
 		return solveMatrix3(matrix, solutions, chosenColumn);
@@ -138,37 +149,35 @@ public class ExactCoverSolver<E> {
 		if (chosenColumn.isEmpty())
 			return false;
 		Set<MatrixCellHeader> rowSet2 = chosenColumn.getIntersectingHeaders();
+		Set<Integer> intersectingHeaderIDS = new HashSet<Integer>();
 		Iterator<MatrixCellHeader> rowSet2IT = rowSet2.iterator();
-		if (!rowSet2IT.hasNext()) {
-			if (PRINT_WORKING)
-				System.out.println("No intersecting rows for this column....");
-			return false;
-		}
-		MatrixCellHeader chosenRow = rowSet2IT.next();
-		if(PRINT_WORKING) {
-			matrix.printMatrix();
-			System.out.println("chosenRow with ID: " + chosenRow.id);
-		}
-		boolean value = solveMatrix4(matrix, solutions, chosenColumn, chosenRow);
-		if(value == false) {
-			if (PRINT_WORKING)
-				System.out.println("Branch failed with chosenRow ID: "+ chosenRow.id);
-			if (rowSet2IT.hasNext()) {
-				chosenRow = rowSet2IT.next();
-				if (PRINT_WORKING)
-					System.out.println("Choosing next chosenRow with ID: "+ chosenRow.id);
-				return solveMatrix4(matrix, solutions, chosenColumn, chosenRow);
-			}
-			else {
-				if (PRINT_WORKING)
-					System.out.println("No more rows to choose from....");
-				return false;
-			}
-		}
-		else
-			return true;
+		while (rowSet2IT.hasNext())
+			intersectingHeaderIDS.add(rowSet2IT.next().id);
+		rowSet2IT = rowSet2.iterator();
 		
+		while(rowSet2IT.hasNext()) {
+			MatrixCellHeader chosenRow = rowSet2IT.next();
+			if(PRINT_WORKING) {
+				matrix.printMatrix();
+				System.out.println("chosenRow with ID: " + chosenRow.id + " out " +
+						"of " + intersectingHeaderIDS.toString());
+			}
+			boolean value = solveMatrix4(matrix, solutions, chosenColumn, chosenRow);
+			if (value == false) {
+				if (PRINT_WORKING)
+					System.out.println("Branch failed with chosenRow ID: "+ chosenRow.id + " out " +
+							"of " + intersectingHeaderIDS.toString());
+				
+			}
+			else if (value == true)
+				return true;
+		}
+		if (PRINT_WORKING)
+			System.out.println("No more intersecting rows left to choose from for " +
+					"chosenColumn: " + chosenColumn.id);
+		return false;	
 	}
+
 	boolean solveMatrix4(Matrix matrix, Set<Integer> solutions, 
 			MatrixCellHeader chosenColumn, MatrixCellHeader chosenRow) {
 		solutions.add(chosenRow.id);
@@ -211,6 +220,35 @@ public class ExactCoverSolver<E> {
 	boolean solveMatrix6() {
 		return false;
 		
+	}
+	
+	void processRowInclusions1(Matrix matrix, ExactCoverProblem<E> p, BiMap<Integer,Set<E>> mapS ) {
+		if (p.setW == null)
+			return;
+		if (!p.setS.containsAll(p.setW)) {
+			System.err.println("ERROR: setW is not a strict subset of setS");
+			return;
+		}
+		for (Set<E> subset: p.setW) {
+			int rowID = mapS.inverse().get(subset);
+			Optional<MatrixCellHeader> row2 = matrix.rowStarter.findHeader(rowID);
+			if (row2.isPresent())
+				processRowInclusions2(matrix, row2.get());
+		}
+	}
+	
+	
+	void processRowInclusions2(Matrix matrix, MatrixCellHeader chosenRow) {
+		for (MatrixCellHeader columnHeader : chosenRow.getIntersectingHeaders()) {
+			for (MatrixCellHeader rowHeader2 : columnHeader.getIntersectingHeaders()) {
+				if (rowHeader2.isRemoved)
+					continue;
+				matrix.rowStarter.removeCellHeader(rowHeader2);
+			}
+			if (columnHeader.isRemoved)
+				continue;
+			matrix.columnStarter.removeCellHeader(columnHeader);
+		}
 	}
 	
 	
