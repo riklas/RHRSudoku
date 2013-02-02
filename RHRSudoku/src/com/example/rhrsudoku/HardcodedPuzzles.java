@@ -13,16 +13,24 @@ public class HardcodedPuzzles implements SudokuGenerator {
 		
 		//get harcodepuzzle (int[][]) from database
 		Database hrd = new Database();
-		
+		puzzle.printPuzzle();
 		//set the values of the smallbox views to that the values retrieved from the database
-		//database: [x][y] = "3", -> set .iseditable = false, .hasvalue=true
-		//database: [x][y] = null -> set .iseditable = true, .hasvalue=false
-		puzzle = setValues(puzzle, int[][] hardcodePuzzle);
-		
+		puzzle.puzzle = setValues(puzzle.puzzle, hrd.hardcodePuzzle);
+		puzzle.printPuzzle();
 		return puzzle.puzzle;		
 	}
 	
 	public SudokuPuzzleCell[][] setValues(SudokuPuzzleCell[][] targetPuzzle, int[][] hardcodePuzzle) {
+		for(int row=0; row<9; row++) {
+			for(int column=0; column<9; column++) {
+				if (hardcodePuzzle[row][column] != 0) {
+					targetPuzzle[row][column].value = hardcodePuzzle[row][column];
+					targetPuzzle[row][column].hasValue = true;
+					targetPuzzle[row][column].isEditable = false;
+				}				
+			}
+		}
+		
 		return targetPuzzle;
 	}
 

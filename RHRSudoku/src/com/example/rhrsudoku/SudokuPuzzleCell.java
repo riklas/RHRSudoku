@@ -7,6 +7,7 @@ public class SudokuPuzzleCell {
 	
 	int rowNumber, columnNumber; // from 0-8
 	boolean hasValue = false;
+	boolean isEditable = true;
 	int value;
 	SudokuPuzzleCell[] neighbours;
 	
