@@ -1,17 +1,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:custom="http://schemas.android.com/apk/res/com.example.rhrsodoku"
+    xmlns:custom="http://schemas.android.com/apk/res/com.example.rhrsudoku"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/rlayout"
-	>
+    android:id="@+id/rlayout">
 
     <com.example.rhrsudoku.SmallBox
         android:layout_width="100dp"
     	android:layout_height="100dp"
-        android:id="@+id/smallbox1"
-        android:text='1'
-        android:onClick="setIsSelected"
+        android:id="@+id/smallbox1"        
+        custom:textSize="20sp" 
+        custom:textColor="#FF0000"
         android:layout_centerHorizontal="true"
 	/>
 
