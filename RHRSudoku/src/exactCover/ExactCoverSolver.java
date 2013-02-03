@@ -13,7 +13,8 @@ public class ExactCoverSolver<E> {
 	private final static int SETS_EMPTY = 4;
 	private final static int SETX_EMPTY = 5;
 	private final boolean PRINT_WORKING = true;
-	private static final boolean PRINT_MATRIX = true;
+	private static final boolean PRINT_MATRIX = false;
+	private static final boolean PRINT_3 = true;
 
 	public Set<Set<E>> solve(ExactCoverProblem<E> p) {
 			/*
@@ -113,6 +114,8 @@ public class ExactCoverSolver<E> {
 	}
 
 	Set<Integer> solveMatrix(Matrix matrix) {
+		if (PRINT_3)
+			System.out.println("Solving Matrix...");
 		Set<Integer> solutions = new HashSet<Integer>();
 		/*				return null;
 
@@ -129,12 +132,16 @@ public class ExactCoverSolver<E> {
 	}
 	
 	boolean solveMatrix1(Matrix matrix, Set<Integer> solutions) {
+		if (PRINT_3)
+			System.out.println("Entered solveMatrix1()");
 		if(matrix.isEmpty())
 			return true;
 		return solveMatrix2(matrix, solutions);
 		}
 	
 	boolean solveMatrix2(Matrix matrix, Set<Integer> solutions) {
+		if (PRINT_3)
+			System.out.println("Entered solveMatrix2()");
 		MatrixCellHeader chosenColumn = matrix.columnStarter.starter;
 		Random randGen = new Random();
 		int rand1 = randGen.nextInt(matrix.getColumnsM());
@@ -146,6 +153,8 @@ public class ExactCoverSolver<E> {
 		
 	}
 	boolean solveMatrix3(Matrix matrix, Set<Integer> solutions, MatrixCellHeader chosenColumn) {
+		if (PRINT_3)
+			System.out.println("Entered solveMatrix3()");
 		if (chosenColumn.isEmpty())
 			return false;
 		Set<MatrixCellHeader> rowSet2 = chosenColumn.getIntersectingHeaders();
@@ -167,6 +176,7 @@ public class ExactCoverSolver<E> {
 				if (PRINT_WORKING)
 					System.out.println("Branch failed with chosenRow ID: "+ chosenRow.id + " out " +
 							"of " + intersectingHeaderIDS.toString());
+				continue;
 				
 			}
 			else if (value == true)
@@ -180,6 +190,8 @@ public class ExactCoverSolver<E> {
 
 	boolean solveMatrix4(Matrix matrix, Set<Integer> solutions, 
 			MatrixCellHeader chosenColumn, MatrixCellHeader chosenRow) {
+		if (PRINT_3)
+			System.out.println("Entered solveMatrix4()");
 		solutions.add(chosenRow.id);
 		LinkedList<MatrixCellHeader> removedHeaders = new LinkedList<MatrixCellHeader>();
 		
@@ -214,15 +226,21 @@ public class ExactCoverSolver<E> {
 		
 	}
 	boolean solveMatrix5() {
+		if (PRINT_3)
+			System.out.println("Entered solveMatrix5()");
 		return false;
 		
 	}
 	boolean solveMatrix6() {
+		if (PRINT_3)
+			System.out.println("Entered solveMatrix6()");
 		return false;
 		
 	}
 	
 	void processRowInclusions1(Matrix matrix, ExactCoverProblem<E> p, BiMap<Integer,Set<E>> mapS ) {
+		if (PRINT_3)
+			System.out.println("Processing Row Inclusions...");
 		if (p.setW == null)
 			return;
 		if (!p.setS.containsAll(p.setW)) {
@@ -254,6 +272,8 @@ public class ExactCoverSolver<E> {
 	
 	Matrix buildMatrix(ExactCoverProblem<E> p, BiMap<Integer, E> mapX,
 			BiMap<Integer, Set<E>> mapS ) {
+		if (PRINT_3)
+			System.out.println("Building Matrix...");
 		/*
 		 * 1) build the headers (rows and columns)
 		 * 2) build the cells, linking with each other and the headers

@@ -15,7 +15,8 @@ public class SudokuSolver {
 			
 		public Choice(int row, int column, int value) {
 			if (row<1 || row>9 || column<1 || column>9 || value<1 || value>9 )
-				System.out.println("ERROR, invalid choice");
+				System.err.println("ERROR, invalid choice: " + row + "," +
+						column + " : " + value);
 			this.row = row;
 			this.column = column;
 			this.value = value;
@@ -152,7 +153,7 @@ public class SudokuSolver {
 		}
 		for (Set<Integer> subset : solution) {
 			Choice chc1 = Choice.ConstraintSetToChoice(subset);
-			SudokuPuzzleCell cell1 = puzzle.puzzle[chc1.row][chc1.column];
+			SudokuPuzzleCell cell1 = puzzle.puzzle[chc1.row-1][chc1.column-1];
 			if (cell1.hasValue)
 				continue;
 			cell1.setValue(chc1.value, SudokuPuzzleCell.SOLVER_GENERATED);
@@ -196,7 +197,7 @@ public class SudokuSolver {
 						System.err.println("Cell "+cell2.rowNumber + "," +
 								" " + cell2.columnNumber + " has invalid value of " + cell2.getValue());
 					else {
-						Choice chc1 = new Choice(cell2.rowNumber, cell2.columnNumber, cell2.getValue());
+						Choice chc1 = new Choice(cell2.rowNumber+1, cell2.columnNumber+1, cell2.getValue());
 						setW.add(Choice.ChoiceToConstraintSet(chc1));
 					}
 				}

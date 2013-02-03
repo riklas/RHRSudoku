@@ -20,7 +20,7 @@ public class ExactCoverSolverTester {
 		Set<Set<Integer>> setS = buildSetS();
 		Set<Set<Integer>> setW = buildSetW();
 		//Set<Set<Integer>> setW = null;
-		ExactCoverProblem<Integer> problem = new ExactCoverProblem<Integer>(setX, setS, setW);
+		ExactCoverProblem<Integer> problem = new ExactCoverProblem<Integer>(setX, setS, null);
 		ExactCoverSolver<Integer> solver = new ExactCoverSolver<Integer>();
 		Set<Set<Integer>> solution = solver.solve(problem);
 		printSets(solution);
