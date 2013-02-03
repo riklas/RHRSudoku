@@ -10,11 +10,22 @@ import exactCover.ExactCoverSolver;
 public class PuzzleTester1 {
 	public static void main(String[] args) {
 		PuzzleTester1 puzzleTester = new PuzzleTester1();
-		puzzleTester.runPuzzle();
+		puzzleTester.runPuzzle1();
 	}
 	
-	void runPuzzle() {
-		SudokuPuzzle puzzle = new SudokuPuzzle();
+	void runPuzzle1() {
+		PuzzleTester1 tester1 = new PuzzleTester1();
+		SudokuSolver solver1 = new SudokuSolver();
+		HardcodedPuzzles HCP = new HardcodedPuzzles();
+		SudokuPuzzle puzzle1 = HCP.getPuzzle(0);
+		puzzle1.printPuzzle();
+		System.out.println("SOLVING......");
+		solver1.solvePuzzle(puzzle1);
+		puzzle1.printPuzzle();
+	}
+	
+	void runPuzzle2() {
+//		SudokuPuzzle puzzle = new SudokuPuzzle();
 //		puzzle.puzzle[0][0].setValue(1, SudokuPuzzleCell.GENERATED);
 //		puzzle.puzzle[0][1].setValue(2, SudokuPuzzleCell.GENERATED);
 //		puzzle.puzzle[0][2].setValue(3, SudokuPuzzleCell.GENERATED);
@@ -95,9 +106,9 @@ public class PuzzleTester1 {
 //		puzzle.puzzle[7][7].setValue(7, SudokuPuzzleCell.GENERATED);
 //		puzzle.puzzle[7][8].setValue(1, SudokuPuzzleCell.GENERATED);
 		
-		SudokuSolver solver1 = new SudokuSolver();
-		solver1.solvePuzzle(puzzle);
-		puzzle.printPuzzle();
+//		SudokuSolver solver1 = new SudokuSolver();
+//		solver1.solvePuzzle(puzzle);
+//		puzzle.printPuzzle();
 //		ExactCoverSolver<Integer> solver2 = new ExactCoverSolver<Integer>();
 //		Set<Set<Integer>> solution = solver2.solve(problem1);
 //		for (Set<Integer> subset : solution)  {
