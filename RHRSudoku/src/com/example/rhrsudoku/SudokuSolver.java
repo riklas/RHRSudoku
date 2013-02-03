@@ -127,23 +127,22 @@ public class SudokuSolver {
 		}
 	}
 	
-	boolean isSolvable(SudokuPuzzle puzzle) {
-		return false;
-		
-	}
-	int numberOfSolutions(SudokuPuzzle puzzle) {
-		//TODO
-		return 0;
-		
-	}
-	SudokuPuzzle solvePuzzle(SudokuPuzzle puzzle) {
+//	int isSolvable(SudokuPuzzle puzzle) {
+//		// this function returns either UNSOLVED, SINGLE_SOLUTION or MULTIPLE_SOLUTIONS
+//		// they are static finals in ExactCoverSolver
+//		ExactCoverProblem<Integer> problem1 = puzzleToExactCover(puzzle);
+//		ExactCoverSolver<Integer> solver1 = new ExactCoverSolver();
+//		return solver1.isSolvable(problem1);
+//	}
+	
+	SudokuPuzzle solvePuzzle(SudokuPuzzle puzzle2) {
 		// convert into exactcoverproblem
 		// solve
 		// convert constraint sets of answer into choices
 		// use choices to fill in sudoku puzzle
 		// check it is solved
 		// return it
-		
+		SudokuPuzzle puzzle = puzzle2.copyPuzzle();
 		ExactCoverProblem<Integer> p1 = puzzleToExactCover(puzzle);
 		ExactCoverSolver<Integer> s1 = new ExactCoverSolver<Integer>();
 		Set<Set<Integer>> solution =  s1.solve(p1);

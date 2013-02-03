@@ -14,6 +14,18 @@ public class SudokuPuzzle {
 		initPuzzle();
 	}
 	
+	public SudokuPuzzle copyPuzzle() {
+		SudokuPuzzle newPuzzle = new SudokuPuzzle();
+		for(int row=0;row<9;row++)
+			for (int col=0; col<9; col++) {
+				SudokuPuzzleCell oldCell1 = puzzle[row][col];
+				if(!oldCell1.hasValue)
+					continue;
+				newPuzzle.puzzle[row][col].setValue(oldCell1.getValue(), 
+						oldCell1.inputMethod);
+			}
+		return newPuzzle;
+	}
 	private void initPuzzle() {
 		for (int row=0; row<9; row++) {
 			for (int column=0;column<9;column++) {

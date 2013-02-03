@@ -13,10 +13,17 @@ public class ExactCoverSolver<E> {
 	private final static int SETS_EMPTY = 4;
 	private final static int SETX_EMPTY = 5;
 	private static final int NULL_PROBLEM = 6;
-	private final boolean PRINT_WORKING = true;
+	public static final int SINGLE_SOLUTION = 7;
+	public static final int MULTIPLE_SOLUTIONS = 8;
+	public static final int UNSOLVED = 9;
+	private final boolean PRINT_WORKING = false;
 	private static final boolean PRINT_MATRIX = false;
-	private static final boolean PRINT_3 = true;
-
+	private static final boolean PRINT_3 = false;
+		
+	public int isSolvable(ExactCoverProblem<E> p) {
+		return 0;
+	}
+	
 	public Set<Set<E>> solve(ExactCoverProblem<E> p) {
 			/*
 			 * we will use the dancing links implementation.
@@ -183,12 +190,11 @@ public class ExactCoverSolver<E> {
 				if (PRINT_WORKING)
 					System.out.println("Branch failed with chosenRow ID: "+ chosenRow.id + " out " +
 							"of " + intersectingHeaderIDS.toString());
-				else
-					continue;
-				
+				continue;
 			}
-			else if (value == true)
+			else if (value == true) {
 				return true;
+			}
 		}
 		if (PRINT_WORKING)
 			System.out.println("No more intersecting rows left to choose from for " +
