@@ -28,7 +28,6 @@ public class HardcodedPuzzles implements SudokuGenerator {
 				}				
 			}
 		}
-		
 		return targetPuzzle;
 	}
 
