@@ -17,7 +17,7 @@ public class SmallBox extends View {
 	boolean isEditable = true;	// when the small boxes are created, boxes with values can be set as isEditable = false
 	boolean isSelected;			
 
-	private String text;
+	String text = "TEST";
 	private Paint borderPaint;
 	private Paint textPaint;
 	
@@ -29,6 +29,12 @@ public class SmallBox extends View {
 		
 		//Creates a TypedArray object that stores the attribute values in the XML tag
 		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SmallBox);
+		
+		//get the string which should be set on the text attribute of the small box from game activity
+		String s = a.getString(R.styleable.SmallBox_text);
+		if (s != null) {
+			setText(s);
+		}
 		
 		setTextColor(a.getColor(R.styleable.SmallBox_textColor, 0xFF0000));
 		
@@ -50,10 +56,10 @@ public class SmallBox extends View {
 	}
 	
 	
-	public void setText(int number) {
+	public void setText(String number) {
 		//method to set the text of the view, getting it from the SudokuPuzzleCell array
 		//int intvalue = getValue();
-		text = Integer.toString(number);
+		text = number;
 		invalidate();	//invalidate the view so system knows it needs to be redrawn
 		requestLayout();	//request a new layout 
 	}
@@ -64,7 +70,9 @@ public class SmallBox extends View {
 	public void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 		canvas.drawRect(10, 10, 10, 10, borderPaint);
-		canvas.drawText(text, getPaddingLeft(), getPaddingTop(), textPaint);
+		if (text != null) {
+			canvas.drawText(text, getPaddingLeft(), getPaddingTop(), textPaint);
+		}
 	}
 	
 	

@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 public class GameActivity extends Activity {
 
 	int difficulty = 0;
+	int count = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +40,18 @@ public class GameActivity extends Activity {
 		SudokuPuzzle puzzle = hardcode.getPuzzle(difficulty);
 		//SmallBox[] smallboxarray = hardcode.getPuzzle(difficulty);
 		//generator returns array of small boxes to pass to constructor of sudokupuzzle
-		
+				
 		//Dynamically set the text properties of the small box object using the values in the returned puzzle
+		for(int row=0; row<9; row++) {
+			for(int column=0; column<9; column++) {
+				count++;
+				String iter = Integer.toString(count);
+				String id = "R.id.smallbox" + iter;
+				int idResource = getResources().getIdentifier(id, "id", getPackageName());
+				SmallBox smallbox = (SmallBox) findViewById(idResource);
+				smallbox.setText(Integer.toString(puzzle.puzzle[row][column].getValue()));
+			}
+		}
 		
 		setContentView(R.layout.activity_game);
 		
