@@ -8,7 +8,7 @@ import exactCover.*;
 
 public class SudokuSolver {
 	static class Choice {
-		// A choice is defined as putting a number [1-9] in a cell[1-81]
+		// A choice is defined as putting a number [1-9] in a cell[1-81] 
 		// Thus, there are 729 possible choices
 		int row, column, value;
 		// row,column,value are all in range [1,9]
