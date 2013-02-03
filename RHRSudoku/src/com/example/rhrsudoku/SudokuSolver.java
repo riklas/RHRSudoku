@@ -135,6 +135,13 @@ public class SudokuSolver {
 //		return solver1.isSolvable(problem1);
 //	}
 	
+	Quant solutionsM(SudokuPuzzle puzzle) {
+		ExactCoverProblem<Integer> p1 = puzzleToExactCover(puzzle);
+		ExactCoverSolver<Integer> s1 = new ExactCoverSolver<Integer>();
+		Quant solutions = s1.solutionsM(p1);
+		return solutions;
+	}
+	
 	SudokuPuzzle solvePuzzle(SudokuPuzzle puzzle2) {
 		// convert into exactcoverproblem
 		// solve

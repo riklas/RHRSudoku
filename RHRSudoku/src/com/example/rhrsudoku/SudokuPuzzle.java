@@ -83,8 +83,11 @@ public class SudokuPuzzle {
 	boolean isConflicting() {
 			for (SudokuPuzzleCell[] row1 : puzzle)
 				for (SudokuPuzzleCell cell2 : row1)
-					if (cell2.isConflicting())
+					if (cell2.isConflicting()) {
+						System.err.println("Cell ("+cell2.rowNumber + "," +
+								cell2.columnNumber + ") is conflicting");
 						return true;
+					}
 		return false;
 	}
 	
@@ -105,8 +108,18 @@ public class SudokuPuzzle {
 	}
 	
 	boolean isSolved() {
-		if (!isFilled() || !isValid() || isConflicting())
+		if (!isFilled()) {
+			System.err.println("Error: Puzzle not filled");
 			return false;
+		}
+		else if (!isValid()) {
+			System.err.println("Error: Puzzle is not valid");
+			return false;
+		}
+		else if (isConflicting()) {
+			System.out.println("Error: Puzzle is conflicting");
+			return false;
+		}
 		return true;
 	}
 	

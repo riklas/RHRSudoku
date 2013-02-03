@@ -7,6 +7,7 @@ import com.example.rhrsudoku.SudokuSolver.Choice;
 
 import exactCover.ExactCoverProblem;
 import exactCover.ExactCoverSolver;
+import exactCover.Quant;
 
 public class PuzzleTester1 {
 	public static void main(String[] args) {
@@ -105,22 +106,22 @@ public class PuzzleTester1 {
 		puzzle.puzzle[7][0].setValue(3, SudokuPuzzleCell.GENERATED);
 		puzzle.puzzle[7][1].setValue(9, SudokuPuzzleCell.GENERATED);
 		puzzle.puzzle[7][2].setValue(5, SudokuPuzzleCell.GENERATED);
-		puzzle.puzzle[7][3].setValue(2, SudokuPuzzleCell.GENERATED);
-		puzzle.puzzle[7][4].setValue(6, SudokuPuzzleCell.GENERATED);
-		puzzle.puzzle[7][5].setValue(4, SudokuPuzzleCell.GENERATED);
-		puzzle.puzzle[7][6].setValue(8, SudokuPuzzleCell.GENERATED);
-		puzzle.puzzle[7][7].setValue(7, SudokuPuzzleCell.GENERATED);
-		puzzle.puzzle[7][8].setValue(1, SudokuPuzzleCell.GENERATED);
+//		puzzle.puzzle[7][3].setValue(2, SudokuPuzzleCell.GENERATED);
+//		puzzle.puzzle[7][4].setValue(6, SudokuPuzzleCell.GENERATED);
+//		puzzle.puzzle[7][5].setValue(4, SudokuPuzzleCell.GENERATED);
+//		puzzle.puzzle[7][6].setValue(8, SudokuPuzzleCell.GENERATED);
+//		puzzle.puzzle[7][7].setValue(7, SudokuPuzzleCell.GENERATED);
+//		puzzle.puzzle[7][8].setValue(1, SudokuPuzzleCell.GENERATED);
 		
 		puzzle.printPuzzle();
 		SudokuSolver solver1 = new SudokuSolver();
 		System.out.println("SOLVING......");
-//		switch(solver1.isSolvable(puzzle)) {
-//		case UNSOLVED: System.out.println("No Solution Found"); break;
-//		case SINGLE_SOLUTION: System.out.println("Puzzle has single solution"); break;
-//		case MULTIPLE_SOLUTIONS: System.out.println("Puzzle has multiple solutions");
-//		}
+		Quant solutions = solver1.solutionsM(puzzle);
+		System.out.println("Number of solutions: " + solutions);
 		SudokuPuzzle puzzle2 = solver1.solvePuzzle(puzzle);
+		if (puzzle2 == null)
+			System.out.println("puzzle2 is null");
+		else
 		puzzle2.printPuzzle();
 
 	}
