@@ -19,7 +19,7 @@ public class SudokuSolver {
 						column + " : " + value);
 			this.row = row;
 			this.column = column;
-			this.value = value;
+			this.value = value; 
 		}
 		static public Set<Integer> ChoiceToConstraintSet(Choice chc1) {
 			// row constaint
