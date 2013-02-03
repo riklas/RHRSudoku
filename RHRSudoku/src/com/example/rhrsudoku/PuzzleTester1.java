@@ -24,7 +24,7 @@ public class PuzzleTester1 {
 //		puzzle.puzzle[0][6].setValue(7, SudokuPuzzleCell.GENERATED);
 //		puzzle.puzzle[0][7].setValue(8, SudokuPuzzleCell.GENERATED);
 //		puzzle.puzzle[0][8].setValue(9, SudokuPuzzleCell.GENERATED);
-//		
+////		
 //		puzzle.puzzle[1][0].setValue(7, SudokuPuzzleCell.GENERATED);
 //		puzzle.puzzle[1][1].setValue(8, SudokuPuzzleCell.GENERATED);
 //		puzzle.puzzle[1][2].setValue(9, SudokuPuzzleCell.GENERATED);

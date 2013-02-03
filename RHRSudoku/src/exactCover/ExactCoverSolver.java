@@ -12,6 +12,7 @@ public class ExactCoverSolver<E> {
 	private final static int IS_VALID = 3;
 	private final static int SETS_EMPTY = 4;
 	private final static int SETX_EMPTY = 5;
+	private static final int NULL_PROBLEM = 6;
 	private final boolean PRINT_WORKING = true;
 	private static final boolean PRINT_MATRIX = false;
 	private static final boolean PRINT_3 = true;
@@ -46,6 +47,9 @@ public class ExactCoverSolver<E> {
 			return null;
 		case SETX_EMPTY:
 			System.out.println("ERROR: setX is empty");
+			return null;
+		case NULL_PROBLEM:
+			System.out.println("ERROR: No Problem received");
 			return null;
 		case IS_VALID:
 			break;
@@ -91,6 +95,9 @@ public class ExactCoverSolver<E> {
 	}
 	
 	private int validateProblem(ExactCoverProblem<E> p) {
+		if (p == null) {
+			return NULL_PROBLEM;
+		}
 		Set<E> unionS = new HashSet<E>();
 		for (Set<E> subset : p.setS)
 			unionS.addAll(subset);
