@@ -7,8 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
+
 
 public class GameActivity extends Activity {
 
