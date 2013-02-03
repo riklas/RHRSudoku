@@ -20,9 +20,9 @@ public class ExactCoverSolver<E> {
 	private static final boolean PRINT_MATRIX = false;
 	private static final boolean PRINT_3 = false;
 		
-	public int isSolvable(ExactCoverProblem<E> p) {
-		return 0;
-	}
+//	public int isSolvable(ExactCoverProblem<E> p) {
+//		return 0;
+//	}
 	
 	public Set<Set<E>> solve(ExactCoverProblem<E> p) {
 			/*
