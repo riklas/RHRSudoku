@@ -18,19 +18,27 @@
     </style>
     
     <style name="smallbox" >
-        <item name="android:layout_width">45dp</item>
-        <item  name="android:layout_height">45dp</item>
-        <item name="android:layout_centerHorizontal">true</item>        
+               <item name="android:layout_centerHorizontal">true</item>        
     </style>
 	
-    <style name="button" >
+    <style name="numpadButton" >
         <item name="android:layout_width">30dp</item>
-        <item name="android:layout_height">30dp</item>
-        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_margin">2dp</item>
         <item name="android:padding">0dp</item>
-        <item name="android:textSize">10sp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:background">#DB5530</item> 
        
+    </style>
+    
+     <style name="diffButton" >
+        <item name="android:layout_width">250dp</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:background">#DB5530</item>      
+        <item name="android:layout_gravity">center_horizontal</item>
     </style>
     
 </resources>

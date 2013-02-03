@@ -7,28 +7,28 @@
 
     <Button
         android:id="@+id/kids"
-        style="@style/button"        
+        style="@style/diffButton"        
         android:text="@string/kids"
-        android:onClick="setKids"
+        android:onClick="setKids"       
      	 />
     
     <Button
         android:id="@+id/easy"
-        style="@style/button"             
+        style="@style/diffButton"             
         android:text="@string/easy"   
         android:onClick="setEasy"     
         />
     
     <Button
         android:id="@+id/medium"
-        style="@style/button"             
+        style="@style/diffButton"             
         android:text="@string/skilled"
         android:onClick="setMedium" 
     	/>    
     
     <Button
         android:id="@+id/hard"
-        style="@style/button"                       
+        style="@style/diffButton"                       
         android:text="@string/master" 
         android:onClick="setHard"        
         />

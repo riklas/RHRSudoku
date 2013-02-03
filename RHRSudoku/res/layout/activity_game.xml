@@ -5,13 +5,16 @@
     android:layout_height="match_parent"
     android:id="@+id/rlayout">
 
+     <!-- 
     <com.example.rhrsudoku.SmallBox
         android:id="@+id/smallbox1"
         style="@style/smallbox"
-        custom:textSize="20sp"
-        custom:textColor="#FF0000"                
-	/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        custom:textColor="#FF0000"
+        custom:textSize="20sp" />
     
+       
     <com.example.rhrsudoku.SmallBox
         android:id="@+id/smallbox2"
         android:layout_toRightOf="@id/smallbox1"
@@ -651,60 +654,60 @@
         custom:textSize="20sp"
         custom:textColor="#FF0000"                
 	/>
-    
-    
+ -->
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/smallbox1"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
         android:orientation="horizontal" >
 
         <Button
             android:id="@+id/one"
-            android:text="1"
-            />
+            style="@style/numpadButton"
+            android:text="@string/one" />
 
         <Button
             android:id="@+id/two"
-            android:text="2"
-            />
+            style="@style/numpadButton"
+            android:text="@string/two" />
 
         <Button
             android:id="@+id/three"
-            android:text="3"
-            />
+            style="@style/numpadButton"
+            android:text="@string/three" />
 
         <Button
             android:id="@+id/four"
-            android:text="4"
-            />
+            style="@style/numpadButton"
+            android:text="@string/four" />
 
         <Button
             android:id="@+id/five"
-            android:text="5"
-            />
+            style="@style/numpadButton"
+            android:text="@string/five" />
 
         <Button
             android:id="@+id/six"
-            android:text="6"
-            />
+            style="@style/numpadButton"
+            android:text="@string/six" />
 
         <Button
             android:id="@+id/seven"
-            android:text="7"
-            />
+            style="@style/numpadButton"
+            android:text="@string/seven" />
 
         <Button
             android:id="@+id/eight"
-            android:text="8"
-            />
+            style="@style/numpadButton"
+            android:text="@string/eight" />
 
         <Button
             android:id="@+id/nine"
-            android:text="9"
-            />
-        
+            style="@style/numpadButton"
+            android:text="@string/nine" />
     </LinearLayout>
     
 </RelativeLayout>
