@@ -10,7 +10,7 @@ public class ExactCoverSolver<E> {
 	private final static int SETX_NOT_COVERED = 1;
 	private final static int SETS_NOT_COVERED = 2;
 	private final static int IS_VALID = 3;
-	private final static int SETS_EMPTY = 4;
+	private final static int SETS_EMPTY = 4; 
 	private final static int SETX_EMPTY = 5;
 	private static final int NULL_PROBLEM = 6;
 	public static final int SINGLE_SOLUTION = 7;
