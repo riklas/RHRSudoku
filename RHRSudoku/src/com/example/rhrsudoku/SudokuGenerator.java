@@ -1,6 +1,6 @@
 package com.example.rhrsudoku;
 
 public interface SudokuGenerator {
-	SudokuPuzzleCell[][] getPuzzle(int difficulty);
+	SudokuPuzzle getPuzzle(int difficulty);
 	SudokuPuzzleCell[][] setValues(SudokuPuzzleCell[][] targetPuzzle, int[][] hardcodePuzzle);
 }

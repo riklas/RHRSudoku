@@ -12,6 +12,7 @@ public class ExactCoverSolver<E> {
 	private final static int IS_VALID = 3;
 	private final static int SETS_EMPTY = 4;
 	private final static int SETX_EMPTY = 5;
+	private static final int NULL_PROBLEM = 6;
 	private final boolean PRINT_WORKING = true;
 	private static final boolean PRINT_MATRIX = false;
 	private static final boolean PRINT_3 = true;
@@ -46,6 +47,9 @@ public class ExactCoverSolver<E> {
 			return null;
 		case SETX_EMPTY:
 			System.out.println("ERROR: setX is empty");
+			return null;
+		case NULL_PROBLEM:
+			System.out.println("ERROR: No Problem received");
 			return null;
 		case IS_VALID:
 			break;
@@ -91,6 +95,9 @@ public class ExactCoverSolver<E> {
 	}
 	
 	private int validateProblem(ExactCoverProblem<E> p) {
+		if (p == null) {
+			return NULL_PROBLEM;
+		}
 		Set<E> unionS = new HashSet<E>();
 		for (Set<E> subset : p.setS)
 			unionS.addAll(subset);
@@ -142,11 +149,12 @@ public class ExactCoverSolver<E> {
 	boolean solveMatrix2(Matrix matrix, Set<Integer> solutions) {
 		if (PRINT_3)
 			System.out.println("Entered solveMatrix2()");
-		MatrixCellHeader chosenColumn = matrix.columnStarter.starter;
-		Random randGen = new Random();
-		int rand1 = randGen.nextInt(matrix.getColumnsM());
-		for (int i=0; i<rand1; i++)
-			chosenColumn = chosenColumn.next;
+		MatrixCellHeader chosenColumn = matrix.columnStarter.findSmallestColumn();
+//		MatrixCellHeader chosenColumn = matrix.columnStarter.starter;
+//		Random randGen = new Random();
+//		int rand1 = randGen.nextInt(matrix.getColumnsM());
+//		for (int i=0; i<rand1; i++)
+//			chosenColumn = chosenColumn.next;
 		if (PRINT_WORKING)
 			System.out.println("chosenColumn with ID: " + chosenColumn.id);
 		return solveMatrix3(matrix, solutions, chosenColumn);
@@ -163,7 +171,6 @@ public class ExactCoverSolver<E> {
 		while (rowSet2IT.hasNext())
 			intersectingHeaderIDS.add(rowSet2IT.next().id);
 		rowSet2IT = rowSet2.iterator();
-		
 		while(rowSet2IT.hasNext()) {
 			MatrixCellHeader chosenRow = rowSet2IT.next();
 			if(PRINT_WORKING) {
@@ -176,7 +183,8 @@ public class ExactCoverSolver<E> {
 				if (PRINT_WORKING)
 					System.out.println("Branch failed with chosenRow ID: "+ chosenRow.id + " out " +
 							"of " + intersectingHeaderIDS.toString());
-				continue;
+				else
+					continue;
 				
 			}
 			else if (value == true)
@@ -540,6 +548,29 @@ public class ExactCoverSolver<E> {
 		public MatrixHeaderStarter (MatrixCellHeader starter, int orientation) {
 			this.starter = starter;
 			this.orientation = orientation;
+		}
+		public MatrixCellHeader findSmallestColumn() {
+			if (orientation != Matrix.VERTICAL) {
+				System.err.println("ERROR: Not a column header starter");
+				return null;
+			}
+			Set<MatrixCellHeader> headers1 = getCellHeaders();
+			MatrixCellHeader smallest;
+			int smallestSize;
+			Iterator<MatrixCellHeader> it = headers1.iterator();
+			smallest = it.next();
+			smallestSize = smallest.getIntersectingHeaders().size();
+			while(it.hasNext()) {
+				MatrixCellHeader header2 = it.next();
+				int header2size = header2.getIntersectingHeaders().size();
+				if ((header2size == smallestSize) && (Math.random() > 0.5))
+					smallest = header2;
+				else if (header2size < smallestSize) {
+					smallest = header2;
+					smallestSize = header2size;
+				}
+			}
+			return smallest;
 		}
 		int getSize() {
 			return getCellHeaders().size();

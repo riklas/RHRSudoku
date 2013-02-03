@@ -7,7 +7,7 @@ public class HardcodedPuzzles implements SudokuGenerator {
 	}
 
 	@Override
-	public SudokuPuzzleCell[][] getPuzzle(int difficulty) {
+	public SudokuPuzzle getPuzzle(int difficulty) {
 		
 		SudokuPuzzle puzzle = new SudokuPuzzle();
 		
@@ -17,7 +17,7 @@ public class HardcodedPuzzles implements SudokuGenerator {
 		//set the values of the smallbox views to that the values retrieved from the database
 		puzzle.puzzle = setValues(puzzle.puzzle, hrd.hardcodePuzzle);
 		puzzle.printPuzzle();
-		return puzzle.puzzle;		
+		return puzzle;		
 	}
 	
 	public SudokuPuzzleCell[][] setValues(SudokuPuzzleCell[][] targetPuzzle, int[][] hardcodePuzzle) {
