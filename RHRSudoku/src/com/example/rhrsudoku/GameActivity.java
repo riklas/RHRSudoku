@@ -49,7 +49,7 @@ public class GameActivity extends Activity {
 				String id = "R.id.smallbox" + iter;
 				int idResource = getResources().getIdentifier(id, "id", getPackageName());
 				SmallBox smallbox = (SmallBox) findViewById(idResource);
-				smallbox.text = Integer.toString(puzzle.puzzle[row][column].getValue());
+				smallbox.setText(Integer.toString(puzzle.puzzle[row][column].getValue()));
 			}
 		}
 		

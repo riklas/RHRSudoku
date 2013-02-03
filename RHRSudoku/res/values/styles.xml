@@ -16,17 +16,20 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    
+    <style name="smallbox" >
+        <item name="android:layout_width">45dp</item>
+        <item  name="android:layout_height">45dp</item>
+        <item name="android:layout_centerHorizontal">true</item>        
+    </style>
 	
     <style name="button" >
-        <item name="android:layout_width">220dp</item>
-        <item name="android:layout_height">70dp</item>
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
         <item name="android:layout_margin">10dp</item>
         <item name="android:padding">0dp</item>
-        <item name="android:textSize">50sp</item>
-        <item name="android:textColor">#FFFFFF</item>
-        <item name="android:background">#DB5530</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:layout_gravity">center</item>        
+        <item name="android:textSize">10sp</item>
+        <item name="android:background">#DB5530</item> 
        
     </style>
     

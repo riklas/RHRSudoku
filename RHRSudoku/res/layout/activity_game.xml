@@ -6,83 +6,705 @@
     android:id="@+id/rlayout">
 
     <com.example.rhrsudoku.SmallBox
-        android:layout_width="100dp"
-    	android:layout_height="100dp"
-        android:id="@+id/smallbox1"        
-        custom:textSize="20sp" 
-        custom:textColor="#FF0000"
-        android:layout_centerHorizontal="true"
+        android:id="@+id/smallbox1"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox2"
+        android:layout_toRightOf="@id/smallbox1"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox3"
+        android:layout_toRightOf="@id/smallbox2"        
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox4"
+        android:layout_toRightOf="@id/smallbox3"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox5"
+        android:layout_toRightOf="@id/smallbox4"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox6"
+        android:layout_toRightOf="@id/smallbox5"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox7"
+        android:layout_toRightOf="@id/smallbox6"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox8"
+        android:layout_toRightOf="@id/smallbox7"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox9"
+        android:layout_toRightOf="@id/smallbox8"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox10"
+        android:layout_below="@id/smallbox1"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox11"
+        android:layout_toRightOf="@id/smallbox10"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox12"
+        android:layout_toRightOf="@id/smallbox11"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox13"
+        android:layout_toRightOf="@id/smallbox12"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox14"
+        android:layout_toRightOf="@id/smallbox13"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox15"
+        android:layout_toRightOf="@id/smallbox14"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox16"
+        android:layout_toRightOf="@id/smallbox15"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox17"
+        android:layout_toRightOf="@id/smallbox16"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox18"
+        android:layout_toRightOf="@id/smallbox17"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox19"
+        android:layout_below="@id/smallbox10"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox20"
+        android:layout_toRightOf="@id/smallbox19"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox21"
+        android:layout_toRightOf="@id/smallbox20"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox22"
+        android:layout_toRightOf="@id/smallbox21"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox23"
+        android:layout_toRightOf="@id/smallbox22"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox24"
+        android:layout_toRightOf="@id/smallbox23"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox25"
+        android:layout_toRightOf="@id/smallbox24"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox26"
+        android:layout_toRightOf="@id/smallbox25"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox27"
+        android:layout_toRightOf="@id/smallbox26"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox28"
+        android:layout_below="@id/smallbox19"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox29"
+        android:layout_toRightOf="@id/smallbox28"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox30"
+        android:layout_toRightOf="@id/smallbox29"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox31"
+        android:layout_toRightOf="@id/smallbox30"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox32"
+        android:layout_toRightOf="@id/smallbox31"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox33"
+        android:layout_toRightOf="@id/smallbox32"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox34"
+        android:layout_toRightOf="@id/smallbox33"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox35"
+        android:layout_toRightOf="@id/smallbox34"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox36"
+        android:layout_toRightOf="@id/smallbox35"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox37"
+        android:layout_below="@id/smallbox28"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox38"
+        android:layout_toRightOf="@id/smallbox37"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox39"
+        android:layout_toRightOf="@id/smallbox38"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox40"
+        android:layout_toRightOf="@id/smallbox39"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox41"
+        android:layout_toRightOf="@id/smallbox40"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox42"
+        android:layout_toRightOf="@id/smallbox41"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox43"
+        android:layout_toRightOf="@id/smallbox42"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox44"
+        android:layout_toRightOf="@id/smallbox43"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox45"
+        android:layout_toRightOf="@id/smallbox44"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox46"
+        android:layout_below="@id/smallbox37"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox47"
+        android:layout_toRightOf="@id/smallbox46"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox48"
+        android:layout_toRightOf="@id/smallbox47"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox49"
+        android:layout_toRightOf="@id/smallbox48"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox50"
+        android:layout_toRightOf="@id/smallbox49"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox51"
+        android:layout_toRightOf="@id/smallbox50"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox52"
+        android:layout_toRightOf="@id/smallbox51"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox53"
+        android:layout_toRightOf="@id/smallbox52"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox54"
+        android:layout_toRightOf="@id/smallbox53"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox55"
+        android:layout_below="@id/smallbox46"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox56"
+        android:layout_toRightOf="@id/smallbox55"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox57"
+        android:layout_toRightOf="@id/smallbox56"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox58"
+        android:layout_toRightOf="@id/smallbox57"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox59"
+        android:layout_toRightOf="@id/smallbox58"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox60"
+        android:layout_toRightOf="@id/smallbox59"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox61"
+        android:layout_toRightOf="@id/smallbox60"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox62"
+        android:layout_toRightOf="@id/smallbox61"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox63"
+        android:layout_toRightOf="@id/smallbox62"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox64"
+        android:layout_below="@id/smallbox55"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox65"
+        android:layout_toRightOf="@id/smallbox64"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox66"
+        android:layout_toRightOf="@id/smallbox65"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox67"
+        android:layout_toRightOf="@id/smallbox66"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox68"
+        android:layout_toRightOf="@id/smallbox67"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox69"
+        android:layout_toRightOf="@id/smallbox68"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox70"
+        android:layout_toRightOf="@id/smallbox69"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox71"
+        android:layout_toRightOf="@id/smallbox70"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox72"
+        android:layout_toRightOf="@id/smallbox71"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox73"
+        android:layout_below="@id/smallbox64"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox74"
+        android:layout_toRightOf="@id/smallbox73"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox75"
+        android:layout_toRightOf="@id/smallbox74"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox76"
+        android:layout_toRightOf="@id/smallbox75"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox77"
+        android:layout_toRightOf="@id/smallbox76"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox78"
+        android:layout_toRightOf="@id/smallbox77"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox79"
+        android:layout_toRightOf="@id/smallbox78"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
 	/>
 
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox80"
+        android:layout_toRightOf="@id/smallbox79"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    <com.example.rhrsudoku.SmallBox
+        android:id="@+id/smallbox81"
+        android:layout_toRightOf="@id/smallbox80"
+        style="@style/smallbox"
+        custom:textSize="20sp"
+        custom:textColor="#FF0000"                
+	/>
+    
+    
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/smallbox1"
+        android:layout_below="@id/smallbox1"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal" >
 
         <Button
             android:id="@+id/one"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
             android:text="1"
-            android:textSize="10sp" />
+            />
 
         <Button
             android:id="@+id/two"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
             android:text="2"
-            android:textSize="10sp" />
+            />
 
         <Button
             android:id="@+id/three"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
             android:text="3"
-            android:textSize="10sp" />
+            />
 
         <Button
             android:id="@+id/four"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
             android:text="4"
-            android:textSize="10sp" />
+            />
 
         <Button
             android:id="@+id/five"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
             android:text="5"
-            android:textSize="10sp" />
+            />
 
         <Button
             android:id="@+id/six"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
             android:text="6"
-            android:textSize="10sp" />
+            />
 
         <Button
             android:id="@+id/seven"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
             android:text="7"
-            android:textSize="10sp" />
+            />
 
         <Button
             android:id="@+id/eight"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
             android:text="8"
-            android:textSize="10sp" />
+            />
 
         <Button
             android:id="@+id/nine"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
             android:text="9"
-            android:textSize="10sp" />
+            />
+        
     </LinearLayout>
     
 </RelativeLayout>

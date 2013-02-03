@@ -13,9 +13,9 @@ public class ExactCoverSolver<E> {
 	private final static int SETS_EMPTY = 4;
 	private final static int SETX_EMPTY = 5;
 	private static final int NULL_PROBLEM = 6;
-	private final boolean PRINT_WORKING = true;
+	private final boolean PRINT_WORKING = false;
 	private static final boolean PRINT_MATRIX = false;
-	private static final boolean PRINT_3 = true;
+	private static final boolean PRINT_3 = false;
 
 	public Set<Set<E>> solve(ExactCoverProblem<E> p) {
 			/*
