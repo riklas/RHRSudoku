@@ -16,8 +16,6 @@ public class ExactCoverSolver<E> {
 	private static final int NULL_PROBLEM = 6;
 	private final boolean PRINT_WORKING = false;
 	private static final boolean PRINT_MATRIX = false;
-	private boolean foundFinalSolution = false;
-//	Quant finalSolutionsFound = Quant.NONE;
 	
 	public Quant solutionsM(ExactCoverProblem<E> problem) {
 		if (problem == null) {
@@ -229,7 +227,7 @@ public class ExactCoverSolver<E> {
 
 	Quant solveMatrix4(Matrix matrix, SolutionPackage solutions, 
 			MatrixCellHeader chosenColumn, MatrixCellHeader chosenRow) {
-		if (!foundFinalSolution)
+		if (!solutions.foundFinalSolution)
 			solutions.solutions.add(chosenRow.id);
 		LinkedList<MatrixCellHeader> removedHeaders = new LinkedList<MatrixCellHeader>();
 		
@@ -256,7 +254,7 @@ public class ExactCoverSolver<E> {
 				else if (removedHeader1.orientation == Matrix.VERTICAL)
 					matrix.columnStarter.restoreCellHeader(removedHeader1);
 			}
-			if (!foundFinalSolution)
+			if (!solutions.foundFinalSolution)
 				solutions.solutions.remove(chosenRow.id);
 			return Quant.NONE;
 		}
@@ -270,7 +268,7 @@ public class ExactCoverSolver<E> {
 				else if (removedHeader1.orientation == Matrix.VERTICAL)
 					matrix.columnStarter.restoreCellHeader(removedHeader1);
 			}
-			foundFinalSolution = true;
+			solutions.foundFinalSolution = true;
 			return value;
 		}
 		
@@ -686,6 +684,7 @@ public class ExactCoverSolver<E> {
 		Set<Integer> solutions;
 		BiMap<Integer, E> mapX;
 		BiMap<Integer, Set<E>> mapS;
+		boolean foundFinalSolution = false;
 		public SolutionPackage() {
 			solutions = new HashSet<Integer>();
 			solutionsQuant = Quant.NONE;

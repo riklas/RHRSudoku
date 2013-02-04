@@ -12,7 +12,7 @@ import exactCover.Quant;
 public class PuzzleTester1 {
 	public static void main(String[] args) {
 		PuzzleTester1 puzzleTester = new PuzzleTester1();
-		puzzleTester.runPuzzle3();
+		puzzleTester.runPuzzle2();
 	}
 	
 	void runPuzzle1() {
