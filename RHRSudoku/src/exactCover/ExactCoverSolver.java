@@ -16,18 +16,29 @@ public class ExactCoverSolver<E> {
 	private static final int NULL_PROBLEM = 6;
 	private final boolean PRINT_WORKING = false;
 	private static final boolean PRINT_MATRIX = false;
-	private static final boolean PRINT_3 = false;
 	private boolean foundFinalSolution = false;
-	Quant finalSolutionsFound = Quant.NONE;
+//	Quant finalSolutionsFound = Quant.NONE;
 	
-	public Quant solutionsM(ExactCoverProblem<E> p) {
-		solve(p);
-		return finalSolutionsFound;
+	public Quant solutionsM(ExactCoverProblem<E> problem) {
+		if (problem == null) {
+			System.err.println("Invalid problem received");
+			return Quant.NONE;
+		}
+		SolutionPackage solutions = new SolutionPackage();
+		solve(problem, solutions);
+		return solutions.solutionsQuant;
 	}
 	
-	public Set<Set<E>> solve(ExactCoverProblem<E> p) {
-			/*
-			 * we will use the dancing links implementation.
+	public Set<Set<E>> solve(ExactCoverProblem<E> problem) {
+		SolutionPackage solutions = new SolutionPackage();
+		Set<Set<E>> result2;
+		solve(problem, solutions);
+		result2 = idsToElements(solutions);
+		return result2;
+	}
+	
+	public SolutionPackage solve(ExactCoverProblem<E> problem, SolutionPackage solutions) {
+			 /* we will use the dancing links implementation.
 			 * columns represent elements
 			 * rows represent subsets of S
 			 * 
@@ -42,8 +53,8 @@ public class ExactCoverSolver<E> {
 			 * 5) the identifiers are using to identify the subsets to return
 			 * 
 			 */
-		finalSolutionsFound = Quant.NONE;
-		int validity1 = validateProblem(p);
+	//	solutions = new SolutionPackage();
+		int validity1 = validateProblem(problem);
 		switch (validity1) {
 		case SETS_NOT_COVERED:
 			System.out.println("ERROR: setS contains subsets containing elements not in setX");
@@ -65,39 +76,42 @@ public class ExactCoverSolver<E> {
 		}
 		
 		
+		solutions.mapX = HashBiMap.create(problem.setX.size());
+		solutions.mapS = HashBiMap.create(problem.setS.size());
 		
 		int id = 1;
-		BiMap<Integer, E> mapX = HashBiMap.create(p.setX.size());
-		BiMap<Integer, Set<E>> mapS = HashBiMap.create(p.setS.size());
 
-		Iterator<E> it = p.setX.iterator();
+
+		Iterator<E> it = problem.setX.iterator();
 		while (it.hasNext()) {
 			E element = it.next();
-			mapX.put(id, element );
+			solutions.mapX.put(id, element );
 			if (PRINT_WORKING)
 				System.out.println("ID: " +id +"     Element:  " + element.toString());
 			id++;
 
 		}
-		it = (Iterator<E>) p.setS.iterator();
+		it = (Iterator<E>) problem.setS.iterator();
 		while (it.hasNext()) {
 			Set<E> subset = (Set<E>) it.next();
-			mapS.put(id, subset);
+			solutions.mapS.put(id, subset);
 			if (PRINT_WORKING)
 				System.out.println("ID: " + id + "     Subset:   "+subset.toString());
 			id++;
 		}
-		Matrix matrix = buildMatrix(p, mapX, mapS);
-		processRowInclusions1(matrix, p, mapS);
-		
-		Set<Integer> result1 = solveMatrix(matrix);
-		if (result1 == null)
+		Matrix matrix = buildMatrix(problem, solutions.mapX, solutions.mapS);
+		processRowInclusions1(matrix, problem, solutions.mapS);
+		solveMatrix(matrix, solutions);
+		return solutions;
+	}
+	
+	private Set<Set<E>> idsToElements(SolutionPackage solutions) {
+		if (solutions.solutions == null)
 			return null;
 		Set<Set<E>> result2 = new HashSet<Set<E>>();
-		it = (Iterator<E>) result1.iterator();
+		Iterator<Integer> it = solutions.solutions.iterator();
 		while(it.hasNext()) {
-			
-			result2.add(mapS.get(it.next()));
+			result2.add((Set<E>) solutions.mapS.get(it.next()));
 		}
 		return result2;
 	}
@@ -128,10 +142,7 @@ public class ExactCoverSolver<E> {
 			return IS_VALID;
 	}
 
-	Set<Integer> solveMatrix(Matrix matrix) {
-		if (PRINT_3)
-			System.out.println("Solving Matrix...");
-		Set<Integer> solutions = new HashSet<Integer>();
+	SolutionPackage solveMatrix(Matrix matrix, SolutionPackage solutions) {
 		/*				return null;
 
 		 * try to solve the matrix. if solvable, return the set of integers
@@ -145,17 +156,13 @@ public class ExactCoverSolver<E> {
 		return null;
 	}
 	
-	Quant solveMatrix1(Matrix matrix, Set<Integer> solutions) {
-		if (PRINT_3)
-			System.out.println("Entered solveMatrix1()");
+	Quant solveMatrix1(Matrix matrix, SolutionPackage solutions) {
 		if(matrix.isEmpty())
 			return Quant.ONE;
 		return solveMatrix2(matrix, solutions);
 		}
 	
-	Quant solveMatrix2(Matrix matrix, Set<Integer> solutions) {
-		if (PRINT_3)
-			System.out.println("Entered solveMatrix2()");
+	Quant solveMatrix2(Matrix matrix, SolutionPackage solutions) {
 		MatrixCellHeader chosenColumn = matrix.columnStarter.findSmallestColumn();
 //		MatrixCellHeader chosenColumn = matrix.columnStarter.starter;
 		if (PRINT_WORKING)
@@ -163,9 +170,7 @@ public class ExactCoverSolver<E> {
 		return solveMatrix3(matrix, solutions, chosenColumn);
 	}
 	
-	Quant solveMatrix3(Matrix matrix, Set<Integer> solutions, MatrixCellHeader chosenColumn) {
-		if (PRINT_3)
-			System.out.println("Entered solveMatrix3()");
+	Quant solveMatrix3(Matrix matrix, SolutionPackage solutions, MatrixCellHeader chosenColumn) {
 		if (chosenColumn.isEmpty())
 			return Quant.NONE;
 		Set<MatrixCellHeader> rowSet2 = chosenColumn.getIntersectingHeaders();
@@ -211,22 +216,21 @@ public class ExactCoverSolver<E> {
 		if (solutionsFound == Quant.NONE)
 			return Quant.NONE;
 		else if (solutionsFound == Quant.MULTIPLE) {
-			finalSolutionsFound = Quant.MULTIPLE;
+			solutions.solutionsQuant = Quant.MULTIPLE;
 			return Quant.MULTIPLE;
 		}
 		else {
-			if (finalSolutionsFound == Quant.NONE)
-				finalSolutionsFound = Quant.ONE;
+			if (solutions.solutionsQuant == Quant.NONE) { 
+				solutions.solutionsQuant = Quant.ONE;
+			}
 			return Quant.ONE;
 		}
 	}
 
-	Quant solveMatrix4(Matrix matrix, Set<Integer> solutions, 
+	Quant solveMatrix4(Matrix matrix, SolutionPackage solutions, 
 			MatrixCellHeader chosenColumn, MatrixCellHeader chosenRow) {
-		if (PRINT_3)
-			System.out.println("Entered solveMatrix4()");
 		if (!foundFinalSolution)
-			solutions.add(chosenRow.id);
+			solutions.solutions.add(chosenRow.id);
 		LinkedList<MatrixCellHeader> removedHeaders = new LinkedList<MatrixCellHeader>();
 		
 		for (MatrixCellHeader columnHeader : chosenRow.getIntersectingHeaders()) {
@@ -253,7 +257,7 @@ public class ExactCoverSolver<E> {
 					matrix.columnStarter.restoreCellHeader(removedHeader1);
 			}
 			if (!foundFinalSolution)
-				solutions.remove(chosenRow.id);
+				solutions.solutions.remove(chosenRow.id);
 			return Quant.NONE;
 		}
 		else {
@@ -271,22 +275,8 @@ public class ExactCoverSolver<E> {
 		}
 		
 	}
-	boolean solveMatrix5() {
-		if (PRINT_3)
-			System.out.println("Entered solveMatrix5()");
-		return false;
-		
-	}
-	boolean solveMatrix6() {
-		if (PRINT_3)
-			System.out.println("Entered solveMatrix6()");
-		return false;
-		
-	}
 	
 	void processRowInclusions1(Matrix matrix, ExactCoverProblem<E> p, BiMap<Integer,Set<E>> mapS ) {
-		if (PRINT_3)
-			System.out.println("Processing Row Inclusions...");
 		if (p.setW == null)
 			return;
 		if (!p.setS.containsAll(p.setW)) {
@@ -318,8 +308,6 @@ public class ExactCoverSolver<E> {
 	
 	Matrix buildMatrix(ExactCoverProblem<E> p, BiMap<Integer, E> mapX,
 			BiMap<Integer, Set<E>> mapS ) {
-		if (PRINT_3)
-			System.out.println("Building Matrix...");
 		/*
 		 * 1) build the headers (rows and columns)
 		 * 2) build the cells, linking with each other and the headers
@@ -690,6 +678,17 @@ public class ExactCoverSolver<E> {
 			header.previous.next = header;
 			header.next.previous = header;
 			header.isRemoved = false;
+		}
+	}
+	
+	class SolutionPackage<E> {
+		Quant solutionsQuant = Quant.NONE;
+		Set<Integer> solutions;
+		BiMap<Integer, E> mapX;
+		BiMap<Integer, Set<E>> mapS;
+		public SolutionPackage() {
+			solutions = new HashSet<Integer>();
+			solutionsQuant = Quant.NONE;
 		}
 	}
 }
