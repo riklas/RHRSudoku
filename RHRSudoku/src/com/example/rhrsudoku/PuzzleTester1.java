@@ -94,13 +94,13 @@ public class PuzzleTester1 {
 		puzzle.puzzle[6][3].setValue(3, SudokuPuzzleCell.GENERATED);
 		puzzle.puzzle[6][4].setValue(7, SudokuPuzzleCell.GENERATED);
 		puzzle.puzzle[6][5].setValue(1, SudokuPuzzleCell.GENERATED);
-		puzzle.puzzle[6][6].setValue(6, SudokuPuzzleCell.GENERATED);
-		puzzle.puzzle[6][7].setValue(9, SudokuPuzzleCell.GENERATED);
-		puzzle.puzzle[6][8].setValue(5, SudokuPuzzleCell.GENERATED);
-		
-		puzzle.puzzle[7][0].setValue(3, SudokuPuzzleCell.GENERATED);
-		puzzle.puzzle[7][1].setValue(9, SudokuPuzzleCell.GENERATED);
-		puzzle.puzzle[7][2].setValue(5, SudokuPuzzleCell.GENERATED);
+//		puzzle.puzzle[6][6].setValue(6, SudokuPuzzleCell.GENERATED);
+//		puzzle.puzzle[6][7].setValue(9, SudokuPuzzleCell.GENERATED);
+//		puzzle.puzzle[6][8].setValue(5, SudokuPuzzleCell.GENERATED);
+//		
+//		puzzle.puzzle[7][0].setValue(3, SudokuPuzzleCell.GENERATED);
+//		puzzle.puzzle[7][1].setValue(9, SudokuPuzzleCell.GENERATED);
+//		puzzle.puzzle[7][2].setValue(5, SudokuPuzzleCell.GENERATED);
 //		puzzle.puzzle[7][3].setValue(2, SudokuPuzzleCell.GENERATED);
 //		puzzle.puzzle[7][4].setValue(6, SudokuPuzzleCell.GENERATED);
 //		puzzle.puzzle[7][5].setValue(4, SudokuPuzzleCell.GENERATED);
