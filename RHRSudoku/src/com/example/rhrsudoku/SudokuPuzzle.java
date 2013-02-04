@@ -39,21 +39,21 @@ public class SudokuPuzzle {
 				int i2=0;
 				//add all cell in same column to neighbours
 				for (int row1=0; row1<9; row1++) {
-					if (row1 == cell1.rowNumber)
+					if (row1 == cell1.row)
 						continue;
-					neighbours[i2] = puzzle[row1][cell1.columnNumber]; 
+					neighbours[i2] = puzzle[row1][cell1.column]; 
 					i2++;
 				}
 				//add all cells in same row to neighbours
 				for (int column1=0; column1<9; column1++) {
-					if (column1 == cell1.columnNumber)
+					if (column1 == cell1.column)
 						continue;
-					neighbours[i2] = puzzle[cell1.rowNumber][column1];
+					neighbours[i2] = puzzle[cell1.row][column1];
 					i2++;
 				}
 				//add all cells in same big box to neighbours
-				int[] rows3 = getOtherBigBoxIndices(cell1.rowNumber);
-				int[] cols3 = getOtherBigBoxIndices(cell1.columnNumber);
+				int[] rows3 = getOtherBigBoxIndices(cell1.row);
+				int[] cols3 = getOtherBigBoxIndices(cell1.column);
 				// 19,18,17,16    20,19,18,17
 				neighbours[16] = puzzle[rows3[0]][cols3[0]];
 				neighbours[17] = puzzle[rows3[1]][cols3[0]];
@@ -84,8 +84,8 @@ public class SudokuPuzzle {
 			for (SudokuPuzzleCell[] row1 : puzzle)
 				for (SudokuPuzzleCell cell2 : row1)
 					if (cell2.isConflicting()) {
-						System.err.println("Cell ("+cell2.rowNumber + "," +
-								cell2.columnNumber + ") is conflicting");
+						System.err.println("Cell ("+cell2.row + "," +
+								cell2.column + ") is conflicting");
 						return true;
 					}
 		return false;

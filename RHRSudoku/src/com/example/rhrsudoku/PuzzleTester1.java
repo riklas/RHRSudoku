@@ -12,7 +12,7 @@ import exactCover.Quant;
 public class PuzzleTester1 {
 	public static void main(String[] args) {
 		PuzzleTester1 puzzleTester = new PuzzleTester1();
-		puzzleTester.runPuzzle2();
+		puzzleTester.runPuzzle3();
 	}
 	
 	void runPuzzle1() {
@@ -22,11 +22,6 @@ public class PuzzleTester1 {
 		SudokuPuzzle puzzle1 = HCP.getPuzzle(0);
 		puzzle1.printPuzzle();
 		System.out.println("SOLVING......");
-//		switch(solver1.isSolvable(puzzle1)) {
-//		case UNSOLVED: System.out.println("No Solution Found"); break;
-//		case SINGLE_SOLUTION: System.out.println("Puzzle has single solution"); break;
-//		case MULTIPLE_SOLUTIONS: System.out.println("Puzzle has multiple solutions");
-//		}
 		SudokuPuzzle puzzle2 = solver1.solvePuzzle(puzzle1);
 		puzzle2.printPuzzle();
 	}
@@ -123,6 +118,59 @@ public class PuzzleTester1 {
 			System.out.println("puzzle2 is null");
 		else
 		puzzle2.printPuzzle();
+		
 
+		
+
+	}
+	
+	void runPuzzle3() {
+		SudokuPuzzle puzzle = new SudokuPuzzle();
+		puzzle.puzzle[0][0].setValue(4, SudokuPuzzleCell.GENERATED);
+		puzzle.puzzle[0][3].setValue(8, SudokuPuzzleCell.GENERATED);
+		puzzle.puzzle[0][5].setValue(6, SudokuPuzzleCell.GENERATED);
+		puzzle.puzzle[0][8].setValue(9, SudokuPuzzleCell.GENERATED);
+		puzzle.puzzle[1][2].setValue(8, SudokuPuzzleCell.GENERATED);
+		puzzle.puzzle[1][5].setValue(3, SudokuPuzzleCell.GENERATED);
+		puzzle.puzzle[1][8].setValue(7, SudokuPuzzleCell.GENERATED);
+		puzzle.puzzle[2][2].setValue(3, SudokuPuzzleCell.GENERATED);
+		puzzle.puzzle[2][5].setValue(9, SudokuPuzzleCell.GENERATED);
+		puzzle.puzzle[2][6].setValue(8, SudokuPuzzleCell.GENERATED);
+		puzzle.puzzle[3][6].setValue(1, SudokuPuzzleCell.GENERATED);
+		puzzle.puzzle[3][7].setValue(2, SudokuPuzzleCell.GENERATED);
+		puzzle.puzzle[4][3].setValue(4, SudokuPuzzleCell.GENERATED);
+		puzzle.puzzle[4][5].setValue(1, SudokuPuzzleCell.GENERATED);
+		puzzle.puzzle[5][1].setValue(4, SudokuPuzzleCell.GENERATED);
+		puzzle.puzzle[5][2].setValue(6, SudokuPuzzleCell.GENERATED);
+		puzzle.puzzle[6][2].setValue(7, SudokuPuzzleCell.GENERATED);
+		puzzle.puzzle[6][3].setValue(6, SudokuPuzzleCell.GENERATED);
+		puzzle.puzzle[6][6].setValue(4, SudokuPuzzleCell.GENERATED);
+		puzzle.puzzle[7][0].setValue(8, SudokuPuzzleCell.GENERATED);
+		puzzle.puzzle[7][3].setValue(9, SudokuPuzzleCell.GENERATED);
+		puzzle.puzzle[7][6].setValue(6, SudokuPuzzleCell.GENERATED);
+		puzzle.puzzle[8][0].setValue(9, SudokuPuzzleCell.GENERATED);
+		puzzle.puzzle[8][3].setValue(1, SudokuPuzzleCell.GENERATED);
+		puzzle.puzzle[8][5].setValue(8, SudokuPuzzleCell.GENERATED);
+		puzzle.puzzle[8][8].setValue(3, SudokuPuzzleCell.GENERATED);
+
+
+
+		
+		puzzle.printPuzzle();
+		SudokuSolver solver1 = new SudokuSolver();
+		System.out.println("SOLVING......");
+		Quant solutions = solver1.solutionsM(puzzle);
+		System.out.println("Number of solutions: " + solutions);
+		SudokuPuzzle puzzle2 = solver1.solvePuzzle(puzzle);
+		if (puzzle2 == null)
+			System.out.println("puzzle2 is null");
+		else
+		puzzle2.printPuzzle();
+		
+		int[] errors = {0};
+		for (int i : errors) {
+			SudokuSolver.Constraint constraint2 = SudokuSolver.Constraint.IntToConstraint(i);
+			constraint2.printConstraint();
+		}
 	}
 }

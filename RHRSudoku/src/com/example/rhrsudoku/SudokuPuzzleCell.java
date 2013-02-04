@@ -10,16 +10,20 @@ public class SudokuPuzzleCell {
 	static final int NONE = 3;
 	static final int SOLVER_GENERATED = 4;
 	
-	int rowNumber, columnNumber; // from 0-8
+	int row, column;// from 0-8
 	boolean hasValue = false;
 	boolean isEditable = true;
 	private int value;
 	int inputMethod = NONE;			// change when set by a generator or the user resp.
 	SudokuPuzzleCell[] neighbours;
 	
-	public SudokuPuzzleCell(int rowNumber, int columnNumber){
-		this.rowNumber = rowNumber;
-		this.columnNumber = columnNumber;
+	public SudokuPuzzleCell(int row, int column){
+		if (row<0 || row>8 || column<0 || column>8) {
+			System.err.println("Invalid (row,column)");
+			return;
+		}
+		this.row = row;
+		this.column = column;
 	}
 	
 	public void setValue(int value, int inputMethod) {

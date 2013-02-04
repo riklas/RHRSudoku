@@ -16,6 +16,9 @@ public class SmallBox extends View {
 
 	private Paint borderPaint;
 	private Paint textPaint;
+	private Object text;
+	private int finalValue;
+	private boolean hasFinalValue;
 	
 	
 	public SmallBox(Context context, AttributeSet attrs) {
@@ -67,7 +70,7 @@ public class SmallBox extends View {
 		super.onDraw(canvas);
 		canvas.drawRect(10, 10, 10, 10, borderPaint);
 		if (text != null) {
-			canvas.drawText(text, getPaddingLeft(), getPaddingTop(), textPaint);
+			canvas.drawText((String) text, getPaddingLeft(), getPaddingTop(), textPaint);
 		}
 	}
 	

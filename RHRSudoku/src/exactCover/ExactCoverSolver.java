@@ -1,8 +1,9 @@
 package exactCover;
 
 import java.util.*;
-import java.util.Random;
 
+import com.example.rhrsudoku.SudokuSolver;
+import com.example.rhrsudoku.SudokuSolver.Choice;
 import com.google.common.base.Optional;
 import com.google.common.collect.*;
 
@@ -18,7 +19,6 @@ public class ExactCoverSolver<E> {
 	private static final boolean PRINT_3 = false;
 	private boolean foundFinalSolution = false;
 	Quant finalSolutionsFound = Quant.NONE;
-	
 	
 	public Quant solutionsM(ExactCoverProblem<E> p) {
 		solve(p);
@@ -87,7 +87,6 @@ public class ExactCoverSolver<E> {
 				System.out.println("ID: " + id + "     Subset:   "+subset.toString());
 			id++;
 		}
-		
 		Matrix matrix = buildMatrix(p, mapX, mapS);
 		processRowInclusions1(matrix, p, mapS);
 		
@@ -140,39 +139,35 @@ public class ExactCoverSolver<E> {
 		 * if unsolvable, return null
 		 */
 		
-		boolean isSolved = solveMatrix1(matrix, solutions);
-		if (isSolved)
+		Quant isSolved = solveMatrix1(matrix, solutions);
+		if (isSolved == Quant.ONE || isSolved==Quant.MULTIPLE)
 			return solutions;
 		return null;
 	}
 	
-	boolean solveMatrix1(Matrix matrix, Set<Integer> solutions) {
+	Quant solveMatrix1(Matrix matrix, Set<Integer> solutions) {
 		if (PRINT_3)
 			System.out.println("Entered solveMatrix1()");
 		if(matrix.isEmpty())
-			return true;
+			return Quant.ONE;
 		return solveMatrix2(matrix, solutions);
 		}
 	
-	boolean solveMatrix2(Matrix matrix, Set<Integer> solutions) {
+	Quant solveMatrix2(Matrix matrix, Set<Integer> solutions) {
 		if (PRINT_3)
 			System.out.println("Entered solveMatrix2()");
 		MatrixCellHeader chosenColumn = matrix.columnStarter.findSmallestColumn();
 //		MatrixCellHeader chosenColumn = matrix.columnStarter.starter;
-//		Random randGen = new Random();
-//		int rand1 = randGen.nextInt(matrix.getColumnsM());
-//		for (int i=0; i<rand1; i++)
-//			chosenColumn = chosenColumn.next;
 		if (PRINT_WORKING)
 			System.out.println("chosenColumn with ID: " + chosenColumn.id);
 		return solveMatrix3(matrix, solutions, chosenColumn);
 	}
 	
-	boolean solveMatrix3(Matrix matrix, Set<Integer> solutions, MatrixCellHeader chosenColumn) {
+	Quant solveMatrix3(Matrix matrix, Set<Integer> solutions, MatrixCellHeader chosenColumn) {
 		if (PRINT_3)
 			System.out.println("Entered solveMatrix3()");
 		if (chosenColumn.isEmpty())
-			return false;
+			return Quant.NONE;
 		Set<MatrixCellHeader> rowSet2 = chosenColumn.getIntersectingHeaders();
 		Set<Integer> intersectingHeaderIDS = new HashSet<Integer>();
 		Iterator<MatrixCellHeader> rowSet2IT = rowSet2.iterator();
@@ -183,18 +178,19 @@ public class ExactCoverSolver<E> {
 		while(rowSet2IT.hasNext()) {
 			MatrixCellHeader chosenRow = rowSet2IT.next();
 			if(PRINT_WORKING) {
-				matrix.printMatrix();
+				if (PRINT_MATRIX)
+					matrix.printMatrix();
 				System.out.println("chosenRow with ID: " + chosenRow.id + " out " +
 						"of " + intersectingHeaderIDS.toString());
 			}
-			boolean value = solveMatrix4(matrix, solutions, chosenColumn, chosenRow);
-			if (value == false) {
+			Quant value = solveMatrix4(matrix, solutions, chosenColumn, chosenRow);
+			if (value == Quant.NONE) {
 				if (PRINT_WORKING)
 					System.out.println("Branch failed with chosenRow ID: "+ chosenRow.id + " out " +
 							"of " + intersectingHeaderIDS.toString());
 				continue;
 			}
-			else if (value == true) {
+			else if (value == Quant.ONE) {
 				if (solutionsFound == Quant.NONE) {
 					solutionsFound = Quant.ONE;
 					continue;
@@ -204,24 +200,28 @@ public class ExactCoverSolver<E> {
 					break;
 				}
 			}
+			else if (value == Quant.MULTIPLE) {
+				solutionsFound = Quant.MULTIPLE;
+				break;
+			}
 		}
 		if (PRINT_WORKING)
 			System.out.println("No more intersecting rows left to choose from for " +
 					"chosenColumn: " + chosenColumn.id);
 		if (solutionsFound == Quant.NONE)
-			return false;
+			return Quant.NONE;
 		else if (solutionsFound == Quant.MULTIPLE) {
 			finalSolutionsFound = Quant.MULTIPLE;
-			return true;
+			return Quant.MULTIPLE;
 		}
 		else {
 			if (finalSolutionsFound == Quant.NONE)
 				finalSolutionsFound = Quant.ONE;
-			return true;
+			return Quant.ONE;
 		}
 	}
 
-	boolean solveMatrix4(Matrix matrix, Set<Integer> solutions, 
+	Quant solveMatrix4(Matrix matrix, Set<Integer> solutions, 
 			MatrixCellHeader chosenColumn, MatrixCellHeader chosenRow) {
 		if (PRINT_3)
 			System.out.println("Entered solveMatrix4()");
@@ -241,8 +241,8 @@ public class ExactCoverSolver<E> {
 			matrix.columnStarter.removeCellHeader(columnHeader);
 			removedHeaders.add(columnHeader);
 		}
-		boolean value = solveMatrix1(matrix, solutions);
-		if (value == false) {
+		Quant value = solveMatrix1(matrix, solutions);
+		if (value == Quant.NONE) {
 			if (PRINT_WORKING)
 				System.out.println("Branch failed..........backtracing");
 			while(!removedHeaders.isEmpty()) {
@@ -254,11 +254,20 @@ public class ExactCoverSolver<E> {
 			}
 			if (!foundFinalSolution)
 				solutions.remove(chosenRow.id);
-			return false;
+			return Quant.NONE;
 		}
 		else {
+//			if (!foundFinalSolution)
+//				System.out.println("Found first solution");
+			while(!removedHeaders.isEmpty()) {
+				MatrixCellHeader removedHeader1 = removedHeaders.removeLast();
+				if (removedHeader1.orientation == Matrix.HORIZONTAL)
+					matrix.rowStarter.restoreCellHeader(removedHeader1);
+				else if (removedHeader1.orientation == Matrix.VERTICAL)
+					matrix.columnStarter.restoreCellHeader(removedHeader1);
+			}
 			foundFinalSolution = true;
-			return true;
+			return value;
 		}
 		
 	}
