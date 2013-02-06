@@ -21,7 +21,7 @@ public class GameActivity extends Activity {
 		//Capture the intent sent from main activity and get the integer associated with the difficulty
 		// setting the default integer to 0 (kids) in case there is a problem retrieving the value
 		Intent intent = getIntent();
-		difficulty = intent.getIntExtra(MainActivity.DIFFICULTY, 0);	  	
+		difficulty = intent.getIntExtra(DifficultyChooser.DIFFICULTY, 0);	  	
 						
 		//test code to see if integer was passed
 		//TextView test = new TextView(this);
