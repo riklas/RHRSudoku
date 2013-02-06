@@ -1,6 +1,8 @@
 package com.example.rhrsudoku;
 
 public class Puzzles {
+	//whoops! found this in the source code >>
+	//<!-- The HTML code and text in this document are copyright. Infringers of copyright will be prosecuted. -->
 
 int[][] a = {
 {3,0,8,4,0,0,5,0,0},
