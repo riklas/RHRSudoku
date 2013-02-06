@@ -4,15 +4,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ExactCoverSolverTester {
-	static final int ELEMENTS_M = 40; // number of element
+	static final int ELEMENTS_M = 12; // number of element
 	
-	static int[][] setSarray = {{18,38,32,1}, {11,27}, {10}, {23,3},
+	/*static int[][] setSarray = {{18,38,32,1}, {11,27}, {10}, {23,3},
 		{22,4},{12,33,17}, {8,26,20,40}, {35,29},{6,30,39}, {5,16,2}, {14,25}, {9,24,28},
 		{19,31}, {7,36,21,13}, {37,15,34}, {6,30,39}, {23,2,7}, {33,12,1}, {21,24,25}, {6,5,21},
 		{12,13,30}, {2,6,17,14}, {11,7,9,21,38,40}, {13,26,25,29,10}, {5,8,37,21,2}, 
 		{7,5,9,28,35,33,38}, {6}, {16,2}, {3,2}, {29}, {31,30}};
+	*/
+	static int[][] setWarray = {};
 	
-	static int[][] setWarray = {{16,2,5}, {25,14}};
+	
+	static int[][] setSarray = {{2,8,12},{6,11},{3,1,4},{10,9},{5,7},{6,12},
+		{2,8,11},{10,2,1},{5,4,6},{8,10,3},{12,3},{6},{8,11,7}};
 		
 	
 	public static void main(String[] args) {
@@ -22,6 +26,8 @@ public class ExactCoverSolverTester {
 		//Set<Set<Integer>> setW = null;
 		ExactCoverProblem<Integer> problem = new ExactCoverProblem<Integer>(setX, setS, null);
 		ExactCoverSolver<Integer> solver = new ExactCoverSolver<Integer>();
+		Quant solutionsM = solver.solutionsM(problem);
+		System.out.println("solutions found: " + solutionsM);
 		Set<Set<Integer>> solution = solver.solve(problem);
 		printSets(solution);
 	}

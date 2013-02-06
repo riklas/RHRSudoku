@@ -67,6 +67,11 @@ public class SmallBox extends View {
 	
 	@Override
 	public void onDraw(Canvas canvas) {
+		/* if (hasFinalValue)
+		 * 		draw the value
+		 * else, draw the possible numbers
+		 * 
+		 */
 		super.onDraw(canvas);
 		canvas.drawRect(10, 10, 10, 10, borderPaint);
 		if (text != null) {
@@ -74,14 +79,6 @@ public class SmallBox extends View {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-
 	
 	void setFinalValue(int finalValue) {
 		this.finalValue = finalValue;
