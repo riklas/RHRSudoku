@@ -2,55 +2,74 @@ package com.example.rhrsudoku;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 
 
 public class GameActivity extends Activity {
-
-	int difficulty = 0;
-	int count = 0;
+	
+	/*
+	 * TO IMPLEMENT
+	 * ===============
+	 * 		* onSaveInstanceState(), onRestoreInstanceState()
+	 * 		* onCreate() -- setContentView(), onDestroy(), other callbacks
+	 * 		* creation of the SmallBox Grid
+	 * 				* set each id/row/column
+	 * 				* create paint arguments
+	 * 				* create + set onClick listeners
+	 * 		* configure manifest.xml
+	 * 		* finish() -- called when user has given up or solved
+	 * 		* View.onSaveInstanceState() -- could save instance state in each view
+	 * 
+	 */
+	
+	
+	/*
+	 * GLOBAL MEMBERS
+	 */
+	SudokuPuzzle puzzle;
+	
+	
+	/*
+	 * BEGIN CALLBACKS
+	 */
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-	
-		//Capture the intent sent from main activity and get the integer associated with the difficulty
-		// setting the default integer to 0 (kids) in case there is a problem retrieving the value
-		Intent intent = getIntent();
-		difficulty = intent.getIntExtra(MainActivity.DIFFICULTY, 0);	  	
-						
-		//test code to see if integer was passed
-		//TextView test = new TextView(this);
-		//test.setText(Integer.toString(difficulty));
-		/*RelativeLayout rlayout = (RelativeLayout) findViewById(R.id.rlayout);
-		RelativeLayout.LayoutParams lprams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-		EditText edt = new EditText(this);
-		edt.setText("difficulty: " + Integer.toString(difficulty));
-		edt.setLayoutParams(lprams);
-		rlayout.addView(edt);
-		*/
 		
-		//Call the generator (at the moment implemented for hard-coded puzzles)
-		HardcodedPuzzles hardcode = new HardcodedPuzzles();
-		SudokuPuzzle puzzle = hardcode.getPuzzle(difficulty);
-		//SmallBox[] smallboxarray = hardcode.getPuzzle(difficulty);
-		//generator returns array of small boxes to pass to constructor of sudokupuzzle
+		/*
+		 * Game Activity Creation
+		 * =======================
+		 * 		* get SudokuPuzzle from generator, using difficulty level passed in
+		 * 		* create SmallBoxes
+		 * 		* create root view/inflate from xml
+		 * 		* add smallboxes to root
+		 * 		* add buttons, 1-9, hint, clear, clear all
+		 * 		* call setContentView()
+		 */
+		Intent intent = getIntent();
+		int difficulty = intent.getIntExtra(DifficultyChooser.DIFFICULTY, 0);	  	
+		SudokuGenerator hardcode = new HardcodedPuzzles();
+		puzzle = hardcode.getPuzzle(difficulty);
 				
-		//Dynamically set the text properties of the small box object using the values in the returned puzzle
+		
+		Paint paint1 = getPaint1();
+		Paint paint2 = getPaint2();
+		//creating small boxes
 		for(int row=0; row<9; row++) {
-			for(int column=0; column<9; column++) {
-				count++;
-				String iter = Integer.toString(count);
-				String id = "R.id.smallbox" + iter;
-				int idResource = getResources().getIdentifier(id, "id", getPackageName());
-				SmallBox smallbox = (SmallBox) findViewById(idResource);
-				smallbox.setText(Integer.toString(puzzle.puzzle[row][column].getValue()));
+			for(int col=0; col<9; col++) {
+				SmallBox box1 = new SmallBox(this, puzzle.puzzle[row][col], 
+						paint1, paint2, row, col);
 			}
 		}
+		
+		ViewGroup rootView = (ViewGroup) findViewById(R.layout.activity_game);
 		
 		setContentView(R.layout.activity_game);
 		
@@ -82,6 +101,20 @@ public class GameActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	/*
+	 * END CALLBACKS
+	 */
+	
+	Paint getPaint1() {
+		return null;
+		//TODO
+	}
+	
+	Paint getPaint2() {
+		return null;
+		//TODO
 	}
 
 }

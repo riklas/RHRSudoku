@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
-public class MainActivity extends Activity {
+public class DifficultyChooser extends Activity {
 
 	int difficulty = -1;		//difficulty level. 0 ~ kids. 1 ~ easy. 2 ~ medium. 3 ~ hard
 	public final static String DIFFICULTY = "difficulty"; //key to use when retrieving difficulty form other activity
@@ -14,7 +14,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_dfchooser);
 	}
 
 	@Override
