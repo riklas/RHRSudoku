@@ -3,14 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
     android:orientation="vertical"
-  	android:gravity="center_vertical" >
+        android:gravity="center_vertical" >
 
     <Button
         android:id="@+id/kids"
         style="@style/diffButton"        
         android:text="@string/kids"
         android:onClick="setKids"       
-     	 />
+         />
     
     <Button
         android:id="@+id/easy"
@@ -24,7 +24,7 @@
         style="@style/diffButton"             
         android:text="@string/skilled"
         android:onClick="setMedium" 
-    	/>    
+        />    
     
     <Button
         android:id="@+id/hard"
