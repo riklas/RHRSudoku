@@ -17,4 +17,7 @@
 	<string name="seven">7</string>
 	<string name="eight">8</string>
 	<string name="nine">9</string>
+	<string name="hint">Hint</string>
+	<string name="clear">Clear</string>
+	<string name="clearAll">Clear All</string>
 </resources>
