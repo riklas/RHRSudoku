@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 
 public class GameActivity extends Activity {
@@ -33,7 +35,7 @@ public class GameActivity extends Activity {
 	 * GLOBAL MEMBERS
 	 */
 	SudokuPuzzle puzzle;
-	
+	SmallBox selectedSmallBox;
 	
 	/*
 	 * BEGIN CALLBACKS
@@ -52,26 +54,34 @@ public class GameActivity extends Activity {
 		 * 		* add smallboxes to root
 		 * 		* add buttons, 1-9, hint, clear, clear all
 		 * 		* call setContentView()
+		 * 
+		 * 
+		 * Logic
+		 * ==========
+		 * 		* onClickListener for small boxes
+		 * 		* onClickListener for Hint, Clear, Clear All
+		 * 		* 
 		 */
 		Intent intent = getIntent();
 		int difficulty = intent.getIntExtra(DifficultyChooser.DIFFICULTY, 0);	  	
 		SudokuGenerator hardcode = new HardcodedPuzzles();
 		puzzle = hardcode.getPuzzle(difficulty);
 				
-		
+		ViewGroup rootView = (ViewGroup) findViewById(R.layout.activity_game);
 		Paint paint1 = getPaint1();
 		Paint paint2 = getPaint2();
+		View.OnClickListener SmallBoxlistener1 = getSmallBoxListener();
 		//creating small boxes
 		for(int row=0; row<9; row++) {
 			for(int col=0; col<9; col++) {
-				SmallBox box1 = new SmallBox(this, puzzle.puzzle[row][col], 
+				SmallBox box1 = new SmallBox(this, this, puzzle.puzzle[row][col], 
 						paint1, paint2, row, col);
+				box1.setOnClickListener(SmallBoxlistener1);
+				rootView.addView(box1);
 			}
 		}
 		
-		ViewGroup rootView = (ViewGroup) findViewById(R.layout.activity_game);
-		
-		setContentView(R.layout.activity_game);
+		setContentView(rootView);
 		
 		// Show the Up button in the action bar.
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -105,6 +115,7 @@ public class GameActivity extends Activity {
 	
 	/*
 	 * END CALLBACKS
+	 * BEGIN CREATION METHODS
 	 */
 	
 	Paint getPaint1() {
@@ -115,6 +126,72 @@ public class GameActivity extends Activity {
 	Paint getPaint2() {
 		return null;
 		//TODO
+	}
+	
+	View.OnClickListener getSmallBoxListener() {
+		View.OnClickListener listener1 = new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				SmallBox box1 = (SmallBox) v;
+				selectBox(box1);
+			}
+		};
+		return listener1;
+	}
+	
+	View.OnClickListener getNumberButtonListener() {
+		View.OnClickListener listener1 = new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Button button1 = (Button) v;
+				
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		return listener1;
+	}
+	
+	View.OnClickListener getHintButtonListener() {
+		View.OnClickListener listener1 = new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Button button1 = (Button) v;
+				
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		return listener1;
+	}
+	
+	View.OnClickListener getClearAllListener() {
+		View.OnClickListener listener1 = new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Button button1 = (Button) v;
+				
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		return listener1;
+	}
+	/*
+	 * END CREATION METHODS
+	 * BEGIN LOGIC METHODS
+	 */
+	
+	void selectBox(SmallBox box1) {
+		box1.isSelected = true;
+		selectedSmallBox = box1;
+		//TODO  need to implement logic
+		// change 1-9 buttons to reflect the state of box1
 	}
 
 }

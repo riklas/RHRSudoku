@@ -17,6 +17,7 @@ public class SmallBox extends View {
 	 * Created a different class for me to work on, 
 	 */
 	
+	GameActivity game1;
 	int row, col;
 	boolean hasFinalValue = false;
 	boolean hasPossibleValues = false;
@@ -36,9 +37,10 @@ public class SmallBox extends View {
 	 * possibleValuesCount the number of possibleValues, modified when adding and removing
 	 */
 	
-	public SmallBox(Context context, SudokuPuzzleCell cell1, Paint paint1,
+	public SmallBox(Context context, GameActivity game1, SudokuPuzzleCell cell1, Paint paint1,
 			Paint paint2, int row, int col) {
 		super(context);
+		this.game1 = game1;
 		this.cell1 = cell1;
 		this.row = row;
 		this.col = col;
