@@ -41,21 +41,27 @@ containing a value of this type.
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
+        public static final int clearAllButton=0x7f070013;
+        public static final int clearButton=0x7f070012;
         public static final int easy=0x7f070001;
-        public static final int eight=0x7f07000c;
-        public static final int five=0x7f070009;
-        public static final int four=0x7f070008;
+        public static final int eight=0x7f07000e;
+        public static final int five=0x7f07000b;
+        public static final int four=0x7f07000a;
+        public static final int gridLayout1=0x7f070005;
         public static final int hard=0x7f070003;
+        public static final int hintButton=0x7f070011;
         public static final int kids=0x7f070000;
+        public static final int linearLayout1=0x7f070004;
+        public static final int linearLayout2=0x7f070006;
+        public static final int linearLayout3=0x7f070010;
         public static final int medium=0x7f070002;
-        public static final int menu_settings=0x7f07000e;
-        public static final int nine=0x7f07000d;
-        public static final int one=0x7f070005;
-        public static final int rlayout=0x7f070004;
-        public static final int seven=0x7f07000b;
-        public static final int six=0x7f07000a;
-        public static final int three=0x7f070007;
-        public static final int two=0x7f070006;
+        public static final int menu_settings=0x7f070014;
+        public static final int nine=0x7f07000f;
+        public static final int one=0x7f070007;
+        public static final int seven=0x7f07000d;
+        public static final int six=0x7f07000c;
+        public static final int three=0x7f070009;
+        public static final int two=0x7f070008;
     }
     public static final class layout {
         public static final int activity_dfchooser=0x7f030000;
@@ -67,10 +73,13 @@ containing a value of this type.
     }
     public static final class string {
         public static final int app_name=0x7f040000;
+        public static final int clear=0x7f040011;
+        public static final int clearAll=0x7f040012;
         public static final int easy=0x7f040002;
         public static final int eight=0x7f04000e;
         public static final int five=0x7f04000b;
         public static final int four=0x7f04000a;
+        public static final int hint=0x7f040010;
         public static final int kids=0x7f040001;
         public static final int master=0x7f040004;
         public static final int menu_settings=0x7f040005;
@@ -110,9 +119,9 @@ containing a value of this type.
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f050001;
-        public static final int diffButton=0x7f050004;
-        public static final int numpadButton=0x7f050003;
-        public static final int smallbox=0x7f050002;
+        public static final int diffButton=0x7f050003;
+        public static final int functionButton=0x7f050004;
+        public static final int numpadButton=0x7f050002;
     }
     public static final class styleable {
         /** Attributes that can be used with a SmallBox.

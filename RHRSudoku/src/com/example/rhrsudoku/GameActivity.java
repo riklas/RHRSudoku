@@ -1,16 +1,13 @@
 package com.example.rhrsudoku;
 
+import com.example.rhrsudoku.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.*;
 
 
 public class GameActivity extends Activity {
@@ -66,8 +63,8 @@ public class GameActivity extends Activity {
 		int difficulty = intent.getIntExtra(DifficultyChooser.DIFFICULTY, 0);	  	
 		SudokuGenerator hardcode = new HardcodedPuzzles();
 		puzzle = hardcode.getPuzzle(difficulty);
-				
-		ViewGroup rootView = (ViewGroup) findViewById(R.layout.activity_game);
+		setContentView(R.layout.activity_game);
+		ViewGroup grid1 = (ViewGroup) findViewById(R.id.gridLayout1);
 		Paint paint1 = getPaint1();
 		Paint paint2 = getPaint2();
 		View.OnClickListener SmallBoxlistener1 = getSmallBoxListener();
@@ -77,11 +74,10 @@ public class GameActivity extends Activity {
 				SmallBox box1 = new SmallBox(this, this, puzzle.puzzle[row][col], 
 						paint1, paint2, row, col);
 				box1.setOnClickListener(SmallBoxlistener1);
-				rootView.addView(box1);
+				grid1.addView(box1);
 			}
 		}
 		
-		setContentView(rootView);
 		
 		// Show the Up button in the action bar.
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -134,56 +130,30 @@ public class GameActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				SmallBox box1 = (SmallBox) v;
-				selectBox(box1);
+				smallBoxClicked(v);
 			}
 		};
 		return listener1;
 	}
 	
-	View.OnClickListener getNumberButtonListener() {
-		View.OnClickListener listener1 = new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Button button1 = (Button) v;
-				
-				// TODO Auto-generated method stub
-				
-			}
-		};
-		return listener1;
+	/*
+	 * END CREATION METHOD
+	 * BEGIN LISTENER METHODS
+	 */
+	
+	private void smallBoxClicked(View v) {
+		
 	}
 	
-	View.OnClickListener getHintButtonListener() {
-		View.OnClickListener listener1 = new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Button button1 = (Button) v;
-				
-				// TODO Auto-generated method stub
-				
-			}
-		};
-		return listener1;
+	private void numberButtonClicked(View v) {
+		
 	}
 	
-	View.OnClickListener getClearAllListener() {
-		View.OnClickListener listener1 = new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Button button1 = (Button) v;
-				
-				// TODO Auto-generated method stub
-				
-			}
-		};
-		return listener1;
+	private void functionButtonClicked(View v) {
+		
 	}
 	/*
-	 * END CREATION METHODS
+	 * END LISTENER METHODS
 	 * BEGIN LOGIC METHODS
 	 */
 	

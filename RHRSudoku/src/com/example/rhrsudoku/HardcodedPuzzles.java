@@ -13,10 +13,10 @@ public class HardcodedPuzzles implements SudokuGenerator {
 		
 		//get harcodepuzzle (int[][]) from database
 		Puzzles puz = new Puzzles(difficulty);
-		puzzle.printPuzzle();
+		//puzzle.printPuzzle();
 		//set the values of the smallbox views to that the values retrieved from the database
 		puzzle.puzzle = setValues(puzzle.puzzle, puz.hardcodePuzzle);
-		puzzle.printPuzzle();
+		//puzzle.printPuzzle();
 		return puzzle;		
 	}
 	

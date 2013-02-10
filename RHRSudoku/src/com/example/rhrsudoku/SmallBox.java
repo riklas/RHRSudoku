@@ -17,9 +17,9 @@ public class SmallBox extends View {
 	 * Created a different class for me to work on, 
 	 */
 	
+	int size1 = 20;
 	GameActivity game1;
 	int row, col;
-	boolean hasFinalValue = false;
 	boolean hasPossibleValues = false;
 	boolean isEditable = true;
 	boolean isSelected = false;
@@ -65,23 +65,21 @@ public class SmallBox extends View {
 		 * The width and height of each cell should be specified by the activity
 		 * because each cell needs to be exactly the same size
 		 */
-		int widthMode = View.MeasureSpec.getMode(widthMeasureSpec);
-		int heightMode = View.MeasureSpec.getMode(heightMeasureSpec);
-		if (widthMode != View.MeasureSpec.EXACTLY || heightMode != View.MeasureSpec.EXACTLY)
-			System.err.println("Expected an exact measurement");
-		int width = View.MeasureSpec.getSize(widthMeasureSpec);
-		int height = View.MeasureSpec.getSize(heightMeasureSpec);
+		int width = setDimension(widthMeasureSpec);
+		int height = setDimension(heightMeasureSpec);
 		setMeasuredDimension(width, height);
 	}
 	
 	@Override
 	protected void onDraw(Canvas canvas) {
 		/*
+		 * draw the background
 		 * if hasFinalValue, draw the value with paint1
 		 * if hasPossibleValues, draw the possible values with paint2
 		 * otherwise, do nothing
 		 */
-		if (hasFinalValue) {
+		background.draw(canvas);
+		if (cell1.hasValue) {
 			background.draw(canvas);
 			String value = Integer.toString(cell1.getValue());
 			canvas.drawText(value, getWidth()/2 , getHeight()/2 , paint1);
@@ -89,7 +87,6 @@ public class SmallBox extends View {
 		}
 		
 		else if (hasPossibleValues) {
-			background.draw(canvas);
 			canvas.drawText(possibleValuesS, 0, 0, paint2);
 			//TODO must be drawn in top right corner
 		}
@@ -110,7 +107,8 @@ public class SmallBox extends View {
 	 */
 	
 	private Drawable createBackground() {
-		Drawable draw1 = new ColorDrawable(Color.LTGRAY);
+		Drawable draw1 = new ColorDrawable(Color.BLACK);
+		//TODO background changes colour according to states
 		return draw1;
 	}
 	
@@ -138,7 +136,6 @@ public class SmallBox extends View {
 		if (!boundsCheck(i))
 			return;
 		cell1.setValue(i, inputMethod);
-		hasFinalValue = true;
 		if (inputMethod == SudokuPuzzleCell.GENERATED)
 			this.isEditable = false;
 		
@@ -172,5 +169,21 @@ public class SmallBox extends View {
 			return false;
 		}
 		return true;
+	}
+	
+	private int setDimension(int measureSpec) {
+		int mode = View.MeasureSpec.getMode(measureSpec);
+		int size2 = View.MeasureSpec.getSize(measureSpec);
+		if (mode == View.MeasureSpec.EXACTLY)
+			return size2;
+		else if (mode == View.MeasureSpec.AT_MOST) {
+			if (size2>size1)
+				return size1;
+			else 
+				return size2;
+		}
+		else if (mode == View.MeasureSpec.UNSPECIFIED)
+			return size1;
+		return size1;
 	}
 }
