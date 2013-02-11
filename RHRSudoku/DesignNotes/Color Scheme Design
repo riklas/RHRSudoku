@@ -19,3 +19,11 @@ Colors for background of number buttons
 * Entering final value + selected		#C2 + dark
 * Entering possible values				#C1
 * Entering possible values + selected	#C1 + dark
+
+Other static Colors
+===========================================
+* Background of application
+* Background Color of function buttons
+* Text Color of function buttons
+* Text Color of digit buttons
+* Color of grid lines
