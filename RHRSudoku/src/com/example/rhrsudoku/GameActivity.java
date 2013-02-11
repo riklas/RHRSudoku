@@ -3,6 +3,7 @@ package com.example.rhrsudoku;
 import com.example.rhrsudoku.R;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
@@ -115,12 +116,16 @@ public class GameActivity extends Activity {
 	 */
 	
 	Paint getPaint1() {
-		return null;
+		Paint paint1 = new Paint();
+		paint1.setColor(Color.LTGRAY);
+		return paint1;
 		//TODO
 	}
 	
 	Paint getPaint2() {
-		return null;
+		Paint paint2 = new Paint();
+		paint2.setColor(Color.GRAY);
+		return paint2;
 		//TODO
 	}
 	
