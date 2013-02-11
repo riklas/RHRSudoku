@@ -1,2 +1,21 @@
-Colors for SmallBoxes
-=============================
+Colors for numbers inside the small boxes
+==========================================
+* final value numbers (Black/Gray)
+* possible value numbers (Red/Orange)	#C1
+
+Colors for the background of the small box
+===========================================
+* Default/for user input (white)
+* solver generated (Green)
+* Conflicting cells (Red)
+* generator generated (LTGray)
+* selected and entering final value (Blue)			#C2
+* selected and entering possible values (Red/Orange) #C1
+
+Colors for background of number buttons
+========================================
+* default	(gray)
+* Entering final value					#C2
+* Entering final value + selected		#C2 + dark
+* Entering possible values				#C1
+* Entering possible values + selected	#C1 + dark
