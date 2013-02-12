@@ -121,6 +121,8 @@ containing a value of this type.
         public static final int AppTheme=0x7f050001;
         public static final int diffButton=0x7f050003;
         public static final int functionButton=0x7f050004;
+        /** item name="android:textSize">20sp</item
+         */
         public static final int numpadButton=0x7f050002;
     }
     public static final class styleable {
