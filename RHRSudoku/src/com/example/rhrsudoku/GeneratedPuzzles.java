@@ -49,8 +49,8 @@ public class GeneratedPuzzles implements SudokuGenerator {
 		int value;
 		do {
 			Random randomGenerator = new Random();
-			randx = randomGenerator.nextInt(9) - 1;	//generates random number from 0 - 8
-			randy = randomGenerator.nextInt(9) - 1;	// generates random number from 0 - 8
+			randx = randomGenerator.nextInt(9);	//generates random number from 0 - 8
+			randy = randomGenerator.nextInt(9);	// generates random number from 0 - 8
 			value = targetPuzzle.puzzle[randx][randy].getValue();	//saves the value from the index of random number
 			targetPuzzle.puzzle[randx][randy].setValue(0);  // set the value at index to 0
 			targetPuzzle.puzzle[randx][randy].setInput(SudokuPuzzleCell.NONE); //set input method to none
