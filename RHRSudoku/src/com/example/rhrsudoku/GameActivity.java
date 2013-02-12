@@ -25,7 +25,6 @@ public class GameActivity extends Activity {
 	 * 		* configure manifest.xml
 	 * 		* finish() -- called when user has given up or solved
 	 * 		* View.onSaveInstanceState() -- could save instance state in each view
-	 * 
 	 */
 	
 	
@@ -174,7 +173,6 @@ public class GameActivity extends Activity {
 		SmallBox selectedSmallBox;
 		boolean selectingFinalValue;
 		boolean selectingPossibleValues;
-		
 	}
 
 }

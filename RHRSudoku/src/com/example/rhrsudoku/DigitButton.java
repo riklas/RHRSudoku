@@ -33,7 +33,7 @@ public class DigitButton extends Button {
 	
 	
 	final private void createPaints() {
-		
+		paint1 = new Paint();
 	}
 	
 }
