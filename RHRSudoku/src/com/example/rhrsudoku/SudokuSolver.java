@@ -188,7 +188,8 @@ public class SudokuSolver {
 			SudokuPuzzleCell cell1 = puzzle.puzzle[chc1.row][chc1.column];
 			if (cell1.hasValue)
 				continue;
-			cell1.setValue(chc1.value, SudokuPuzzleCell.SOLVER_GENERATED);
+			cell1.setValue(chc1.value);
+			cell1.setInput(SudokuPuzzleCell.SOLVER_GENERATED);
 		}
 		if (puzzle.isSolved())
 			return puzzle;
