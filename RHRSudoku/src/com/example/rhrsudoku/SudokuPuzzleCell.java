@@ -33,6 +33,14 @@ public class SudokuPuzzleCell {
 		}
 	}
 	
+	public void removeValue() {
+		if (this.hasValue) {
+			this.value = 0;
+			this.isEditable = true;
+			this.hasValue = false;
+		}
+	}
+	
 	public void setInput(int inputMethod) {	//should be called after setValue, to set isEditable as false for generated values
 		this.inputMethod = inputMethod;
 		if (inputMethod == GENERATED || inputMethod == SOLVER_GENERATED) {
