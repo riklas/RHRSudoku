@@ -25,47 +25,47 @@
         android:layout_gravity="center"
         >
 
-        <Button
+        <com.example.rhrsudoku.DigitButton
             android:id="@+id/one"
             style="@style/numpadButton"
             android:text="@string/one" />
 
-        <Button
+        <com.example.rhrsudoku.DigitButton
             android:id="@+id/two"
             style="@style/numpadButton"
             android:text="@string/two" />
 
-        <Button
+        <com.example.rhrsudoku.DigitButton
             android:id="@+id/three"
             style="@style/numpadButton"
             android:text="@string/three" />
 
-        <Button
+        <com.example.rhrsudoku.DigitButton
             android:id="@+id/four"
             style="@style/numpadButton"
             android:text="@string/four" />
-
-        <Button
+            
+        <com.example.rhrsudoku.DigitButton
             android:id="@+id/five"
             style="@style/numpadButton"
             android:text="@string/five" />
 
-        <Button
+        <com.example.rhrsudoku.DigitButton
             android:id="@+id/six"
             style="@style/numpadButton"
             android:text="@string/six" />
 
-        <Button
+        <com.example.rhrsudoku.DigitButton
             android:id="@+id/seven"
             style="@style/numpadButton"
             android:text="@string/seven" />
 
-        <Button
+        <com.example.rhrsudoku.DigitButton
             android:id="@+id/eight"
             style="@style/numpadButton"
             android:text="@string/eight" />
 
-        <Button
+        <com.example.rhrsudoku.DigitButton
             android:id="@+id/nine"
             style="@style/numpadButton"
             android:text="@string/nine" />
