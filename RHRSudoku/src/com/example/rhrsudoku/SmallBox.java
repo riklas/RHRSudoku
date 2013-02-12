@@ -135,7 +135,8 @@ public class SmallBox extends View {
 		}
 		if (!boundsCheck(i))
 			return;
-		cell1.setValue(i, inputMethod);
+		cell1.setValue(i); 
+		cell1.setInput(inputMethod);
 		if (inputMethod == SudokuPuzzleCell.GENERATED)
 			this.isEditable = false;
 		

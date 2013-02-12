@@ -21,8 +21,8 @@ public class SudokuPuzzle {
 				SudokuPuzzleCell oldCell1 = puzzle[row][col];
 				if(!oldCell1.hasValue)
 					continue;
-				newPuzzle.puzzle[row][col].setValue(oldCell1.getValue(), 
-						oldCell1.inputMethod);
+				newPuzzle.puzzle[row][col].setValue(oldCell1.getValue()); 
+				newPuzzle.puzzle[row][col].setInput(oldCell1.inputMethod);
 			}
 		return newPuzzle;
 	}

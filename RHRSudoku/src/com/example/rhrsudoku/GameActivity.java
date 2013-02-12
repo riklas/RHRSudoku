@@ -60,8 +60,12 @@ public class GameActivity extends Activity {
 		 */
 		Intent intent = getIntent();
 		int difficulty = intent.getIntExtra(DifficultyChooser.DIFFICULTY, 0);	  	
+		
 		SudokuGenerator hardcode = new HardcodedPuzzles();
 		puzzle = hardcode.getPuzzle(difficulty);
+		//GeneratedPuzzles generate = new GeneratedPuzzles();
+		//puzzle = generate.getPuzzle(difficulty);
+		
 		setContentView(R.layout.activity_game);
 		ViewGroup grid1 = (ViewGroup) findViewById(R.id.gridLayout1);
 		Paint paint1 = getPaint1();

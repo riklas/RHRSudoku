@@ -121,7 +121,7 @@ public class PuzzleTester1 {
 
 	}
 	
-	void runPuzzle3() {
+	/*void runPuzzle3() {
 		SudokuPuzzle puzzle = new SudokuPuzzle();
 		puzzle.puzzle[0][0].setValue(4, SudokuPuzzleCell.GENERATED);
 		puzzle.puzzle[0][3].setValue(8, SudokuPuzzleCell.GENERATED);
@@ -205,5 +205,5 @@ public class PuzzleTester1 {
 		SudokuPuzzle puzzle2 = solver1.solvePuzzle(puzzle);
 		puzzle2.printPuzzle();
 
-	}
+	}*/
 }
