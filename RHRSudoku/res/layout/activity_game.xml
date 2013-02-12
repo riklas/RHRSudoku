@@ -25,50 +25,59 @@
         android:layout_gravity="center"
         >
 
-        <Button
+        <ToggleButton
             android:id="@+id/one"
             style="@style/numpadButton"
-            android:text="@string/one" />
+            android:textOn="@string/one"
+            android:textOff="@string/one" />
 
-        <Button
+        <ToggleButton
             android:id="@+id/two"
             style="@style/numpadButton"
-            android:text="@string/two" />
+            android:textOn="@string/two"
+            android:textOff="@string/two" />
 
-        <Button
+        <ToggleButton
             android:id="@+id/three"
             style="@style/numpadButton"
-            android:text="@string/three" />
+            android:textOn="@string/three"
+            android:textOff="@string/three" />
 
-        <Button
+        <ToggleButton
             android:id="@+id/four"
             style="@style/numpadButton"
-            android:text="@string/four" />
-
-        <Button
+            android:textOn="@string/four"
+            android:textOff="@string/four" />
+            
+        <ToggleButton
             android:id="@+id/five"
             style="@style/numpadButton"
-            android:text="@string/five" />
+            android:textOn="@string/five"
+            android:textOff="@string/five" />
 
-        <Button
+        <ToggleButton
             android:id="@+id/six"
             style="@style/numpadButton"
-            android:text="@string/six" />
+            android:textOn="@string/six"
+            android:textOff="@string/six" />
 
-        <Button
+        <ToggleButton
             android:id="@+id/seven"
             style="@style/numpadButton"
-            android:text="@string/seven" />
+            android:textOn="@string/seven"
+            android:textOff="@string/seven" />
 
-        <Button
+        <ToggleButton
             android:id="@+id/eight"
             style="@style/numpadButton"
-            android:text="@string/eight" />
+            android:textOn="@string/eight"
+            android:textOff="@string/eight" />
 
-        <Button
+        <ToggleButton
             android:id="@+id/nine"
             style="@style/numpadButton"
-            android:text="@string/nine" />
+            android:textOn="@string/nine"
+            android:textOff="@string/nine" />
     </LinearLayout>
     
     <LinearLayout 

@@ -146,15 +146,15 @@ public class GameActivity extends Activity {
 	 * BEGIN LISTENER METHODS
 	 */
 	
-	private void smallBoxClicked(View v) {
+	public void smallBoxClicked(View v) {
 		
 	}
 	
-	private void numberButtonClicked(View v) {
+	public void numberButtonClicked(View v) {
 		
 	}
 	
-	private void functionButtonClicked(View v) {
+	public void functionButtonClicked(View v) {
 		
 	}
 	/*
