@@ -7,15 +7,13 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Paint.Style;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
 public class SmallBox extends View {	
-	/*
-	 * Created a different class for me to work on, 
-	 */
 	
 	int size1 = 20;
 	GameActivity game1;
@@ -24,17 +22,19 @@ public class SmallBox extends View {
 	boolean isEditable = true;
 	boolean isSelected = false;
 	SudokuPuzzleCell cell1;
-	//int finalValue = 0; // final value must be stored in cell1 if we have one
 	SortedSet<Integer> possibleValues = new TreeSet<Integer>();
 	String possibleValuesS = new String();
-	Paint paint1;
-	Paint paint2;
-	Drawable background;
+	Paint paint1, paint2, paint3, paint4, paint5, paint6, paint7, paint8;
 	
 	/*
-	 * paint1:  painting of finalValues
-	 * paint2:  painting of possibleValues
-	 * possibleValuesCount the number of possibleValues, modified when adding and removing
+	 * paint1	text final value numbers
+	 * paint2	text possible value numbers
+	 * paint3	default background colour
+	 * paint4	solver generated background
+	 * paint5	conflicting cells background
+	 * paint6	generator generated background
+	 * paint7	selected and entering final value
+	 * paint8	selected and entering possible value
 	 */
 	
 	public SmallBox(Context context, GameActivity game1, SudokuPuzzleCell cell1, Paint paint1,
@@ -45,10 +45,7 @@ public class SmallBox extends View {
 		this.row = row;
 		this.col = col;
 		//setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-		this.paint1 = paint1;
-		this.paint2 = paint2;
-		background = createBackground();
-		
+		createPaints();
 		if (row<0 || row>8 || col<0 || col>8) {
 			System.err.println("ERRONEOUS ROW/COL");
 			System.exit(1);
@@ -56,7 +53,7 @@ public class SmallBox extends View {
 	}
 	
 	/*
-	 * CallBack Overrides
+	 * BEGIN CALLBACKS
 	 */
 	
 	@Override
@@ -72,25 +69,6 @@ public class SmallBox extends View {
 	
 	@Override
 	protected void onDraw(Canvas canvas) {
-		/*
-		 * draw the background
-		 * if hasFinalValue, draw the value with paint1
-		 * if hasPossibleValues, draw the possible values with paint2
-		 * otherwise, do nothing
-		 */
-		background.draw(canvas);
-		if (cell1.hasValue) {
-			background.draw(canvas);
-			String value = Integer.toString(cell1.getValue());
-			canvas.drawText(value, getWidth()/2 , getHeight()/2 , paint1);
-			//TODO unsure how to draw this in the centre of cell
-		}
-		
-		else if (hasPossibleValues) {
-			canvas.drawText(possibleValuesS, 0, 0, paint2);
-			//TODO must be drawn in top right corner
-		}
-		else
 			return;
 	}
 	
@@ -103,14 +81,45 @@ public class SmallBox extends View {
 	}
 	
 	/*
-	 * End of CallBacks
+	 * END CALLBACKS
+	 * BEGIN BUILDER METHODS
 	 */
 	
-	private Drawable createBackground() {
-		Drawable draw1 = new ColorDrawable(Color.BLACK);
-		//TODO background changes colour according to states
-		return draw1;
+	private void createPaints() {
+		/*
+		 * paint1	text final value numbers
+		 * paint2	text possible value numbers
+		 * paint3	default background colour
+		 * paint4	solver generated background
+		 * paint5	conflicting cells background
+		 * paint6	generator generated background
+		 * paint7	selected and entering final value
+		 * paint8	selected and entering possible value
+		 */
+		
+		paint1 = new Paint(); paint2 = new Paint(); paint3 = new Paint();
+		paint4 = new Paint(); paint5 = new Paint(); paint6 = new Paint();
+		paint7 = new Paint(); paint8 = new Paint();
+		
+		paint1.setColor(Color.BLACK);
+		paint2.setColor(Color.RED);
+		paint3.setColor(Color.WHITE);
+		paint4.setColor(Color.GREEN);
+		paint5.setColor(Color.RED);
+		paint6.setColor(Color.LTGRAY);
+		paint7.setColor(Color.BLUE);
+		paint8.setColor(Color.WHITE);
+		
+		paint3.setStyle(Style.FILL); paint4.setStyle(Style.FILL);
+		paint5.setStyle(Style.FILL); paint6.setStyle(Style.FILL); 
+		paint7.setStyle(Style.FILL); paint8.setStyle(Style.FILL);
+		
 	}
+	
+	/*
+	 * END BUILDER METHODS
+	 * BEGIN GETTER/SETTER METHODS
+	 */
 	
 	private void calculatePossibleValuesS() {
 		/*
@@ -187,4 +196,8 @@ public class SmallBox extends View {
 			return size1;
 		return size1;
 	}
+	
+	/*
+	 * END GETTER/SETTER METHODS
+	 */
 }

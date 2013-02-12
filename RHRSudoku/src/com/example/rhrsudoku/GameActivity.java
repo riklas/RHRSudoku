@@ -174,6 +174,7 @@ public class GameActivity extends Activity {
 	}
 	
 	class StateInfo {
+		boolean hasSelectedSmallBox;
 		SmallBox selectedSmallBox;
 		boolean selectingFinalValue;
 		boolean selectingPossibleValues;

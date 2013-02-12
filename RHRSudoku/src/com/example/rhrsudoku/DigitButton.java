@@ -4,14 +4,18 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Paint.Style;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.util.AttributeSet;
 import android.widget.Button;
 
 public class DigitButton extends Button {
 	Paint paint1, paint2, paint3, paint4, paint5, paint6;
 	GameActivity.StateInfo state1; 
-	Drawable background;
+	ShapeDrawable background;
+	final int number1;
+	SudokuPuzzleCell cell2;
 	/*
 	 * paint1	default background colour
 	 * paint2	entering final value
@@ -22,14 +26,35 @@ public class DigitButton extends Button {
 	 */
 
 	public DigitButton(Context context, AttributeSet attrs, 
-			GameActivity.StateInfo state1) {
+			GameActivity.StateInfo state1, int number1) {
 		super(context, attrs);
 		this.state1 = state1;
 		createPaints();
+		this.number1 = number1;
 	}
 	
 	@Override
 	protected void onDraw(Canvas canvas) {
+		if (!state1.hasSelectedSmallBox)
+			canvas.drawPaint(paint1);
+		else {
+			cell2 = state1.selectedSmallBox.cell1;
+			if (state1.selectingFinalValue)
+				if (cell2.hasValue && cell2.getValue() == number1)
+					canvas.drawPaint(paint3);
+				else
+					canvas.drawPaint(paint2);
+			else if (state1.selectingPossibleValues)
+				if(state1.selectedSmallBox.hasPossibleValues &&
+						state1.selectedSmallBox.possibleValues.contains(number1))
+					canvas.drawPaint(paint5);
+				else
+					canvas.drawPaint(paint4);
+		}
+		int xpos = canvas.getWidth()/2;
+		int ypos = (int) ((canvas.getHeight() / 2) - ((paint6.descent() + paint6.ascent()) / 2)) ; 
+		//((textPaint.descent() + textPaint.ascent()) / 2) is the distance from the baseline to the center.
+		canvas.drawText(Integer.toString(number1), xpos, ypos, paint6);
 	}
 	
 	
@@ -42,11 +67,19 @@ public class DigitButton extends Button {
 		paint6 = new Paint();
 		
 		paint1.setColor(Color.LTGRAY);
-		paint2.setColor(0x0033B5E5);
-		paint3.setColor(0x000099CC);
-		paint4.setColor(0x00FFBB33);
-		paint5.setColor(0x00FF8800);
+		paint2.setColor(0xFF33B5E5);
+		paint3.setColor(0xFF0099CC);
+		paint4.setColor(0xFFFFBB33);
+		paint5.setColor(0xFFFF8800);
 		paint6.setColor(Color.BLACK);
+		
+		paint1.setStyle(Style.FILL);
+		paint2.setStyle(Style.FILL);
+		paint3.setStyle(Style.FILL);
+		paint4.setStyle(Style.FILL);
+		paint5.setStyle(Style.FILL);
+		
+		paint6.setTextAlign(Paint.Align.CENTER);
 	}
 	
 }
