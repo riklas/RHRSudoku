@@ -3,6 +3,8 @@ package com.example.rhrsudoku;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import com.example.rhrsudoku.GameActivity.StateInfo;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -15,32 +17,42 @@ import android.view.View;
 
 public class SmallBox extends View {	
 	
-	int size1 = 20;
-	GameActivity game1;
+	static final int POSSIBLE_VALUES = 1;
+	static final int FINAL_VALUE = 2;
+	static final int NONE = 3;
+	
+	int displayState = NONE;
+	int size1 = 30;
 	int row, col;
-	boolean hasPossibleValues = false;
+	//boolean hasPossibleValues = false;
 	boolean isEditable = true;
-	boolean isSelected = false;
 	SudokuPuzzleCell cell1;
-	SortedSet<Integer> possibleValues = new TreeSet<Integer>();
+	private SortedSet<Integer> possibleValues = new TreeSet<Integer>();
 	String possibleValuesS = new String();
 	Paint paint1, paint2, paint3, paint4, paint5, paint6, paint7, paint8;
+	GameActivity.StateInfo state1;
 	
 	/*
 	 * paint1	text final value numbers
 	 * paint2	text possible value numbers
 	 * paint3	default background colour
 	 * paint4	solver generated background
+	 * paint5	conf	 * paint2	text possible value numbers
+	 * paint3	default background colour
+	 * paint4	solver generated background
 	 * paint5	conflicting cells background
+	 * paint6	generator generated background
+	 * paint7	selected and entering final value
+	 * paint8	selected and entering possible valuelicting cells background
 	 * paint6	generator generated background
 	 * paint7	selected and entering final value
 	 * paint8	selected and entering possible value
 	 */
 	
-	public SmallBox(Context context, GameActivity game1, SudokuPuzzleCell cell1, Paint paint1,
-			Paint paint2, int row, int col) {
+	public SmallBox(Context context, GameActivity.StateInfo state1, 
+			SudokuPuzzleCell cell1, int row, int col) {
 		super(context);
-		this.game1 = game1;
+		this.state1 = state1;
 		this.cell1 = cell1;
 		this.row = row;
 		this.col = col;
@@ -50,6 +62,8 @@ public class SmallBox extends View {
 			System.err.println("ERRONEOUS ROW/COL");
 			System.exit(1);
 		}
+		if (cell1.hasValue)
+			displayState = FINAL_VALUE;
 	}
 	
 	/*
@@ -69,23 +83,6 @@ public class SmallBox extends View {
 	
 	@Override
 	protected void onDraw(Canvas canvas) {
-			return;
-	}
-	
-	@Override
-	protected void onFocusChanged(boolean gainFocus, int direction, Rect previouslyFocusedRect) {
-		if (gainFocus)
-			isSelected = true;
-		else
-			isSelected = false;
-	}
-	
-	/*
-	 * END CALLBACKS
-	 * BEGIN BUILDER METHODS
-	 */
-	
-	private void createPaints() {
 		/*
 		 * paint1	text final value numbers
 		 * paint2	text possible value numbers
@@ -96,7 +93,55 @@ public class SmallBox extends View {
 		 * paint7	selected and entering final value
 		 * paint8	selected and entering possible value
 		 */
+		// draw background first
+		if (state1.hasSelectedSmallBox && state1.selectedSmallBox == this) {
+			if (state1.selectingState == StateInfo.SELECTING_FINAL_VALUE)
+				canvas.drawPaint(paint7);
+			else if (state1.selectingState == StateInfo.SELECTING_POSSIBLE_VALUE)
+				canvas.drawPaint(paint8);
+		}
+		else if (cell1.inputMethod == SudokuPuzzleCell.GENERATED)
+			canvas.drawPaint(paint6);
+		else if (cell1.inputMethod == SudokuPuzzleCell.SOLVER_GENERATED)
+			canvas.drawPaint(paint4);
+		else
+			canvas.drawPaint(paint3);
 		
+		if (cell1.isConflicting())
+			canvas.drawPaint(paint5);
+		
+		// then draw text
+		
+		if (displayState == FINAL_VALUE) {
+			int x = getWidth()/2;
+			int y = getHeight()/2;
+			canvas.drawText(Integer.toString(cell1.getValue()), x, y, paint1);
+		}
+		else if (displayState == POSSIBLE_VALUES) {
+			canvas.drawText(possibleValuesS, 0, 0, paint2);
+		}
+		
+		
+			return;
+	}
+	
+	@Override
+	protected void onFocusChanged(boolean gainFocus, int direction, Rect previouslyFocusedRect) {
+		if (gainFocus) {
+			state1.hasSelectedSmallBox = true;
+			state1.selectedSmallBox = this;
+		}
+		
+		else {
+		}
+	}
+	
+	/*
+	 * END CALLBACKS
+	 * BEGIN BUILDER METHODS
+	 */
+	
+	private void createPaints() {
 		paint1 = new Paint(); paint2 = new Paint(); paint3 = new Paint();
 		paint4 = new Paint(); paint5 = new Paint(); paint6 = new Paint();
 		paint7 = new Paint(); paint8 = new Paint();
@@ -126,8 +171,6 @@ public class SmallBox extends View {
 		 * Creates a string of numbers from the set of possible values
 		 */
 		possibleValuesS = new String();
-		if (!hasPossibleValues)
-			return;
 		for (Integer i : possibleValues) {
 			possibleValuesS = possibleValuesS.concat(Integer.toString(i));
 		}
@@ -148,7 +191,7 @@ public class SmallBox extends View {
 		cell1.setInput(inputMethod);
 		if (inputMethod == SudokuPuzzleCell.GENERATED)
 			this.isEditable = false;
-		
+		displayState = FINAL_VALUE;
 	}
 	public void addPossibleValue(int i) {
 		if (!isEditable) {
@@ -157,15 +200,20 @@ public class SmallBox extends View {
 		}
 		if(!boundsCheck(i))
 			return;
-		hasPossibleValues = true;
+		displayState = POSSIBLE_VALUES;
+		cell1.hasValue = false;
 		possibleValues.add(i);
 		calculatePossibleValuesS();
 		invalidate();
 	}
+	
+	public boolean containsPossibleValue(int i) {
+		return possibleValues.contains(i);
+	}
 	public void removePossibleValue(int i) {
 		possibleValues.remove(i);
 		if (possibleValues.isEmpty())
-			hasPossibleValues = false;
+			displayState = NONE;
 		calculatePossibleValuesS();
 		invalidate();
 	}

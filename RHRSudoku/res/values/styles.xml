@@ -23,7 +23,7 @@
         <item name="android:layout_margin">0dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:padding">0dp</item>
-        <item name="android:onClick">numberButtonClicked</item>
+        <item name="android:onClick">digitButtonClicked</item>
         <item name="android:background">#5555FF</item>
         <!--item name="android:textSize">20sp</item-->
        

@@ -1,5 +1,7 @@
 package com.example.rhrsudoku;
 
+import com.example.rhrsudoku.GameActivity.StateInfo;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -14,7 +16,7 @@ public class DigitButton extends Button {
 	Paint paint1, paint2, paint3, paint4, paint5, paint6;
 	GameActivity.StateInfo state1; 
 	ShapeDrawable background;
-	final int number1;
+	int number1;
 	SudokuPuzzleCell cell2;
 	/*
 	 * paint1	default background colour
@@ -25,12 +27,10 @@ public class DigitButton extends Button {
 	 * paint6	text color
 	 */
 
-	public DigitButton(Context context, AttributeSet attrs, 
-			GameActivity.StateInfo state1, int number1) {
+	public DigitButton(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		this.state1 = state1;
 		createPaints();
-		this.number1 = number1;
 	}
 	
 	@Override
@@ -39,14 +39,13 @@ public class DigitButton extends Button {
 			canvas.drawPaint(paint1);
 		else {
 			cell2 = state1.selectedSmallBox.cell1;
-			if (state1.selectingFinalValue)
+			if (state1.selectingState == StateInfo.SELECTING_FINAL_VALUE)
 				if (cell2.hasValue && cell2.getValue() == number1)
 					canvas.drawPaint(paint3);
 				else
 					canvas.drawPaint(paint2);
-			else if (state1.selectingPossibleValues)
-				if(state1.selectedSmallBox.hasPossibleValues &&
-						state1.selectedSmallBox.possibleValues.contains(number1))
+			else if (state1.selectingState == StateInfo.SELECTING_POSSIBLE_VALUE)
+				if(state1.selectedSmallBox.containsPossibleValue(number1))
 					canvas.drawPaint(paint5);
 				else
 					canvas.drawPaint(paint4);

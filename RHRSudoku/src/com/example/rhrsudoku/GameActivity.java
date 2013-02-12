@@ -33,6 +33,7 @@ public class GameActivity extends Activity {
 	 */
 	SudokuPuzzle puzzle;
 	StateInfo state1;
+	DigitButton[] digits1 = new DigitButton[9];
 	/*
 	 * BEGIN CALLBACKS
 	 */
@@ -59,7 +60,8 @@ public class GameActivity extends Activity {
 		 * 		* 
 		 */
 		Intent intent = getIntent();
-		int difficulty = intent.getIntExtra(DifficultyChooser.DIFFICULTY, 0);	  	
+		int difficulty = intent.getIntExtra(DifficultyChooser.DIFFICULTY, 0);
+		state1 = new StateInfo();
 		
 		SudokuGenerator hardcode = new HardcodedPuzzles();
 		puzzle = hardcode.getPuzzle(difficulty);
@@ -67,20 +69,8 @@ public class GameActivity extends Activity {
 		//puzzle = generate.getPuzzle(difficulty);
 		
 		setContentView(R.layout.activity_game);
-		ViewGroup grid1 = (ViewGroup) findViewById(R.id.gridLayout1);
-		Paint paint1 = getPaint1();
-		Paint paint2 = getPaint2();
-		View.OnClickListener SmallBoxlistener1 = getSmallBoxListener();
-		//creating small boxes
-		for(int row=0; row<9; row++) {
-			for(int col=0; col<9; col++) {
-				SmallBox box1 = new SmallBox(this, this, puzzle.puzzle[row][col], 
-						paint1, paint2, row, col);
-				box1.setOnClickListener(SmallBoxlistener1);
-				grid1.addView(box1);
-			}
-		}
-		
+		createSmallBoxes();
+		initializeDigitButtons();
 		
 		// Show the Up button in the action bar.
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -117,20 +107,6 @@ public class GameActivity extends Activity {
 	 * BEGIN CREATION METHODS
 	 */
 	
-	Paint getPaint1() {
-		Paint paint1 = new Paint();
-		paint1.setColor(Color.LTGRAY);
-		return paint1;
-		//TODO
-	}
-	
-	Paint getPaint2() {
-		Paint paint2 = new Paint();
-		paint2.setColor(Color.GRAY);
-		return paint2;
-		//TODO
-	}
-	
 	View.OnClickListener getSmallBoxListener() {
 		View.OnClickListener listener1 = new View.OnClickListener() {
 			
@@ -143,41 +119,115 @@ public class GameActivity extends Activity {
 		return listener1;
 	}
 	
+	private void initializeDigitButtons() {
+		digits1[0] = (DigitButton) findViewById(R.id.one);
+		digits1[1] = (DigitButton) findViewById(R.id.two);
+		digits1[2] = (DigitButton) findViewById(R.id.three);
+		digits1[3] = (DigitButton) findViewById(R.id.four);
+		digits1[4] = (DigitButton) findViewById(R.id.five);
+		digits1[5] = (DigitButton) findViewById(R.id.six);
+		digits1[6] = (DigitButton) findViewById(R.id.seven);
+		digits1[7] = (DigitButton) findViewById(R.id.eight);
+		digits1[8] = (DigitButton) findViewById(R.id.nine);
+		
+		for(int i=0; i<digits1.length;i++) {
+			digits1[i].state1 = this.state1;
+			digits1[i].number1 = (i+1);
+		}
+	}
+	
+	private void createSmallBoxes() {
+		ViewGroup grid1 = (ViewGroup) findViewById(R.id.gridLayout1);
+		View.OnClickListener SmallBoxlistener1 = getSmallBoxListener();
+		//creating small boxes
+		for(int row=0; row<9; row++) {
+			for(int col=0; col<9; col++) {
+				SmallBox box1 = new SmallBox(this, this.state1, puzzle.puzzle[row][col], row, col);
+				box1.setOnClickListener(SmallBoxlistener1);
+				grid1.addView(box1);
+			}
+		}
+	}
+	
 	/*
 	 * END CREATION METHOD
 	 * BEGIN LISTENER METHODS
 	 */
 	
 	public void smallBoxClicked(View v) {
+		SmallBox sb2 = (SmallBox) v;
+		SmallBox sb1 = state1.selectedSmallBox;
+		/*
+		 * set has selected to true
+		 * set the selected box
+		 * set setting final value to true
+		 * invalidate the small box and the previously selected small box
+		 * invalidate the digitbuttons
+		 */
 		
+		state1.selectedSmallBox = sb2;
+		state1.hasSelectedSmallBox = true;
+		state1.selectingState = StateInfo.SELECTING_FINAL_VALUE;
+		if (sb1 != null)
+			sb1.invalidate();
+		sb2.invalidate();
+		for (DigitButton db : digits1)
+			db.invalidate();
 	}
 	
-	public void numberButtonClicked(View v) {
+	public void digitButtonClicked(View v) {
+		DigitButton db2 = (DigitButton) v;
+		if (!state1.hasSelectedSmallBox) {
+			System.err.println("ERROR: No SmallBox selected");
+			return;
+		}
+		
+		if (state1.selectingState == StateInfo.SELECTING_FINAL_VALUE) {
+			/*
+			 * set has final value on cell
+			 * unset has possible values
+			 * set final value on cell
+			 * call invalidate on all digit buttons
+			 */
+			state1.selectedSmallBox.setFinalValue(db2.number1, SudokuPuzzleCell.USER_INPUT);
+			state1.selectedSmallBox.displayState = SmallBox.FINAL_VALUE;
+			for (DigitButton db : digits1)
+				db.invalidate();
+		}
+		else if (state1.selectingState == StateInfo.SELECTING_POSSIBLE_VALUE) {
+			if(state1.selectedSmallBox.containsPossibleValue(db2.number1))
+				state1.selectedSmallBox.removePossibleValue(db2.number1);
+			else
+				state1.selectedSmallBox.addPossibleValue(db2.number1);
+			state1.selectedSmallBox.displayState = SmallBox.POSSIBLE_VALUES;
+			db2.invalidate();
+		}
+		
 		
 	}
 	
 	public void functionButtonClicked(View v) {
-		
+		/*
+		 * this would better be replaced by 3 functions for each function button
+		 */
 	}
 	/*
 	 * END LISTENER METHODS
 	 * BEGIN LOGIC METHODS
 	 */
-	
-	void selectBox(SmallBox box1) {
-		state1.selectedSmallBox.isSelected = false;
-		box1.isSelected = true;
-		state1.selectedSmallBox = box1;
-		//TODO  need to implement logic
-		// change 1-9 buttons to reflect the state of box1
-		// deselect previous selected smallbox
-	}
+
+	/*
+	 * END LOGIC METHODS
+	 */
 	
 	class StateInfo {
+		static final int SELECTING_FINAL_VALUE = 1;
+		static final int SELECTING_POSSIBLE_VALUE = 2;
+		static final int NONE = 3;
+		
 		boolean hasSelectedSmallBox;
 		SmallBox selectedSmallBox;
-		boolean selectingFinalValue;
-		boolean selectingPossibleValues;
+		int selectingState = NONE;
 	}
 
 }
