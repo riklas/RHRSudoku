@@ -10,7 +10,7 @@ import android.widget.Button;
 
 public class DigitButton extends Button {
 	Paint paint1, paint2, paint3, paint4, paint5, paint6;
-	GameActivity.StateInfo state1;
+	GameActivity.StateInfo state1; 
 	Drawable background;
 	/*
 	 * paint1	default background colour
