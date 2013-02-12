@@ -33,8 +33,7 @@ public class GameActivity extends Activity {
 	 * GLOBAL MEMBERS
 	 */
 	SudokuPuzzle puzzle;
-	SmallBox selectedSmallBox;
-	
+	StateInfo state1;
 	/*
 	 * BEGIN CALLBACKS
 	 */
@@ -163,10 +162,19 @@ public class GameActivity extends Activity {
 	 */
 	
 	void selectBox(SmallBox box1) {
+		state1.selectedSmallBox.isSelected = false;
 		box1.isSelected = true;
-		selectedSmallBox = box1;
+		state1.selectedSmallBox = box1;
 		//TODO  need to implement logic
 		// change 1-9 buttons to reflect the state of box1
+		// deselect previous selected smallbox
+	}
+	
+	class StateInfo {
+		SmallBox selectedSmallBox;
+		boolean selectingFinalValue;
+		boolean selectingPossibleValues;
+		
 	}
 
 }

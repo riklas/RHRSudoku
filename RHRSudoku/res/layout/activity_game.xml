@@ -25,59 +25,50 @@
         android:layout_gravity="center"
         >
 
-        <ToggleButton
+        <com.example.rhrsudoku.DigitButton
             android:id="@+id/one"
             style="@style/numpadButton"
-            android:textOn="@string/one"
-            android:textOff="@string/one" />
+            android:text="@string/one" />
 
-        <ToggleButton
+        <com.example.rhrsudoku.DigitButton
             android:id="@+id/two"
             style="@style/numpadButton"
-            android:textOn="@string/two"
-            android:textOff="@string/two" />
+            android:text="@string/two" />
 
-        <ToggleButton
+        <com.example.rhrsudoku.DigitButton
             android:id="@+id/three"
             style="@style/numpadButton"
-            android:textOn="@string/three"
-            android:textOff="@string/three" />
+            android:text="@string/three" />
 
-        <ToggleButton
+        <com.example.rhrsudoku.DigitButton
             android:id="@+id/four"
             style="@style/numpadButton"
-            android:textOn="@string/four"
-            android:textOff="@string/four" />
+            android:text="@string/four" />
             
-        <ToggleButton
+        <com.example.rhrsudoku.DigitButton
             android:id="@+id/five"
             style="@style/numpadButton"
-            android:textOn="@string/five"
-            android:textOff="@string/five" />
+            android:text="@string/five" />
 
-        <ToggleButton
+        <com.example.rhrsudoku.DigitButton
             android:id="@+id/six"
             style="@style/numpadButton"
-            android:textOn="@string/six"
-            android:textOff="@string/six" />
+            android:text="@string/six" />
 
-        <ToggleButton
+        <com.example.rhrsudoku.DigitButton
             android:id="@+id/seven"
             style="@style/numpadButton"
-            android:textOn="@string/seven"
-            android:textOff="@string/seven" />
+            android:text="@string/seven" />
 
-        <ToggleButton
+        <com.example.rhrsudoku.DigitButton
             android:id="@+id/eight"
             style="@style/numpadButton"
-            android:textOn="@string/eight"
-            android:textOff="@string/eight" />
+            android:text="@string/eight" />
 
-        <ToggleButton
+        <com.example.rhrsudoku.DigitButton
             android:id="@+id/nine"
             style="@style/numpadButton"
-            android:textOn="@string/nine"
-            android:textOff="@string/nine" />
+            android:text="@string/nine" />
     </LinearLayout>
     
     <LinearLayout 

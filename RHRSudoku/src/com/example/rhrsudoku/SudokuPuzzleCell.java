@@ -5,7 +5,7 @@ public class SudokuPuzzleCell {
 	 * represent a cell in a sudoku puzzle. not gui related class
 	 */
 	
-	static final int GENERATED = 1;
+	static final int GENERATED = 1; 
 	static final int USER_INPUT = 2;
 	static final int NONE = 3;
 	static final int SOLVER_GENERATED = 4;
