@@ -12,13 +12,13 @@ import exactCover.Quant;
 public class PuzzleTester1 {
 	public static void main(String[] args) {
 		PuzzleTester1 puzzleTester = new PuzzleTester1();
-		puzzleTester.runPuzzle2();
+		puzzleTester.runPuzzle1();
 	}
 	
 	void runPuzzle1() {
 		PuzzleTester1 tester1 = new PuzzleTester1();
 		SudokuSolver solver1 = new SudokuSolver();
-		HardcodedPuzzles HCP = new HardcodedPuzzles();
+		GeneratedPuzzles HCP = new GeneratedPuzzles();
 		SudokuPuzzle puzzle1 = HCP.getPuzzle(0);
 		puzzle1.printPuzzle();
 		System.out.println("SOLVING......");
