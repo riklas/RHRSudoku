@@ -94,7 +94,7 @@ public class GeneratedPuzzles implements SudokuGenerator {
 			targetPuzzle.puzzle[randx][randy].setValue(value);	// put the last value back
 			counter++;
 			
-			if (counter > ceilingCount) {		//if the iterations have not reached the minimum specified by count
+			if (counter > ceilingCount) {		//if the values have not reached the minimum specified by count don't return
 				continue;
 			}	
 			else break;				//only break when number of values is <= count
