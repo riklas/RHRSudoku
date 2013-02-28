@@ -1,7 +1,6 @@
 package com.example.rhrsudoku;
 
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import exactCover.Quant;
