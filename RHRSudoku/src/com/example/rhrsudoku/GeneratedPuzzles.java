@@ -11,7 +11,7 @@ public class GeneratedPuzzles implements SudokuGenerator {
 	Quant currentSolutions;
 	int value = 0;
 	int ceilingCount;
-	int floorCount;
+	int floorCount; 
 	
 	public GeneratedPuzzles() {
 	}
