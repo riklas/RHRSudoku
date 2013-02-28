@@ -240,10 +240,7 @@ public class GameActivity extends Activity {
 			else
 				state1.selectedSmallBox.addPossibleValue(db2.number1);
 		}
-		state1.selectedSmallBox.invalidate();
 		db2.invalidate();
-		
-		
 	}
 	
 	public void functionButtonClicked(View v) {

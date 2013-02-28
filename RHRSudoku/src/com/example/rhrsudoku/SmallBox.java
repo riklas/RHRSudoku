@@ -250,6 +250,7 @@ public class SmallBox extends View {
 		cell1.setValue(i); 
 		cell1.setInput(inputMethod);
 		displayState = FINAL_VALUE;
+		invalidate();
 	}
 	
 	public void clearFinalValue() {
@@ -259,6 +260,7 @@ public class SmallBox extends View {
 		}
 		cell1.hasValue = false;
 		displayState = NONE;
+		invalidate();
 	}
 	public void addPossibleValue(int i) {
 		if (!cell1.isEditable) {
