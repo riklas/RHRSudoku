@@ -28,7 +28,7 @@ public class SmallBox extends View {
 	private int displayState = NONE;
 	int size1 = 60;
 	int row, col;
-	//boolean hasPossibleValues = false;
+	//boolean hasPossibleValues = false; 
 	//boolean isEditable = true;
 	SudokuPuzzleCell cell1;
 	private SortedSet<Integer> possibleValues = new TreeSet<Integer>();
