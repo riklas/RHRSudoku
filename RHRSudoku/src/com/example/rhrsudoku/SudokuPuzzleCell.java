@@ -16,6 +16,7 @@ public class SudokuPuzzleCell {
 	private int value;
 	int inputMethod = NONE;			// change when set by a generator or the user resp.
 	SudokuPuzzleCell[] neighbours;
+	SmallBox box1;
 	
 	public SudokuPuzzleCell(int row, int column){
 		if (row<0 || row>8 || column<0 || column>8) {
@@ -24,6 +25,10 @@ public class SudokuPuzzleCell {
 		}
 		this.row = row;
 		this.column = column;
+	}
+	
+	public void setSmallBox(SmallBox box1) {
+		this.box1 = box1;
 	}
 	
 	public void setValue(int value) {

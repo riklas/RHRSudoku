@@ -21,27 +21,19 @@ public class SmallBox extends View {
 	static final int FINAL_VALUE = 2;
 	static final int NONE = 3;
 	
-	int displayState = NONE;
+	final float finalValueTextSize1 = 36f;
+	final float possibleValueTextSize1 = 10f;
+	
+	private int displayState = NONE;
 	int size1 = 60;
 	int row, col;
 	//boolean hasPossibleValues = false;
-	boolean isEditable = true;
+	//boolean isEditable = true;
 	SudokuPuzzleCell cell1;
 	private SortedSet<Integer> possibleValues = new TreeSet<Integer>();
 	String possibleValuesS = new String();
-	Paint paint1, paint2, paint3, paint4, paint5, paint6, paint7, paint8;
+	Paint[] paints = new Paint[13];
 	GameActivity.StateInfo state1;
-	
-	/*
-	 * paint1	text final value numbers
-	 * paint2	text possible value numbers
-	 * paint3	default background colour
-	 * paint4	solver generated background
-	 * paint5	conflicting cells background
-	 * paint6	generator generated background
-	 * paint7	selected and entering final value
-	 * paint8	selected and entering possible value
-	 */
 	
 	public SmallBox(Context context, GameActivity.StateInfo state1, 
 			SudokuPuzzleCell cell1, int row, int col) {
@@ -58,6 +50,7 @@ public class SmallBox extends View {
 		}
 		if (cell1.hasValue)
 			displayState = FINAL_VALUE;
+		cell1.setSmallBox(this);
 	}
 	
 	/*
@@ -78,46 +71,86 @@ public class SmallBox extends View {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		/*
-		 * paint1	text final value numbers
-		 * paint2	text possible value numbers
-		 * paint3	default background colour
-		 * paint4	solver generated background
-		 * paint5	conflicting cells background
-		 * paint6	generator generated background
-		 * paint7	selected and entering final value
-		 * paint8	selected and entering possible value
+		 * paints[0]	default text colour, user inputted numbers
+		 * paints[1]	text colour, solver generated numbers
+		 * paints[2]	text colour, generator generated numbers
+		 * paints[3]	text colour, conflicting number
+		 * paints[4]	text, possible values
+		 * paints[5]	text colour, selected, final value
+		 * paints[6]	text colour, selecting, possible value
+		 * 
+		 * paints[7]	generator generated background colour
+		 * paints[8]	default background colour, for user input
+		 * paints[9]	solver generated background colour	
+		 * paints[10]	conflicting cells background colour
+		 * paints[11]	selected and entering final value, background colour
+		 * paints[12]	selected and entering possible value, background colour 
 		 */
-		// draw background first
+		
+		onDrawBackground(canvas);
+		onDrawText(canvas);
+	}
+	
+	private void onDrawBackground(Canvas canvas) {
+		/*
+		 * priorities for drawing background:
+		 * 1) selected
+		 * 2) conflicting
+		 * 3) user generated
+		 * 4) generator generated
+		 * 5) solver generated
+		 */
 		if (state1.hasSelectedSmallBox && state1.selectedSmallBox == this) {
 			if (state1.selectingState == StateInfo.SELECTING_FINAL_VALUE)
-				canvas.drawPaint(paint7);
+				canvas.drawPaint(paints[11]);
 			else if (state1.selectingState == StateInfo.SELECTING_POSSIBLE_VALUE)
-				canvas.drawPaint(paint8);
+				canvas.drawPaint(paints[12]);
 		}
+		else if (cell1.isConflicting())
+			canvas.drawPaint(paints[10]);
+		else if (cell1.inputMethod == SudokuPuzzleCell.USER_INPUT)
+			canvas.drawPaint(paints[8]);
 		else if (cell1.inputMethod == SudokuPuzzleCell.GENERATED)
-			canvas.drawPaint(paint6);
+			canvas.drawPaint(paints[7]);
 		else if (cell1.inputMethod == SudokuPuzzleCell.SOLVER_GENERATED)
-			canvas.drawPaint(paint4);
+			canvas.drawPaint(paints[9]);
 		else
-			canvas.drawPaint(paint3);
-		
-		if (cell1.isConflicting())
-			canvas.drawPaint(paint5);
-		
-		// then draw text
-		
-		if (displayState == FINAL_VALUE) {
-			int xpos = canvas.getWidth()/2;
-			int ypos = (int) ((canvas.getHeight() / 2) - ((paint1.descent() + paint1.ascent()) / 2)) ; 
-			//((textPaint.descent() + textPaint.ascent()) / 2) is the distance from the baseline to the center.			
-			canvas.drawText(Integer.toString(cell1.getValue()), xpos, ypos, paint1);
-		}
-		else if (displayState == POSSIBLE_VALUES) {
-			canvas.drawText(possibleValuesS, 0, 0, paint2);
-		}
-		
-		
+			canvas.drawPaint(paints[8]);
+	}
+	
+	private void onDrawText(Canvas canvas) {
+		Paint selectedPaint = null;
+		int xpos = 0;
+		int ypos = 0;
+		String s = null;
+		if (displayState == SmallBox.NONE) {
 			return;
+		}
+		else if (displayState == SmallBox.FINAL_VALUE) {
+			if (cell1.inputMethod == SudokuPuzzleCell.GENERATED)
+				selectedPaint = paints[2];
+			else if (cell1.inputMethod == SudokuPuzzleCell.SOLVER_GENERATED)
+				selectedPaint = paints[1];
+			else if (cell1.isConflicting())
+				selectedPaint = paints[3];
+			else if (state1.hasSelectedSmallBox && state1.selectedSmallBox == this)
+				selectedPaint = paints[5];
+			else
+				selectedPaint = paints[0];
+			xpos = canvas.getWidth()/2;
+			ypos = (int) ((canvas.getHeight() / 2) - ((selectedPaint.descent() + selectedPaint.ascent()) / 2)) ;
+			s = Integer.toString(cell1.getValue());
+		}
+		else if (displayState == SmallBox.POSSIBLE_VALUES) {
+			if (state1.hasSelectedSmallBox && state1.selectedSmallBox == this)
+				selectedPaint = paints[6];
+			else
+				selectedPaint = paints[4];
+			xpos = ypos = 0;
+			s = possibleValuesS;
+		}
+		
+		canvas.drawText(s, xpos, ypos, selectedPaint);
 	}
 	
 	@Override
@@ -138,43 +171,51 @@ public class SmallBox extends View {
 	
 	private void createPaints() {
 		/*
-		 * paint1	text final value numbers
-		 * paint2	text possible value numbers
-		 * paint3	default background colour
-		 * paint4	solver generated background
-		 * paint5	conflicting cells background
-		 * paint6	generator generated background
-		 * paint7	selected and entering final value
-		 * paint8	selected and entering possible value
+		 * paints[0]	default text colour, user inputted numbers
+		 * paints[1]	text colour, solver generated numbers
+		 * paints[2]	text colour, generator generated numbers
+		 * paints[3]	text colour, conflicting number
+		 * paints[4]	text, possible values
+		 * paints[5]	text colour, selected, final value
+		 * paints[6]	text colour, selecting, possible value
+		 * 
+		 * paints[7]	generator generated background colour
+		 * paints[8]	default background colour, for user input
+		 * paints[9]	solver generated background colour	
+		 * paints[10]	conflicting cells background colour
+		 * paints[11]	selected and entering final value, background colour
+		 * paints[12]	selected and entering possible value, background colour 
 		 */
 		
 		// Get the screen's density scale
 		final float scale = getResources().getDisplayMetrics().density;
+		int finalValueTextSize2 = (int) (finalValueTextSize1 * scale + 0.5f);
+		int possibleValueTextSize2 = (int) (possibleValueTextSize1 * scale + 0.5f);
 		
-		paint1 = new Paint(); paint2 = new Paint(); paint3 = new Paint();
-		paint4 = new Paint(); paint5 = new Paint(); paint6 = new Paint();
-		paint7 = new Paint(); paint8 = new Paint();
+		for (int i=0;i<paints.length;i++) {
+			paints[i] = new Paint();
+			paints[i].setStyle(Style.FILL);
+			paints[i].setTextAlign(Paint.Align.CENTER);
+			paints[i].setTextSize(finalValueTextSize2);
+		}
 		
-		paint1.setColor(Color.BLACK);
-		paint2.setColor(Color.RED);
-		paint3.setColor(Color.WHITE);
-		paint4.setColor(Color.GREEN);
-		paint5.setColor(Color.RED);
-		paint6.setColor(Color.LTGRAY);
-		paint7.setColor(Color.BLUE);
-		paint8.setColor(Color.WHITE);
+		paints[0].setColor(Color.BLACK);
+		paints[1].setColor(Color.BLACK);
+		paints[2].setColor(Color.BLACK);
+		paints[3].setColor(Color.RED);
+		paints[4].setColor(Color.BLACK);
+		paints[5].setColor(Color.BLACK);
+		paints[6].setColor(Color.BLACK);
+		paints[7].setColor(Color.WHITE);
+		paints[8].setColor(Color.WHITE);
+		paints[9].setColor(Color.WHITE);
+		paints[10].setColor(Color.WHITE);
+		paints[11].setColor(Color.BLUE);
+		paints[12].setColor(Color.YELLOW);
 		
-		final float paint1TextSize = 36f;
-		final float paint2TextSize = 10f;
-		
-		paint3.setStyle(Style.FILL); paint4.setStyle(Style.FILL);
-		paint5.setStyle(Style.FILL); paint6.setStyle(Style.FILL); 
-		paint7.setStyle(Style.FILL); paint8.setStyle(Style.FILL);
-		
-		paint1.setTextAlign(Paint.Align.CENTER);
-		
-		paint1.setTextSize((int) (paint1TextSize * scale + 0.5f));
-		paint2.setTextSize((int) (paint2TextSize * scale + 0.5f));
+		paints[4].setTextSize(possibleValueTextSize2);
+		paints[6].setTextSize(possibleValueTextSize2);
+
 	}
 	
 	/*
@@ -197,7 +238,7 @@ public class SmallBox extends View {
 	}
 	
 	public void setFinalValue(int i, int inputMethod) {
-		if (!isEditable) {
+		if (!cell1.isEditable) {
 			System.err.println("ERROR: This cell is not editable");
 			return;
 		}
@@ -205,12 +246,19 @@ public class SmallBox extends View {
 			return;
 		cell1.setValue(i); 
 		cell1.setInput(inputMethod);
-		if (inputMethod == SudokuPuzzleCell.GENERATED)
-			this.isEditable = false;
 		displayState = FINAL_VALUE;
 	}
+	
+	public void clearFinalValue() {
+		if (!cell1.isEditable) {
+			System.err.println("ERROR: This cell is not editable");
+			return;
+		}
+		cell1.hasValue = false;
+		displayState = NONE;
+	}
 	public void addPossibleValue(int i) {
-		if (!isEditable) {
+		if (!cell1.isEditable) {
 			System.err.println("Error: this cell is not editable");
 			return;
 		}

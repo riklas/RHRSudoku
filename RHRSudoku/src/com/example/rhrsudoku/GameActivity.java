@@ -191,24 +191,39 @@ public class GameActivity extends Activity {
 		
 		if (state1.selectingState == StateInfo.SELECTING_FINAL_VALUE) {
 			/*
-			 * set has final value on cell
+			 * if cell already has same final value to be set, clear it instead
+			 * otherwise set has final value on cell
 			 * unset has possible values
 			 * set final value on cell
 			 * call invalidate on all digit buttons
 			 */
-			state1.selectedSmallBox.setFinalValue(db2.number1, SudokuPuzzleCell.USER_INPUT);
-			state1.selectedSmallBox.displayState = SmallBox.FINAL_VALUE;
-			for (DigitButton db : digits1)
-				db.invalidate();
+			boolean wasConflicting = state1.selectedSmallBox.cell1.isConflicting();
+			
+			if (state1.selectedSmallBox.cell1.hasValue && 
+					state1.selectedSmallBox.cell1.getValue() == db2.number1) {
+				state1.selectedSmallBox.clearFinalValue();
+			}
+			
+			else {
+				state1.selectedSmallBox.setFinalValue(db2.number1, SudokuPuzzleCell.USER_INPUT);
+				for (DigitButton db : digits1)
+					db.invalidate();
+			}
+			
+			if (wasConflicting || state1.selectedSmallBox.cell1.isConflicting()) {
+				for (SudokuPuzzleCell cell2 : state1.selectedSmallBox.cell1.neighbours) {
+					cell2.box1.invalidate();
+				}
+			}
 		}
 		else if (state1.selectingState == StateInfo.SELECTING_POSSIBLE_VALUE) {
 			if(state1.selectedSmallBox.containsPossibleValue(db2.number1))
 				state1.selectedSmallBox.removePossibleValue(db2.number1);
 			else
 				state1.selectedSmallBox.addPossibleValue(db2.number1);
-			state1.selectedSmallBox.displayState = SmallBox.POSSIBLE_VALUES;
-			db2.invalidate();
 		}
+		state1.selectedSmallBox.invalidate();
+		db2.invalidate();
 		
 		
 	}
