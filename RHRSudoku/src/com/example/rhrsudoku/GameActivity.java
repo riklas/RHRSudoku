@@ -1,14 +1,15 @@
 package com.example.rhrsudoku;
 
-import com.example.rhrsudoku.R;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Paint;
+import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.view.*;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
 
 public class GameActivity extends Activity {
@@ -137,6 +138,11 @@ public class GameActivity extends Activity {
 	}
 	
 	private void createSmallBoxes() {
+		Point size = new Point();
+		getWindowManager().getDefaultDisplay().getSize(size);
+		int screenWidth = size.x;
+		int screenHeight = size.y;
+		int cellSize = screenWidth/10;
 		ViewGroup grid1 = (ViewGroup) findViewById(R.id.gridLayout1);
 		View.OnClickListener SmallBoxlistener1 = getSmallBoxListener();
 		//creating small boxes
@@ -144,6 +150,7 @@ public class GameActivity extends Activity {
 			for(int col=0; col<9; col++) {
 				SmallBox box1 = new SmallBox(this, this.state1, puzzle.puzzle[row][col], row, col);
 				box1.setOnClickListener(SmallBoxlistener1);
+				box1.size1 = cellSize;
 				grid1.addView(box1);
 			}
 		}

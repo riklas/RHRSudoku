@@ -22,7 +22,7 @@ public class SmallBox extends View {
 	static final int NONE = 3;
 	
 	int displayState = NONE;
-	int size1 = 30;
+	int size1 = 60;
 	int row, col;
 	//boolean hasPossibleValues = false;
 	boolean isEditable = true;
@@ -37,13 +37,7 @@ public class SmallBox extends View {
 	 * paint2	text possible value numbers
 	 * paint3	default background colour
 	 * paint4	solver generated background
-	 * paint5	conf	 * paint2	text possible value numbers
-	 * paint3	default background colour
-	 * paint4	solver generated background
 	 * paint5	conflicting cells background
-	 * paint6	generator generated background
-	 * paint7	selected and entering final value
-	 * paint8	selected and entering possible valuelicting cells background
 	 * paint6	generator generated background
 	 * paint7	selected and entering final value
 	 * paint8	selected and entering possible value
@@ -142,6 +136,20 @@ public class SmallBox extends View {
 	 */
 	
 	private void createPaints() {
+		/*
+		 * paint1	text final value numbers
+		 * paint2	text possible value numbers
+		 * paint3	default background colour
+		 * paint4	solver generated background
+		 * paint5	conflicting cells background
+		 * paint6	generator generated background
+		 * paint7	selected and entering final value
+		 * paint8	selected and entering possible value
+		 */
+		
+		// Get the screen's density scale
+		final float scale = getResources().getDisplayMetrics().density;
+		
 		paint1 = new Paint(); paint2 = new Paint(); paint3 = new Paint();
 		paint4 = new Paint(); paint5 = new Paint(); paint6 = new Paint();
 		paint7 = new Paint(); paint8 = new Paint();
@@ -155,10 +163,15 @@ public class SmallBox extends View {
 		paint7.setColor(Color.BLUE);
 		paint8.setColor(Color.WHITE);
 		
+		final float paint1TextSize = 36f;
+		final float paint2TextSize = 10f;
+		
 		paint3.setStyle(Style.FILL); paint4.setStyle(Style.FILL);
 		paint5.setStyle(Style.FILL); paint6.setStyle(Style.FILL); 
 		paint7.setStyle(Style.FILL); paint8.setStyle(Style.FILL);
 		
+		paint1.setTextSize((int) (paint1TextSize * scale + 0.5f));
+		paint2.setTextSize((int) (paint2TextSize * scale + 0.5f));
 	}
 	
 	/*

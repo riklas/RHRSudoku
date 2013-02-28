@@ -58,6 +58,9 @@ public class DigitButton extends Button {
 	
 	
 	final private void createPaints() {
+		// Get the screen's density scale
+		final float scale = getResources().getDisplayMetrics().density;
+		
 		paint1 = new Paint();
 		paint2 = new Paint();
 		paint3 = new Paint();
@@ -79,6 +82,12 @@ public class DigitButton extends Button {
 		paint5.setStyle(Style.FILL);
 		
 		paint6.setTextAlign(Paint.Align.CENTER);
+		
+		// TextSize expressed in DP
+		final float textSize1 = 40.0f;
+		// Convert the dps to pixels, based on density scale
+		int textSize2 = (int) (textSize1 * scale + 0.5f);
+		paint6.setTextSize(textSize2);
 	}
 	
 }
