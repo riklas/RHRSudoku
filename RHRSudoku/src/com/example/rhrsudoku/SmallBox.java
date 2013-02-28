@@ -107,9 +107,10 @@ public class SmallBox extends View {
 		// then draw text
 		
 		if (displayState == FINAL_VALUE) {
-			int x = getWidth()/2;
-			int y = getHeight()/2;
-			canvas.drawText(Integer.toString(cell1.getValue()), x, y, paint1);
+			int xpos = canvas.getWidth()/2;
+			int ypos = (int) ((canvas.getHeight() / 2) - ((paint1.descent() + paint1.ascent()) / 2)) ; 
+			//((textPaint.descent() + textPaint.ascent()) / 2) is the distance from the baseline to the center.			
+			canvas.drawText(Integer.toString(cell1.getValue()), xpos, ypos, paint1);
 		}
 		else if (displayState == POSSIBLE_VALUES) {
 			canvas.drawText(possibleValuesS, 0, 0, paint2);
@@ -169,6 +170,8 @@ public class SmallBox extends View {
 		paint3.setStyle(Style.FILL); paint4.setStyle(Style.FILL);
 		paint5.setStyle(Style.FILL); paint6.setStyle(Style.FILL); 
 		paint7.setStyle(Style.FILL); paint8.setStyle(Style.FILL);
+		
+		paint1.setTextAlign(Paint.Align.CENTER);
 		
 		paint1.setTextSize((int) (paint1TextSize * scale + 0.5f));
 		paint2.setTextSize((int) (paint2TextSize * scale + 0.5f));
