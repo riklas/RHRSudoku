@@ -22,6 +22,7 @@ public class SmallBox extends View {
 	static final int NONE = 3;
 	
 	final float finalValueTextSize1 = 36f;
+	final float generatedValueTextSize1 = 42f;
 	final float possibleValueTextSize1 = 10f;
 	
 	private int displayState = NONE;
@@ -190,6 +191,7 @@ public class SmallBox extends View {
 		// Get the screen's density scale
 		final float scale = getResources().getDisplayMetrics().density;
 		int finalValueTextSize2 = (int) (finalValueTextSize1 * scale + 0.5f);
+		int generatedValueTextSize2 = (int) (generatedValueTextSize1 * scale + 0.5f);
 		int possibleValueTextSize2 = (int) (possibleValueTextSize1 * scale + 0.5f);
 		
 		for (int i=0;i<paints.length;i++) {
@@ -210,9 +212,10 @@ public class SmallBox extends View {
 		paints[8].setColor(Color.WHITE);
 		paints[9].setColor(Color.WHITE);
 		paints[10].setColor(Color.WHITE);
-		paints[11].setColor(Color.BLUE);
+		paints[11].setColor(0xFFCCE3FF);
 		paints[12].setColor(Color.YELLOW);
 		
+		paints[2].setTextSize(generatedValueTextSize2);
 		paints[4].setTextSize(possibleValueTextSize2);
 		paints[6].setTextSize(possibleValueTextSize2);
 
