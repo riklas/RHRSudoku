@@ -108,16 +108,27 @@ public class GameActivity extends Activity {
 	 * BEGIN CREATION METHODS
 	 */
 	
-	View.OnClickListener getSmallBoxListener() {
+	View.OnClickListener getSmallBoxOnClickListener() {
 		View.OnClickListener listener1 = new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				smallBoxClicked(v);
 			}
 		};
 		return listener1;
+	}
+	
+	View.OnLongClickListener getSmallBoxOnLongClickListener() {
+		View.OnLongClickListener listener2 = new View.OnLongClickListener() {
+			
+			@Override
+			public boolean onLongClick(View v) {
+				smallBoxLongClicked(v);
+				return true;
+			}
+		};
+		return listener2;
 	}
 	
 	private void initializeDigitButtons() {
@@ -144,7 +155,7 @@ public class GameActivity extends Activity {
 		int screenHeight = size.y;
 		int cellSize = screenWidth/10;
 		ViewGroup grid1 = (ViewGroup) findViewById(R.id.gridLayout1);
-		View.OnClickListener SmallBoxlistener1 = getSmallBoxListener();
+		View.OnClickListener SmallBoxlistener1 = getSmallBoxOnClickListener();
 		//creating small boxes
 		for(int row=0; row<9; row++) {
 			for(int col=0; col<9; col++) {
@@ -180,6 +191,13 @@ public class GameActivity extends Activity {
 		sb2.invalidate();
 		for (DigitButton db : digits1)
 			db.invalidate();
+	}
+	
+	public void smallBoxLongClicked(View v) {
+		SmallBox sb2 = (SmallBox) v;
+		SmallBox sb1 = state1.selectedSmallBox;
+		state1.selectedSmallBox = sb2;
+		state1.hasSelectedSmallBox = true;
 	}
 	
 	public void digitButtonClicked(View v) {
