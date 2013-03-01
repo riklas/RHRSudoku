@@ -182,14 +182,19 @@ public class SmallBox extends View {
 	}
 	
 	private void drawBorder(Canvas canvas) {
-		drawBorder2(canvas, row, VERTICAL);
-		drawBorder2(canvas, col, HORIZONTAL);
-	}
-	
-	private void drawBorder2(Canvas canvas, int rowcol, int orientation) {
 		Paint minor = paints[13];
 		Paint major = paints[14];
 		Paint edge = paints[15];
+		
+		drawBorder2(canvas, minor);
+		drawBorder2(canvas, major);
+		drawBorder2(canvas, edge);
+	}
+	private void drawBorder2(Canvas canvas, Paint paint) {
+		drawBorder3(canvas, row, VERTICAL, paint);
+		drawBorder3(canvas, col, HORIZONTAL, paint);
+	}
+	private void drawBorder3(Canvas canvas, int rowcol, int orientation, Paint p) {
 		int head, tail;
 		if (orientation == VERTICAL) {
 			head = TOP;
@@ -199,9 +204,10 @@ public class SmallBox extends View {
 			head = LEFT;
 			tail = RIGHT;
 		}
-		drawBorderLine(canvas, head, gridLinePaintList[rowcol]);
-		drawBorderLine(canvas, tail, gridLinePaintList[rowcol + 1]);
-		
+		if (p==gridLinePaintList[rowcol])
+			drawBorderLine(canvas, head, gridLinePaintList[rowcol]);
+		if (p==gridLinePaintList[rowcol+1])
+			drawBorderLine(canvas, tail, gridLinePaintList[rowcol + 1]);
 	}
 	private void drawBorderLine(Canvas canvas, int side, Paint paint) {
 		if (side == TOP)
@@ -304,7 +310,7 @@ public class SmallBox extends View {
 		paints[15].setStyle(Paint.Style.STROKE);
 		paints[13].setStrokeWidth(2f);
 		paints[14].setStrokeWidth(3f);
-		paints[15].setStrokeWidth(6f);
+		paints[15].setStrokeWidth(12f);
 		paints[13].setAlpha(250);
 		paints[14].setAlpha(250);
 		paints[15].setAlpha(250);

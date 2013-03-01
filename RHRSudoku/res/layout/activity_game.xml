@@ -4,18 +4,26 @@
     android:layout_height="match_parent"
     android:id="@+id/linearLayout1"
     android:orientation="vertical"
+    android:background="@drawable/border"
     >
     
-    <com.example.rhrsudoku.SudokuPuzzleLayout
+    <FrameLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        
+        >
+    <GridLayout
         android:id="@+id/gridLayout1"
         android:rowCount="9"
         android:columnCount="9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1" 
         android:layout_gravity="center"
+        android:padding="10dp"
         >
-    </com.example.rhrsudoku.SudokuPuzzleLayout>
+    </GridLayout>
+    </FrameLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

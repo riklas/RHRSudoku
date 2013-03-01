@@ -156,7 +156,12 @@ public class GameActivity extends Activity {
 		getWindowManager().getDefaultDisplay().getSize(size);
 		int screenWidth = size.x;
 		int screenHeight = size.y;
-		int cellSize = screenWidth/10;
+		int screenSmallest;
+		if (screenWidth<screenHeight)
+			screenSmallest = screenWidth;
+		else
+			screenSmallest = screenHeight;
+		int cellSize = screenSmallest/10;
 		ViewGroup grid1 = (ViewGroup) findViewById(R.id.gridLayout1);
 		View.OnClickListener listener1 = getSmallBoxOnClickListener();
 		View.OnLongClickListener listener2 = getSmallBoxOnLongClickListener();
