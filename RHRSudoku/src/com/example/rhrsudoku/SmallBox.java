@@ -23,7 +23,7 @@ public class SmallBox extends View {
 	
 	final float finalValueTextSize1 = 36f;
 	final float generatedValueTextSize1 = 42f;
-	final float possibleValueTextSize1 = 10f;
+	final float possibleValueTextSize1 = 16f;
 	
 	private int displayState = NONE;
 	int size1 = 60;
@@ -37,12 +37,13 @@ public class SmallBox extends View {
 	GameActivity.StateInfo state1;
 	
 	public SmallBox(Context context, GameActivity.StateInfo state1, 
-			SudokuPuzzleCell cell1, int row, int col) {
+			SudokuPuzzleCell cell1, int row, int col, int size) {
 		super(context);
 		this.state1 = state1;
 		this.cell1 = cell1;
 		this.row = row;
 		this.col = col;
+		this.size1 = size;
 		//setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 		createPaints();
 		if (row<0 || row>8 || col<0 || col>8) {
@@ -141,17 +142,29 @@ public class SmallBox extends View {
 			xpos = canvas.getWidth()/2;
 			ypos = (int) ((canvas.getHeight() / 2) - ((selectedPaint.descent() + selectedPaint.ascent()) / 2)) ;
 			s = Integer.toString(cell1.getValue());
+			canvas.drawText(s, xpos, ypos, selectedPaint);
 		}
 		else if (displayState == SmallBox.POSSIBLE_VALUES) {
 			if (state1.hasSelectedSmallBox && state1.selectedSmallBox == this)
 				selectedPaint = paints[6];
 			else
 				selectedPaint = paints[4];
-			xpos = ypos = 0;
 			s = possibleValuesS;
+			xpos = canvas.getWidth()/2;
+			ypos = (int) ((canvas.getHeight() / 2) - ((selectedPaint.descent() + selectedPaint.ascent()) / 2)) ;
+
+			String[] lines1 = s.split("\n");
+			Rect bounds = new Rect();
+			int yoff = 0;
+			for (int i=0;i<lines1.length;i++) {
+				canvas.drawText(lines1[i], xpos, ypos + yoff, selectedPaint);
+				selectedPaint.getTextBounds(lines1[i], 0, lines1[i].length(), bounds);
+				yoff += bounds.height();
+			}
+			
+			//
+			//
 		}
-		
-		canvas.drawText(s, xpos, ypos, selectedPaint);
 	}
 	
 	@Override
@@ -232,6 +245,8 @@ public class SmallBox extends View {
 		 */
 		possibleValuesS = new String();
 		for (Integer i : possibleValues) {
+			if (possibleValuesS.length() == 4)
+				possibleValuesS = possibleValuesS.concat("\n");
 			possibleValuesS = possibleValuesS.concat(Integer.toString(i));
 		}
 	}
@@ -259,7 +274,10 @@ public class SmallBox extends View {
 			return;
 		}
 		cell1.hasValue = false;
-		displayState = NONE;
+		if (!possibleValues.isEmpty())
+			displayState = SmallBox.POSSIBLE_VALUES;
+		else
+			displayState = SmallBox.NONE;
 		invalidate();
 	}
 	public void addPossibleValue(int i) {

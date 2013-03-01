@@ -155,13 +155,14 @@ public class GameActivity extends Activity {
 		int screenHeight = size.y;
 		int cellSize = screenWidth/10;
 		ViewGroup grid1 = (ViewGroup) findViewById(R.id.gridLayout1);
-		View.OnClickListener SmallBoxlistener1 = getSmallBoxOnClickListener();
+		View.OnClickListener listener1 = getSmallBoxOnClickListener();
+		View.OnLongClickListener listener2 = getSmallBoxOnLongClickListener();
 		//creating small boxes
 		for(int row=0; row<9; row++) {
 			for(int col=0; col<9; col++) {
-				SmallBox box1 = new SmallBox(this, this.state1, puzzle.puzzle[row][col], row, col);
-				box1.setOnClickListener(SmallBoxlistener1);
-				box1.size1 = cellSize;
+				SmallBox box1 = new SmallBox(this, this.state1, puzzle.puzzle[row][col], row, col, cellSize);
+				box1.setOnClickListener(listener1);
+				box1.setOnLongClickListener(listener2);
 				grid1.addView(box1);
 			}
 		}
@@ -198,6 +199,13 @@ public class GameActivity extends Activity {
 		SmallBox sb1 = state1.selectedSmallBox;
 		state1.selectedSmallBox = sb2;
 		state1.hasSelectedSmallBox = true;
+		state1.selectingState = StateInfo.SELECTING_POSSIBLE_VALUE;
+
+		if (sb1 != null)
+			sb1.invalidate();
+		sb2.invalidate();
+		for (DigitButton db : digits1)
+			db.invalidate();
 	}
 	
 	public void digitButtonClicked(View v) {
