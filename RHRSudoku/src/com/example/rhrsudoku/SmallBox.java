@@ -16,24 +16,29 @@ import com.example.rhrsudoku.GameActivity.StateInfo;
 
 public class SmallBox extends View {	
 	
-	static final int POSSIBLE_VALUES = 1;
-	static final int FINAL_VALUE = 2;
-	static final int NONE = 3;
-	
-	final float finalValueTextSize1 = 36f;
-	final float generatedValueTextSize1 = 42f;
-	final float possibleValueTextSize1 = 16f;
+	private static final int POSSIBLE_VALUES = 1;
+	private static final int FINAL_VALUE = 2;
+	private static final int NONE = 3;
+	private static final int TOP = 4;
+	private static final int BOTTOM = 5;
+	private static final int RIGHT = 6;
+	private static final int LEFT = 7;
+	private static final int HORIZONTAL = 8;
+	private static final int VERTICAL = 9;
+		
+	final static float finalValueTextSize1 = 36f;
+	final static float generatedValueTextSize1 = 42f;
+	final static float possibleValueTextSize1 = 16f;
+	static float scale;
 	
 	private int displayState = NONE;
 	int size1 = 60;
 	int row, col;
-	//boolean hasPossibleValues = false; 
-	//boolean isEditable = true;
 	SudokuPuzzleCell cell1;
 	private SortedSet<Integer> possibleValues = new TreeSet<Integer>();
 	String possibleValuesS = new String();
-	private ShapeDrawable border;
-	Paint[] paints = new Paint[13];
+	private static Paint[] paints = new Paint[16];
+	private static Paint[] gridLinePaintList = new Paint[10];
 	GameActivity.StateInfo state1;
 	
 	public SmallBox(Context context, GameActivity.StateInfo state1, 
@@ -46,14 +51,14 @@ public class SmallBox extends View {
 		this.size1 = size;
 		//setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 		createPaints();
-		border = createBorder();
+		createGridLinePaintList();
 		if (row<0 || row>8 || col<0 || col>8) {
 			System.err.println("ERRONEOUS ROW/COL");
 			System.exit(1);
 		}
 		if (cell1.hasValue)
 			displayState = FINAL_VALUE;
-		
+		scale = getResources().getDisplayMetrics().density;
 		cell1.setSmallBox(this);
 	}
 	
@@ -88,7 +93,11 @@ public class SmallBox extends View {
 		 * paints[9]	solver generated background colour	
 		 * paints[10]	conflicting cells background colour
 		 * paints[11]	selected and entering final value, background colour
-		 * paints[12]	selected and entering possible value, background colour 
+		 * paints[12]	selected and entering possible value, background colour
+		 * 
+		 * paints[13]	minor gridLine
+		 * paints[14]	major gridLine
+		 * paints[15]	edge gridLine
 		 */
 		
 		onDrawBackground(canvas);
@@ -168,7 +177,41 @@ public class SmallBox extends View {
 	}
 	
 	private void onDrawBorder(Canvas canvas) {
-		border.draw(canvas);
+		drawBorder(canvas);
+		//border.draw(canvas);
+	}
+	
+	private void drawBorder(Canvas canvas) {
+		drawBorder2(canvas, row, VERTICAL);
+		drawBorder2(canvas, col, HORIZONTAL);
+	}
+	
+	private void drawBorder2(Canvas canvas, int rowcol, int orientation) {
+		Paint minor = paints[13];
+		Paint major = paints[14];
+		Paint edge = paints[15];
+		int head, tail;
+		if (orientation == VERTICAL) {
+			head = TOP;
+			tail = BOTTOM;
+		}
+		else {
+			head = LEFT;
+			tail = RIGHT;
+		}
+		drawBorderLine(canvas, head, gridLinePaintList[rowcol]);
+		drawBorderLine(canvas, tail, gridLinePaintList[rowcol + 1]);
+		
+	}
+	private void drawBorderLine(Canvas canvas, int side, Paint paint) {
+		if (side == TOP)
+			canvas.drawLine(0, 0, size1, 0, paint);
+		else if (side == BOTTOM)
+			canvas.drawLine(0, size1, size1, size1, paint);
+		else if (side == RIGHT)
+			canvas.drawLine(size1, 0, size1, size1, paint);
+		else if (side == LEFT)
+			canvas.drawLine(0, 0, 0, size1, paint);
 	}
 	
 	@Override
@@ -188,6 +231,7 @@ public class SmallBox extends View {
 	 */
 	
 	private ShapeDrawable createBorder() {
+		// UNUSED
 		ShapeDrawable border = new ShapeDrawable();
 		border.setBounds(0,0,size1,size1);
 		Paint paint = border.getPaint();
@@ -200,7 +244,7 @@ public class SmallBox extends View {
 		return border;		
 	}
 	
-	private void createPaints() {
+	private static void createPaints() {
 		/*
 		 * paints[0]	default text colour, user inputted numbers
 		 * paints[1]	text colour, solver generated numbers
@@ -216,10 +260,13 @@ public class SmallBox extends View {
 		 * paints[10]	conflicting cells background colour
 		 * paints[11]	selected and entering final value, background colour
 		 * paints[12]	selected and entering possible value, background colour 
+		 * 
+		 * paints[13]	minor gridLine
+		 * paints[14]	major gridLine
+		 * paints[15]	edge gridLine
 		 */
 		
 		// Get the screen's density scale
-		final float scale = getResources().getDisplayMetrics().density;
 		int finalValueTextSize2 = (int) (finalValueTextSize1 * scale + 0.5f);
 		int generatedValueTextSize2 = (int) (generatedValueTextSize1 * scale + 0.5f);
 		int possibleValueTextSize2 = (int) (possibleValueTextSize1 * scale + 0.5f);
@@ -244,11 +291,34 @@ public class SmallBox extends View {
 		paints[10].setColor(Color.WHITE);
 		paints[11].setColor(0xFFCCE3FF);
 		paints[12].setColor(Color.YELLOW);
+		paints[13].setColor(Color.LTGRAY);
+		paints[14].setColor(Color.BLACK);
+		paints[15].setColor(Color.BLACK);
 		
 		paints[2].setTextSize(generatedValueTextSize2);
 		paints[4].setTextSize(possibleValueTextSize2);
 		paints[6].setTextSize(possibleValueTextSize2);
-
+		
+		paints[13].setStyle(Paint.Style.STROKE);
+		paints[14].setStyle(Paint.Style.STROKE);
+		paints[15].setStyle(Paint.Style.STROKE);
+		paints[13].setStrokeWidth(2f);
+		paints[14].setStrokeWidth(3f);
+		paints[15].setStrokeWidth(6f);
+		paints[13].setAlpha(250);
+		paints[14].setAlpha(250);
+		paints[15].setAlpha(250);
+	}
+	
+	static void createGridLinePaintList() {
+		Paint minor = paints[13];
+		Paint major = paints[14];
+		Paint edge = paints[15];
+		gridLinePaintList[0] = edge; gridLinePaintList[1] = minor; 
+		gridLinePaintList[2] = minor; gridLinePaintList[3] = major; 
+		gridLinePaintList[4] = minor; gridLinePaintList[5] = minor;
+		gridLinePaintList[6] = major; gridLinePaintList[7] = minor; 
+		gridLinePaintList[8] = minor; gridLinePaintList[9] = edge;
 	}
 	
 	/*
