@@ -1,8 +1,11 @@
 package com.example.rhrsudoku;
 
+import android.R.color;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.drawable.ShapeDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;

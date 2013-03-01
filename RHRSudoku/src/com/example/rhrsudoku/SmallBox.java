@@ -3,17 +3,16 @@ package com.example.rhrsudoku;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import com.example.rhrsudoku.GameActivity.StateInfo;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.View;
+
+import com.example.rhrsudoku.GameActivity.StateInfo;
 
 public class SmallBox extends View {	
 	
@@ -91,6 +90,7 @@ public class SmallBox extends View {
 		
 		onDrawBackground(canvas);
 		onDrawText(canvas);
+		onDrawBorder(canvas);
 	}
 	
 	private void onDrawBackground(Canvas canvas) {
@@ -159,12 +159,18 @@ public class SmallBox extends View {
 			for (int i=0;i<lines1.length;i++) {
 				canvas.drawText(lines1[i], xpos, ypos + yoff, selectedPaint);
 				selectedPaint.getTextBounds(lines1[i], 0, lines1[i].length(), bounds);
-				yoff += bounds.height();
+				yoff += bounds.height() + 2;
 			}
-			
-			//
-			//
 		}
+	}
+	
+	private void onDrawBorder(Canvas canvas) {
+		Drawable d = getResources().getDrawable(R.drawable.border);
+		d.draw(canvas);
+		Paint p = new Paint();
+		p.setColor(Color.GREEN);
+		p.setStyle(Paint.Style.FILL_AND_STROKE);
+		canvas.drawLine(2, 2, 10, 10, p);
 	}
 	
 	@Override
@@ -299,6 +305,7 @@ public class SmallBox extends View {
 	}
 	public void removePossibleValue(int i) {
 		possibleValues.remove(i);
+		displayState = SmallBox.POSSIBLE_VALUES;
 		if (possibleValues.isEmpty())
 			displayState = NONE;
 		calculatePossibleValuesS();
