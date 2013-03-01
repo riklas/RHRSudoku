@@ -9,7 +9,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.view.View;
 
 import com.example.rhrsudoku.GameActivity.StateInfo;
@@ -32,6 +32,7 @@ public class SmallBox extends View {
 	SudokuPuzzleCell cell1;
 	private SortedSet<Integer> possibleValues = new TreeSet<Integer>();
 	String possibleValuesS = new String();
+	private ShapeDrawable border;
 	Paint[] paints = new Paint[13];
 	GameActivity.StateInfo state1;
 	
@@ -45,12 +46,14 @@ public class SmallBox extends View {
 		this.size1 = size;
 		//setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 		createPaints();
+		border = createBorder();
 		if (row<0 || row>8 || col<0 || col>8) {
 			System.err.println("ERRONEOUS ROW/COL");
 			System.exit(1);
 		}
 		if (cell1.hasValue)
 			displayState = FINAL_VALUE;
+		
 		cell1.setSmallBox(this);
 	}
 	
@@ -165,12 +168,7 @@ public class SmallBox extends View {
 	}
 	
 	private void onDrawBorder(Canvas canvas) {
-		Drawable d = getResources().getDrawable(R.drawable.border);
-		d.draw(canvas);
-		Paint p = new Paint();
-		p.setColor(Color.GREEN);
-		p.setStyle(Paint.Style.FILL_AND_STROKE);
-		canvas.drawLine(2, 2, 10, 10, p);
+		border.draw(canvas);
 	}
 	
 	@Override
@@ -188,6 +186,19 @@ public class SmallBox extends View {
 	 * END CALLBACKS
 	 * BEGIN BUILDER METHODS
 	 */
+	
+	private ShapeDrawable createBorder() {
+		ShapeDrawable border = new ShapeDrawable();
+		border.setBounds(0,0,size1,size1);
+		Paint paint = border.getPaint();
+		paint.setStyle(Paint.Style.STROKE);
+		if (row == 0 || row == 3 || row == 6) {
+			//TODO
+			// add a thick border to the top
+		}
+		
+		return border;		
+	}
 	
 	private void createPaints() {
 		/*
