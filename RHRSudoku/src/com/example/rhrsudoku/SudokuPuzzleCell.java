@@ -56,11 +56,11 @@ public class SudokuPuzzleCell {
 		return inputMethod;
 	}
 	
-	public int getValue() {
+	public Integer getValue() {
 		if (this.hasValue)
 			return value;
 		else
-			return (Integer) null;
+			return null;
 	}
 	
 	public void setNeighbours(SudokuPuzzleCell[] neighbours) {

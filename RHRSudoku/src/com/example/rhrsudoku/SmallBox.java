@@ -141,6 +141,8 @@ public class SmallBox extends View {
 			return;
 		}
 		else if (displayState == SmallBox.FINAL_VALUE) {
+			if (cell1.getValue() == null)
+				return;
 			if (cell1.inputMethod == SudokuPuzzleCell.GENERATED)
 				selectedPaint = paints[2];
 			else if (cell1.inputMethod == SudokuPuzzleCell.SOLVER_GENERATED)
@@ -153,10 +155,13 @@ public class SmallBox extends View {
 				selectedPaint = paints[0];
 			xpos = canvas.getWidth()/2;
 			ypos = (int) ((canvas.getHeight() / 2) - ((selectedPaint.descent() + selectedPaint.ascent()) / 2)) ;
+			
 			s = Integer.toString(cell1.getValue());
 			canvas.drawText(s, xpos, ypos, selectedPaint);
 		}
 		else if (displayState == SmallBox.POSSIBLE_VALUES) {
+			if (possibleValues.isEmpty())
+				return;
 			if (state1.hasSelectedSmallBox && state1.selectedSmallBox == this)
 				selectedPaint = paints[6];
 			else
