@@ -10,6 +10,8 @@ import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
 import android.graphics.drawable.ShapeDrawable;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 
 import com.example.rhrsudoku.GameActivity.StateInfo;
@@ -81,7 +83,7 @@ public class SmallBox extends View {
 	protected void onDraw(Canvas canvas) {
 		/*
 		 * paints[0]	default text colour, user inputted numbers
-		 * paints[1]	text colour, solver generated numbers
+		 * paints[1]	text colour, hint generated numbers
 		 * paints[2]	text colour, generator generated numbers
 		 * paints[3]	text colour, conflicting number
 		 * paints[4]	text, possible values
@@ -126,7 +128,7 @@ public class SmallBox extends View {
 			canvas.drawPaint(paints[8]);
 		else if (cell1.inputMethod == SudokuPuzzleCell.GENERATED)
 			canvas.drawPaint(paints[7]);
-		else if (cell1.inputMethod == SudokuPuzzleCell.SOLVER_GENERATED)
+		else if (cell1.inputMethod == SudokuPuzzleCell.HINT_GENERATED)
 			canvas.drawPaint(paints[9]);
 		else
 			canvas.drawPaint(paints[8]);
@@ -145,7 +147,7 @@ public class SmallBox extends View {
 				return;
 			if (cell1.inputMethod == SudokuPuzzleCell.GENERATED)
 				selectedPaint = paints[2];
-			else if (cell1.inputMethod == SudokuPuzzleCell.SOLVER_GENERATED)
+			else if (cell1.inputMethod == SudokuPuzzleCell.HINT_GENERATED)
 				selectedPaint = paints[1];
 			else if (cell1.isConflicting())
 				selectedPaint = paints[3];
@@ -236,6 +238,25 @@ public class SmallBox extends View {
 		}
 	}
 	
+	@Override
+	protected Parcelable onSaveInstanceState() {
+		/**
+		 * has final value
+		 * final value
+		 * possiblevalue
+		 * isEditable
+		 * row,column
+		 * 
+		 */
+		Bundle bundle = new Bundle();
+		bundle.putBoolean("hasFinalValue", cell1.hasValue);
+		bundle.putInt("finalValue", cell1.getValue());
+		bundle.putInt("intputMethod", cell1.inputMethod);
+		bundle.putString("possibleValuesS", this.possibleValuesS);
+		return bundle;
+		
+	}
+	
 	/*
 	 * END CALLBACKS
 	 * BEGIN BUILDER METHODS
@@ -258,7 +279,7 @@ public class SmallBox extends View {
 	private static void createPaints() {
 		/*
 		 * paints[0]	default text colour, user inputted numbers
-		 * paints[1]	text colour, solver generated numbers
+		 * paints[1]	text colour, hint generated numbers
 		 * paints[2]	text colour, generator generated numbers
 		 * paints[3]	text colour, conflicting number
 		 * paints[4]	text, possible values

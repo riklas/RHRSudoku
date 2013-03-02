@@ -1,5 +1,7 @@
 package com.example.rhrsudoku;
 
+import android.os.Bundle;
+
 public class SudokuPuzzleCell {
 	/*
 	 * represent a cell in a sudoku puzzle. not gui related class
@@ -8,9 +10,10 @@ public class SudokuPuzzleCell {
 	static final int GENERATED = 1; 
 	static final int USER_INPUT = 2;
 	static final int NONE = 3;
-	static final int SOLVER_GENERATED = 4;
+	static final int HINT_GENERATED = 4;
+	static final int SOLVER_GENERATED = 5;
 	
-	int row, column;// from 0-8
+	int row, col;// from 0-8
 	boolean hasValue = false;
 	boolean isEditable = true;
 	private int value;
@@ -24,7 +27,16 @@ public class SudokuPuzzleCell {
 			return;
 		}
 		this.row = row;
-		this.column = column;
+		this.col = column;
+	}
+	
+	public Bundle createSaveBundle() {
+		Bundle bundle = new Bundle();
+		bundle.putBoolean("hasValue", hasValue);
+		bundle.putInt("value", value);
+		bundle.putInt("row", row);
+		bundle.putInt("col", col);
+		return bundle;
 	}
 	
 	public void setSmallBox(SmallBox box1) {
@@ -47,7 +59,8 @@ public class SudokuPuzzleCell {
 	
 	public void setInput(int inputMethod) {	//should be called after setValue, to set isEditable as false for generated values
 		this.inputMethod = inputMethod;
-		if (inputMethod == GENERATED || inputMethod == SOLVER_GENERATED) {
+		if (inputMethod == GENERATED || 
+				inputMethod == SOLVER_GENERATED || inputMethod == HINT_GENERATED) {
 			this.isEditable = false;
 		}
 	}
