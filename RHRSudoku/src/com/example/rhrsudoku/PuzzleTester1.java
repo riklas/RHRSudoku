@@ -32,7 +32,6 @@ public class PuzzleTester1 {
 		SudokuSolver solver1 = new SudokuSolver();
 		GeneratedPuzzles HCP = new GeneratedPuzzles();
 		SudokuPuzzle puzzle1 = HCP.getPuzzle(2);
-		SudokuPuzzle puzzle3 = puzzle1.copyPuzzle();
 		puzzle1.printPuzzle();
 		System.out.println("SOLVING......");
 		SudokuPuzzle puzzle2 = solver1.solvePuzzle(puzzle1);
@@ -51,17 +50,18 @@ public class PuzzleTester1 {
 		System.out.println("captured: x[" + randx + "] y[" + randy + "]");
 		int value = puzzle2.puzzle[randx][randy].getValue();
 		puzzle1.puzzle[randx][randy].setValue(value);
-		puzzle1.puzzle[randx][randy].setInput(SudokuPuzzleCell.GENERATED);
+		puzzle1.puzzle[randx][randy].setInput(SudokuPuzzleCell.USER_INPUT);
 		
 		puzzle1.printPuzzle();
 		
 		for(int row=0;row<9;row++) {
 			for (int col=0; col<9; col++) {
-				SudokuPuzzleCell oldCell1 = puzzle3.puzzle[row][col];
-				if(!oldCell1.hasValue)
-					continue;
-				puzzle1.puzzle[row][col].setValue(oldCell1.getValue()); 
-				puzzle1.puzzle[row][col].setInput(oldCell1.inputMethod);
+				System.out.println(puzzle1.puzzle[row][col].getInput());
+				if (puzzle1.puzzle[row][col].getInput() != SudokuPuzzleCell.GENERATED) {
+					puzzle1.puzzle[row][col].removeValue();
+					puzzle1.puzzle[row][col].setInput(SudokuPuzzleCell.NONE);
+				}
+
 			}
 		}
 		

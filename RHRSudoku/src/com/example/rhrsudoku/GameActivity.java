@@ -35,7 +35,6 @@ public class GameActivity extends Activity {
 	 * GLOBAL MEMBERS
 	 */
 	SudokuPuzzle puzzle;
-	SudokuPuzzle init; //stored puzzle to load when clear all selected
 	SudokuSolver solver;
 	StateInfo state1;
 	DigitButton[] digits1 = new DigitButton[9];
@@ -71,12 +70,10 @@ public class GameActivity extends Activity {
 		SudokuGenerator hardcode = new HardcodedPuzzles();
 		puzzle = hardcode.getPuzzle(difficulty);
 		
-		init = puzzle.copyPuzzle();
 		
 		
 		//GeneratedPuzzles generate = new GeneratedPuzzles();
 		//puzzle = generate.getPuzzle(difficulty);
-		//init = puzzle;
 		
 		setContentView(R.layout.activity_game);
 		createSmallBoxes();
@@ -320,19 +317,19 @@ public class GameActivity extends Activity {
 		
 		for(int row=0;row<9;row++) {
 			for (int col=0; col<9; col++) {
-				SudokuPuzzleCell oldCell1 = init.puzzle[row][col];
-				if(!oldCell1.hasValue)
-					continue;
-				puzzle.puzzle[row][col].setValue(oldCell1.getValue()); 
-				puzzle.puzzle[row][col].setInput(oldCell1.inputMethod);
+				if (puzzle.puzzle[row][col].getInput() != SudokuPuzzleCell.GENERATED) {
+					puzzle.puzzle[row][col].removeValue();
+					puzzle.puzzle[row][col].setInput(SudokuPuzzleCell.NONE);
+				}
+
 			}
 		}
 	
-		for(int row=0; row<9; row++) {
+		/*for(int row=0; row<9; row++) {
 			for(int col=0; col<9; col++) {
 				puzzle.puzzle[row][col].box1.invalidate();
 			}
-		}
+		}*/
 	}
 	
 	/*
