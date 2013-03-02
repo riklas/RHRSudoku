@@ -279,23 +279,24 @@ public class GameActivity extends Activity {
 		int randx;
 		int randy;
 		
-		do {
-			randx = randomGenerator.nextInt(9);
-			randy = randomGenerator.nextInt(9);
+		randx = randomGenerator.nextInt(9);
+		randy = randomGenerator.nextInt(9);
 
-		} while (solvedPuzzle.puzzle[randx][randy].getInput() != SudokuPuzzleCell.SOLVER_GENERATED);
-	//break if the random index falls on a solver generated value
+outer:		for(int row=randx;row<9;row++) {
+			for (int col=randy; col<9; col++) {
 				
-		int value = solvedPuzzle.puzzle[randx][randy].getValue();
-		puzzle.puzzle[randx][randy].setValue(value);
-		puzzle.puzzle[randx][randy].setInput(SudokuPuzzleCell.USER_INPUT);
-		puzzle.puzzle[randx][randy].box1.invalidate();
-		
-		System.out.println("HINT VALUE: x[" + randx + "] y[" + randy + "] = " + value);
-		//if hint cannot display anything (i.e user input has rendered the puzzle insolvable) then do something
-		//maybe display a message to the user to clear the game
-		//can implement better (for row0 col0 ... if row=0&col=0 do -> check if GENERATED)
-		
+				if (solvedPuzzle.puzzle[randx][randy].getInput() == SudokuPuzzleCell.SOLVER_GENERATED) {
+					int value = solvedPuzzle.puzzle[randx][randy].getValue();
+					puzzle.puzzle[randx][randy].box1.setFinalValue(value, SudokuPuzzleCell.USER_INPUT);
+					//puzzle.puzzle[randx][randy].setValue(value);
+					//puzzle.puzzle[randx][randy].setInput(SudokuPuzzleCell.USER_INPUT);
+					//puzzle.puzzle[randx][randy].box1.invalidate();
+					break outer;
+				}
+				
+				if (row != randx) randy = 0; 	//when the random index reaches the next row, start from col index 0
+			}
+		}
 	}
 	
 	public void clearBox(View v) {

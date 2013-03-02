@@ -41,22 +41,29 @@ public class PuzzleTester1 {
 		int randx;
 		int randy;
 		
-		do {
-			randx = randomGenerator.nextInt(9);
-			randy = randomGenerator.nextInt(9);
-		    System.out.println("trying: x[" + randx + "] y[" + randy + "]");
-		} while (puzzle2.puzzle[randx][randy].getInput() != SudokuPuzzleCell.SOLVER_GENERATED);
-	//break if the random index falls on a solver generated value
-		System.out.println("captured: x[" + randx + "] y[" + randy + "]");
-		int value = puzzle2.puzzle[randx][randy].getValue();
-		puzzle1.puzzle[randx][randy].setValue(value);
-		puzzle1.puzzle[randx][randy].setInput(SudokuPuzzleCell.USER_INPUT);
+		randx = randomGenerator.nextInt(9);
+		randy = randomGenerator.nextInt(9);
+
+outer:		for(int row=randx;row<9;row++) {
+			for (int col=randy; col<9; col++) {
+				System.out.print("searching: x[" + randx + "] y[" + randy + "]");
+				if (puzzle2.puzzle[randx][randy].getInput() == SudokuPuzzleCell.SOLVER_GENERATED) {
+					int value = puzzle2.puzzle[randx][randy].getValue();
+					puzzle1.puzzle[randx][randy].setValue(value);
+					puzzle1.puzzle[randx][randy].setInput(SudokuPuzzleCell.USER_INPUT);
+					
+					System.out.println("HINT VALUE: x[" + randx + "] y[" + randy + "] = " + value);
+					break outer;
+				}
+				
+				if (row != randx) randy = 0; 	//when the random index reaches the next row, start from col index 0
+			}
+		}
 		
 		puzzle1.printPuzzle();
 		
 		for(int row=0;row<9;row++) {
 			for (int col=0; col<9; col++) {
-				System.out.println(puzzle1.puzzle[row][col].getInput());
 				if (puzzle1.puzzle[row][col].getInput() != SudokuPuzzleCell.GENERATED) {
 					puzzle1.puzzle[row][col].removeValue();
 					puzzle1.puzzle[row][col].setInput(SudokuPuzzleCell.NONE);
