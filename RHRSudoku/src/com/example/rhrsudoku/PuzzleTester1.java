@@ -28,7 +28,7 @@ public class PuzzleTester1 {
 	}
 	
 	void runHintandClear() {
-		PuzzleTester1 tester1 = new PuzzleTester1();
+		PuzzleTester1 tester1 = new PuzzleTester1(); 
 		SudokuSolver solver1 = new SudokuSolver();
 		GeneratedPuzzles HCP = new GeneratedPuzzles();
 		SudokuPuzzle puzzle1 = HCP.getPuzzle(2);
