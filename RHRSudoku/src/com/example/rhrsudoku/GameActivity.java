@@ -67,13 +67,13 @@ public class GameActivity extends Activity {
 		int difficulty = intent.getIntExtra(DifficultyChooser.DIFFICULTY, 0);
 		state1 = new StateInfo();
 		
-		SudokuGenerator hardcode = new HardcodedPuzzles();
-		puzzle = hardcode.getPuzzle(difficulty);
+		//SudokuGenerator hardcode = new HardcodedPuzzles();
+		//puzzle = hardcode.getPuzzle(difficulty);
 		
 		
 		
-		//GeneratedPuzzles generate = new GeneratedPuzzles();
-		//puzzle = generate.getPuzzle(difficulty);
+		GeneratedPuzzles generate = new GeneratedPuzzles();
+		puzzle = generate.getPuzzle(difficulty);
 		
 		setContentView(R.layout.activity_game);
 		createSmallBoxes();
@@ -289,7 +289,7 @@ outer:		for(int row=randx;row<9;row++) {
 				for (int col=randy; col<9; col++) {
 					if (solvedPuzzle.puzzle[row][col].getInput() == SudokuPuzzleCell.SOLVER_GENERATED) {
 						int value = solvedPuzzle.puzzle[row][col].getValue();
-						puzzle.puzzle[row][col].box1.setFinalValue(value, SudokuPuzzleCell.SOLVER_GENERATED);					
+						puzzle.puzzle[row][col].box1.setFinalValue(value, SudokuPuzzleCell.HINT_GENERATED);					
 						finalset = true;
 						break outer;
 					}
@@ -305,7 +305,7 @@ outer2:			for (int row=0; row<9; row++) {
 						
 						if (solvedPuzzle.puzzle[row][col].getInput() == SudokuPuzzleCell.SOLVER_GENERATED) {
 							int value = solvedPuzzle.puzzle[row][col].getValue();
-							puzzle.puzzle[row][col].box1.setFinalValue(value, SudokuPuzzleCell.SOLVER_GENERATED);					
+							puzzle.puzzle[row][col].box1.setFinalValue(value, SudokuPuzzleCell.HINT_GENERATED);					
 							break outer2;
 						}
 					}	

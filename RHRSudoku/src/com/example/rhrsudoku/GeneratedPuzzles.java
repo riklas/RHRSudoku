@@ -12,7 +12,8 @@ public class GeneratedPuzzles implements SudokuGenerator {
 	Quant currentSolutions;
 	int value = 0;
 	int ceilingCount;
-	int floorCount; 
+	int floorCount;
+	boolean multiSol = false;
 	
 	public GeneratedPuzzles() {
 	}
@@ -31,6 +32,7 @@ public class GeneratedPuzzles implements SudokuGenerator {
 				break;
 		case 3: floorCount = 18; 
 				ceilingCount = 22;
+				multiSol = true;
 				break;
 		default:floorCount = 32; 
 				ceilingCount = 40;
@@ -68,16 +70,18 @@ public class GeneratedPuzzles implements SudokuGenerator {
 	public SudokuPuzzle removeValue(SudokuPuzzle targetPuzzle) {
 		System.out.println("floor count " + floorCount);
 		System.out.println("ceiling count " + ceilingCount);
+		Quant compar = Quant.ONE;
+		
+		if(multiSol) compar = Quant.MULTIPLE;
 		
 		Quant numSolutions;
 		int randx;
 		int randy;
 		int counter = 81;	// the number of values removed from puzzle
 		Random randomGenerator = new Random();
-		int lock;
 		
 		while (true) {
-			do {
+			do {	
 				randx = randomGenerator.nextInt(9);	//generates random number from 0 - 8
 				randy = randomGenerator.nextInt(9);	// generates random number from 0 - 8
 				if (targetPuzzle.puzzle[randx][randy].hasValue) {
@@ -87,12 +91,13 @@ public class GeneratedPuzzles implements SudokuGenerator {
 					targetPuzzle.puzzle[randx][randy].setInput(SudokuPuzzleCell.NONE); //set input method to none
 					counter--;
 				}
+				
 				numSolutions = solver.solutionsM(targetPuzzle);	//see the number solutions with the value taken out
 				targetPuzzle.printPuzzle();			////if the number of values left in puzzle go less than the lower bound (specified by difficulty), 
 				if (counter < floorCount) break;	//then stop removing values regardless of the numSolutions
 			}
-			while (numSolutions == Quant.ONE); // if there is 1 solution left do it again
-			
+			while (numSolutions == Quant.ONE || numSolutions == compar); // if there is 1 solution left do it again
+
 			targetPuzzle.puzzle[randx][randy].setValue(value);	// put the last value back
 			counter++;
 			
