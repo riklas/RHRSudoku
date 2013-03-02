@@ -175,6 +175,7 @@ public class GameActivity extends Activity {
 				box1.setOnClickListener(listener1);
 				box1.setOnLongClickListener(listener2);
 				grid1.addView(box1);
+				box1.setId(row*9 + col);
 			}
 		}
 	}

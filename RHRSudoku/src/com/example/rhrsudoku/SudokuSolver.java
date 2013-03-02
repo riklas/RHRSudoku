@@ -228,9 +228,9 @@ public class SudokuSolver {
 				if (cell2.hasValue) {
 					if (!cell2.isValid())
 						System.err.println("Cell "+cell2.row + "," +
-								" " + cell2.column + " has invalid value of " + cell2.getValue());
+								" " + cell2.col + " has invalid value of " + cell2.getValue());
 					else {
-						Choice chc1 = new Choice(cell2.row, cell2.column, cell2.getValue());
+						Choice chc1 = new Choice(cell2.row, cell2.col, cell2.getValue());
 						setW.add(Choice.ChoiceToConstraintSet(chc1));
 					}
 				}
