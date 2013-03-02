@@ -1,11 +1,10 @@
 package com.example.rhrsudoku;
 
-import android.R.color;
+import java.util.Random;
+
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.graphics.Point;
-import android.graphics.drawable.ShapeDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -36,6 +35,8 @@ public class GameActivity extends Activity {
 	 * GLOBAL MEMBERS
 	 */
 	SudokuPuzzle puzzle;
+	SudokuPuzzle init; //stored puzzle to load when clear all selected
+	SudokuSolver solver;
 	StateInfo state1;
 	DigitButton[] digits1 = new DigitButton[9];
 	/*
@@ -69,8 +70,13 @@ public class GameActivity extends Activity {
 		
 		SudokuGenerator hardcode = new HardcodedPuzzles();
 		puzzle = hardcode.getPuzzle(difficulty);
+		
+		init = puzzle.copyPuzzle();
+		
+		
 		//GeneratedPuzzles generate = new GeneratedPuzzles();
 		//puzzle = generate.getPuzzle(difficulty);
+		//init = puzzle;
 		
 		setContentView(R.layout.activity_game);
 		createSmallBoxes();
@@ -269,6 +275,66 @@ public class GameActivity extends Activity {
 	 * BEGIN LOGIC METHODS
 	 */
 
+	public void showHint(View v) {
+		solver = new SudokuSolver();
+		SudokuPuzzle solvedPuzzle = solver.solvePuzzle(puzzle);		
+		Random randomGenerator = new Random();
+		int randx;
+		int randy;
+		
+		do {
+			randx = randomGenerator.nextInt(9);
+			randy = randomGenerator.nextInt(9);
+
+		} while (solvedPuzzle.puzzle[randx][randy].getInput() != SudokuPuzzleCell.SOLVER_GENERATED);
+	//break if the random index falls on a solver generated value
+				
+		int value = solvedPuzzle.puzzle[randx][randy].getValue();
+		puzzle.puzzle[randx][randy].setValue(value);
+		puzzle.puzzle[randx][randy].setInput(SudokuPuzzleCell.USER_INPUT);
+		puzzle.puzzle[randx][randy].box1.invalidate();
+		
+		System.out.println("HINT VALUE: x[" + randx + "] y[" + randy + "] = " + value);
+		//if hint cannot display anything (i.e user input has rendered the puzzle insolvable) then do something
+		//maybe display a message to the user to clear the game
+		//can implement better (for row0 col0 ... if row=0&col=0 do -> check if GENERATED)
+		
+	}
+	
+	public void clearBox(View v) {
+		if (!state1.hasSelectedSmallBox) {
+			System.err.println("ERROR: No SmallBox selected");
+			return;
+		}
+		state1.selectedSmallBox.clearFinalValue();
+		
+		//if has possible values, for i in possible values call remove possible values		
+		for (Integer i : state1.selectedSmallBox.possibleValues) {
+			state1.selectedSmallBox.removePossibleValue(i);
+		}
+		state1.selectedSmallBox.invalidate();
+	
+	}
+	
+	public void clearAll(View v) {
+		
+		for(int row=0;row<9;row++) {
+			for (int col=0; col<9; col++) {
+				SudokuPuzzleCell oldCell1 = init.puzzle[row][col];
+				if(!oldCell1.hasValue)
+					continue;
+				puzzle.puzzle[row][col].setValue(oldCell1.getValue()); 
+				puzzle.puzzle[row][col].setInput(oldCell1.inputMethod);
+			}
+		}
+	
+		for(int row=0; row<9; row++) {
+			for(int col=0; col<9; col++) {
+				puzzle.puzzle[row][col].box1.invalidate();
+			}
+		}
+	}
+	
 	/*
 	 * END LOGIC METHODS
 	 */

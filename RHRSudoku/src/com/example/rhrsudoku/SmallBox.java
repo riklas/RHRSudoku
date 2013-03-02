@@ -35,7 +35,7 @@ public class SmallBox extends View {
 	int size1 = 60;
 	int row, col;
 	SudokuPuzzleCell cell1;
-	private SortedSet<Integer> possibleValues = new TreeSet<Integer>();
+	SortedSet<Integer> possibleValues = new TreeSet<Integer>();
 	String possibleValuesS = new String();
 	private static Paint[] paints = new Paint[16];
 	private static Paint[] gridLinePaintList = new Paint[10];
@@ -390,6 +390,7 @@ public class SmallBox extends View {
 	public boolean containsPossibleValue(int i) {
 		return possibleValues.contains(i);
 	}
+	
 	public void removePossibleValue(int i) {
 		possibleValues.remove(i);
 		displayState = SmallBox.POSSIBLE_VALUES;

@@ -91,16 +91,19 @@
             android:text="@string/hint"
             android:id="@+id/hintButton"
             style="@style/functionButton"
+            android:onClick="showHint"
             />
         <Button
             android:text="@string/clear"
             android:id="@+id/clearButton"
             style="@style/functionButton"
+            android:onClick="clearBox"
             />
         <Button
             android:text="@string/clearAll"
             android:id="@+id/clearAllButton"
             style="@style/functionButton"
+            android:onClick="clearAll"
             />
     </LinearLayout>
     

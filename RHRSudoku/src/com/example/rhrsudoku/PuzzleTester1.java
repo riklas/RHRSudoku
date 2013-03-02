@@ -1,5 +1,6 @@
 package com.example.rhrsudoku;
 
+import java.util.Random;
 import java.util.Set;
 import static exactCover.ExactCoverSolver.*;
 
@@ -12,7 +13,7 @@ import exactCover.Quant;
 public class PuzzleTester1 {
 	public static void main(String[] args) {
 		PuzzleTester1 puzzleTester = new PuzzleTester1();
-		puzzleTester.runPuzzle1();
+		puzzleTester.runHintandClear();
 	}
 	
 	void runPuzzle1() {
@@ -26,6 +27,48 @@ public class PuzzleTester1 {
 		puzzle2.printPuzzle();
 	}
 	
+	void runHintandClear() {
+		PuzzleTester1 tester1 = new PuzzleTester1();
+		SudokuSolver solver1 = new SudokuSolver();
+		GeneratedPuzzles HCP = new GeneratedPuzzles();
+		SudokuPuzzle puzzle1 = HCP.getPuzzle(2);
+		SudokuPuzzle puzzle3 = puzzle1.copyPuzzle();
+		puzzle1.printPuzzle();
+		System.out.println("SOLVING......");
+		SudokuPuzzle puzzle2 = solver1.solvePuzzle(puzzle1);
+		puzzle2.printPuzzle();
+							
+		Random randomGenerator = new Random();
+		int randx;
+		int randy;
+		
+		do {
+			randx = randomGenerator.nextInt(9);
+			randy = randomGenerator.nextInt(9);
+		    System.out.println("trying: x[" + randx + "] y[" + randy + "]");
+		} while (puzzle2.puzzle[randx][randy].getInput() != SudokuPuzzleCell.SOLVER_GENERATED);
+	//break if the random index falls on a solver generated value
+		System.out.println("captured: x[" + randx + "] y[" + randy + "]");
+		int value = puzzle2.puzzle[randx][randy].getValue();
+		puzzle1.puzzle[randx][randy].setValue(value);
+		puzzle1.puzzle[randx][randy].setInput(SudokuPuzzleCell.GENERATED);
+		
+		puzzle1.printPuzzle();
+		
+		for(int row=0;row<9;row++) {
+			for (int col=0; col<9; col++) {
+				SudokuPuzzleCell oldCell1 = puzzle3.puzzle[row][col];
+				if(!oldCell1.hasValue)
+					continue;
+				puzzle1.puzzle[row][col].setValue(oldCell1.getValue()); 
+				puzzle1.puzzle[row][col].setInput(oldCell1.inputMethod);
+			}
+		}
+		
+		puzzle1.printPuzzle();
+		
+		
+	}
 	void runPuzzle2() {
 		SudokuPuzzle puzzle = new SudokuPuzzle();
 //		puzzle.puzzle[0][0].setValue(1, SudokuPuzzleCell.GENERATED);

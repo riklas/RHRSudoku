@@ -53,6 +53,10 @@ public class SudokuPuzzleCell {
 		}
 	}
 	
+	public int getInput() {
+		return inputMethod;
+	}
+	
 	public int getValue() {
 		if (this.hasValue)
 			return value;
