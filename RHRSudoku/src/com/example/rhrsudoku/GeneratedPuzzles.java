@@ -74,6 +74,7 @@ public class GeneratedPuzzles implements SudokuGenerator {
 		int randy;
 		int counter = 81;	// the number of values removed from puzzle
 		Random randomGenerator = new Random();
+		int lock;
 		
 		while (true) {
 			do {

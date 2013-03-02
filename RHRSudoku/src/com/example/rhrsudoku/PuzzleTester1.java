@@ -13,7 +13,7 @@ import exactCover.Quant;
 public class PuzzleTester1 {
 	public static void main(String[] args) {
 		PuzzleTester1 puzzleTester = new PuzzleTester1();
-		puzzleTester.runHintandClear();
+		puzzleTester.runPuzzle1();
 	}
 	
 	void runPuzzle1() {
@@ -46,7 +46,6 @@ public class PuzzleTester1 {
 
 outer:		for(int row=randx;row<9;row++) {
 			for (int col=randy; col<9; col++) {
-				System.out.print("searching: x[" + randx + "] y[" + randy + "]");
 				if (puzzle2.puzzle[randx][randy].getInput() == SudokuPuzzleCell.SOLVER_GENERATED) {
 					int value = puzzle2.puzzle[randx][randy].getValue();
 					puzzle1.puzzle[randx][randy].setValue(value);

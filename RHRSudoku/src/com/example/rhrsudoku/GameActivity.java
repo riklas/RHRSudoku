@@ -278,25 +278,38 @@ public class GameActivity extends Activity {
 		Random randomGenerator = new Random();
 		int randx;
 		int randy;
+		boolean finalset = false;
 		
 		randx = randomGenerator.nextInt(9);
 		randy = randomGenerator.nextInt(9);
+		int trandy = randy;
 
 outer:		for(int row=randx;row<9;row++) {
-			for (int col=randy; col<9; col++) {
-				
-				if (solvedPuzzle.puzzle[randx][randy].getInput() == SudokuPuzzleCell.SOLVER_GENERATED) {
-					int value = solvedPuzzle.puzzle[randx][randy].getValue();
-					puzzle.puzzle[randx][randy].box1.setFinalValue(value, SudokuPuzzleCell.USER_INPUT);
-					//puzzle.puzzle[randx][randy].setValue(value);
-					//puzzle.puzzle[randx][randy].setInput(SudokuPuzzleCell.USER_INPUT);
-					//puzzle.puzzle[randx][randy].box1.invalidate();
-					break outer;
+				for (int col=randy; col<9; col++) {
+					if (solvedPuzzle.puzzle[row][col].getInput() == SudokuPuzzleCell.SOLVER_GENERATED) {
+						int value = solvedPuzzle.puzzle[row][col].getValue();
+						puzzle.puzzle[row][col].box1.setFinalValue(value, SudokuPuzzleCell.SOLVER_GENERATED);					
+						finalset = true;
+						break outer;
+					}
 				}
-				
-				if (row != randx) randy = 0; 	//when the random index reaches the next row, start from col index 0
+				if (row == randx) randy = 0; 	//when the random index is about to reach the next row, start from col index 0
 			}
-		}
+			//if loop doesn't find SOLVER GENERATED VALUE start from beginning index of puzzle 
+
+			if (!finalset) {
+outer2:			for (int row=0; row<9; row++) {
+					for (int col=0; col<9; col++) {
+						if (row == randx && col == trandy) break outer2;
+						
+						if (solvedPuzzle.puzzle[row][col].getInput() == SudokuPuzzleCell.SOLVER_GENERATED) {
+							int value = solvedPuzzle.puzzle[row][col].getValue();
+							puzzle.puzzle[row][col].box1.setFinalValue(value, SudokuPuzzleCell.SOLVER_GENERATED);					
+							break outer2;
+						}
+					}	
+				}
+			}		
 	}
 	
 	public void clearBox(View v) {

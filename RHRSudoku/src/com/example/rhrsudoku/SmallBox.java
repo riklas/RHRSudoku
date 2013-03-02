@@ -290,7 +290,7 @@ public class SmallBox extends View {
 		}
 		
 		paints[0].setColor(Color.BLACK);
-		paints[1].setColor(Color.BLACK);
+		paints[1].setColor(Color.GREEN);
 		paints[2].setColor(Color.BLACK);
 		paints[3].setColor(Color.RED);
 		paints[4].setColor(Color.BLACK);
