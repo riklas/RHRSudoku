@@ -39,8 +39,7 @@ public class SudokuPuzzleCell {
 	}
 	
 	public void removeValue() {
-		if (this.hasValue) {
-			this.value = 0;
+		if (this.hasValue) {			
 			this.isEditable = true;
 			this.hasValue = false;
 		}

@@ -320,6 +320,7 @@ public class GameActivity extends Activity {
 				if (puzzle.puzzle[row][col].getInput() != SudokuPuzzleCell.GENERATED) {
 					puzzle.puzzle[row][col].removeValue();
 					puzzle.puzzle[row][col].setInput(SudokuPuzzleCell.NONE);
+					//puzzle.puzzle[row][col].box1.invalidate();
 				}
 
 			}
