@@ -396,6 +396,16 @@ public class SmallBox extends View {
 		return possibleValues.contains(i);
 	}
 	
+	public void removePossibleValues() {
+		if (!possibleValues.isEmpty()) {
+			possibleValues.clear();
+			displayState = NONE;
+			calculatePossibleValuesS();
+			invalidate();
+		}
+	}
+	
+	
 	public void removePossibleValue(int i) {
 		possibleValues.remove(i);
 		displayState = SmallBox.POSSIBLE_VALUES;

@@ -305,11 +305,7 @@ public class GameActivity extends Activity {
 		}
 		state1.selectedSmallBox.clearFinalValue();
 		
-		//if has possible values, for i in possible values call remove possible values		
-		for (Integer i : state1.selectedSmallBox.possibleValues) {
-			state1.selectedSmallBox.removePossibleValue(i);
-		}
-		state1.selectedSmallBox.invalidate();
+		state1.selectedSmallBox.removePossibleValues();
 	
 	}
 	
@@ -317,10 +313,11 @@ public class GameActivity extends Activity {
 		
 		for(int row=0;row<9;row++) {
 			for (int col=0; col<9; col++) {
-				if (puzzle.puzzle[row][col].getInput() != SudokuPuzzleCell.GENERATED) {
+				if (puzzle.puzzle[row][col].getInput() != SudokuPuzzleCell.GENERATED) {					
 					puzzle.puzzle[row][col].removeValue();
 					puzzle.puzzle[row][col].setInput(SudokuPuzzleCell.NONE);
 					puzzle.puzzle[row][col].box1.invalidate();
+					puzzle.puzzle[row][col].box1.removePossibleValues();
 				}
 
 			}
