@@ -14,16 +14,17 @@
         android:layout_weight="1"
         
         >
-    <GridLayout
+    <android.support.v7.widget.GridLayout
+        xmlns:grid="http://schemas.android.com/apk/res-auto"
         android:id="@+id/gridLayout1"
-        android:rowCount="9"
-        android:columnCount="9"
+        grid:rowCount="9"
+        grid:columnCount="9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        grid:layout_gravity="center"
         android:padding="10dp"
         >
-    </GridLayout>
+    </android.support.v7.widget.GridLayout>
     </FrameLayout>
     <LinearLayout
         android:layout_width="match_parent"

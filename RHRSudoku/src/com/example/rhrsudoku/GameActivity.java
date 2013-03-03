@@ -8,6 +8,7 @@ import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -67,13 +68,13 @@ public class GameActivity extends Activity {
 		int difficulty = intent.getIntExtra(DifficultyChooser.DIFFICULTY, 0);
 		state1 = new StateInfo();
 		
-		//SudokuGenerator hardcode = new HardcodedPuzzles();
-		//puzzle = hardcode.getPuzzle(difficulty);
+		SudokuGenerator hardcode = new HardcodedPuzzles();
+		puzzle = hardcode.getPuzzle(difficulty);
 		
 		
 		
-		GeneratedPuzzles generate = new GeneratedPuzzles();
-		puzzle = generate.getPuzzle(difficulty);
+		//GeneratedPuzzles generate = new GeneratedPuzzles();
+		//puzzle = generate.getPuzzle(difficulty);
 		
 		setContentView(R.layout.activity_game);
 		createSmallBoxes();
@@ -154,9 +155,27 @@ public class GameActivity extends Activity {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
+	private Point getDisplaySize(Display display){
+		Point point = new Point();
+		try {
+			display.getSize(point);			
+		} catch (java.lang.NoSuchMethodError ignore) { //if older device
+			point.x = display.getWidth();
+			point.y = display.getHeight();
+		}
+		return point;
+	}
+	
 	private void createSmallBoxes() {
-		Point size = new Point();
-		getWindowManager().getDefaultDisplay().getSize(size);
+		
+		Point size = getDisplaySize(getWindowManager().getDefaultDisplay());
+		
+		
+		//Point size = new Point();
+		//getWindowManager().getDefaultDisplay().getSize(size);
+		
+		
 		int screenWidth = size.x;
 		int screenHeight = size.y;
 		int screenSmallest;
