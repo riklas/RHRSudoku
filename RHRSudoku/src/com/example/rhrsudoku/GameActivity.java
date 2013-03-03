@@ -275,7 +275,12 @@ public class GameActivity extends Activity {
 
 	public void showHint(View v) {
 		solver = new SudokuSolver();
-		SudokuPuzzle solvedPuzzle = solver.solvePuzzle(puzzle);		
+		//crashing --possibly because of returning null ! 
+		SudokuPuzzle solvedPuzzle = solver.solvePuzzle(puzzle);
+		if (solvedPuzzle == null) {
+			System.err.println("cannot solve the puzzle");
+			return;
+		}
 		Random randomGenerator = new Random();
 		int randx;
 		int randy;

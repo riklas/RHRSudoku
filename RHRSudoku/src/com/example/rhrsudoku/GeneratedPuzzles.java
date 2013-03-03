@@ -41,10 +41,10 @@ public class GeneratedPuzzles implements SudokuGenerator {
 		
 		
 		
-		puzzle.printPuzzle();
+		//puzzle.printPuzzle();
 		//this returns a solved puzzle
 		puzzle = solver.solvePuzzle(puzzle);		
-		puzzle.printPuzzle();
+		//puzzle.printPuzzle();
 		//this returns puzzle with values taken out
 		puzzle = setValues(puzzle);
 		return puzzle;
@@ -91,9 +91,13 @@ public class GeneratedPuzzles implements SudokuGenerator {
 					targetPuzzle.puzzle[randx][randy].setInput(SudokuPuzzleCell.NONE); //set input method to none
 					counter--;
 				}
+				else {
+					numSolutions = Quant.ONE;
+					continue;
+				}
 				
 				numSolutions = solver.solutionsM(targetPuzzle);	//see the number solutions with the value taken out
-				targetPuzzle.printPuzzle();			////if the number of values left in puzzle go less than the lower bound (specified by difficulty), 
+				//targetPuzzle.printPuzzle();			////if the number of values left in puzzle go less than the lower bound (specified by difficulty), 
 				if (counter < floorCount) break;	//then stop removing values regardless of the numSolutions
 			}
 			while (numSolutions == Quant.ONE || numSolutions == compar); // if there is 1 solution left do it again
