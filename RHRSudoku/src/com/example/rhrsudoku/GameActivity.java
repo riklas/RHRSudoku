@@ -233,13 +233,7 @@ public class GameActivity extends Activity {
 		if (hadSelectedSmallBox)
 			sb1.invalidate();
 		sb2.invalidate();
-		for (DigitButton db : digits1) {
-			db.invalidate();
-			if (sb2.cell1.isEditable)
-					db.setClickable(true);
-			else
-				db.setClickable(false);
-		}
+		refreshDigitButtons();
 	}
 	
 	public void smallBoxLongClicked(View v) {
@@ -254,13 +248,7 @@ public class GameActivity extends Activity {
 		if (hadSelectedSmallBox)
 			sb1.invalidate();
 		sb2.invalidate();
-		for (DigitButton db : digits1) {
-			db.invalidate();
-			if (sb2.cell1.isEditable)
-				db.setClickable(true);
-			else
-				db.setClickable(false);
-		}
+		refreshDigitButtons();
 	}
 	
 	public void digitButtonClicked(View v) {
@@ -287,8 +275,7 @@ public class GameActivity extends Activity {
 			
 			else {
 				stateInfo.selectedSmallBox.setFinalValue(db2.number1, SudokuPuzzleCell.USER_INPUT);
-				for (DigitButton db : digits1)
-					db.invalidate();
+				refreshDigitButtons();
 			}
 			
 			if (wasConflicting || stateInfo.selectedSmallBox.cell1.isConflicting()) {
@@ -317,10 +304,18 @@ public class GameActivity extends Activity {
 		stateInfo.hasSelectedSmallBox = false;
 		if (hadSelectedSmallBox) {
 			stateInfo.selectedSmallBox.invalidate();
-			for (DigitButton db : digits1) {
-				db.invalidate();
+			refreshDigitButtons();
+		}
+		
+	}
+	
+	private void refreshDigitButtons() {
+		for (DigitButton db : digits1) {
+			db.invalidate();
+			if (stateInfo.hasSelectedSmallBox && stateInfo.selectedSmallBox.cell1.isEditable)
+				db.setClickable(true);
+			else
 				db.setClickable(false);
-			}
 		}
 		
 	}
@@ -381,9 +376,8 @@ outer2:			for (int row=0; row<9; row++) {
 		}
 		stateInfo.selectedSmallBox.clearFinalValue();
 		stateInfo.selectedSmallBox.removePossibleValues();
-		for (DigitButton db : digits1)
-			db.invalidate();
-	}
+		refreshDigitButtons();
+		}
 	
 	public void clearAll(View v) {
 		
@@ -404,6 +398,7 @@ outer2:			for (int row=0; row<9; row++) {
 				puzzle.puzzle[row][col].box1.invalidate();
 			}
 		}*/
+		refreshDigitButtons();
 	}
 	
 	/*
