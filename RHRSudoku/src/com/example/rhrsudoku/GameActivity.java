@@ -155,22 +155,16 @@ public class GameActivity extends Activity {
 		}
 	}
 	
+		
 	@SuppressWarnings("deprecation")
-	private Point getDisplaySize(Display display){
-		Point point = new Point();
-		try {
-			display.getSize(point);			
-		} catch (java.lang.NoSuchMethodError ignore) { //if older device
-			point.x = display.getWidth();
-			point.y = display.getHeight();
-		}
-		return point;
-	}
-	
 	private void createSmallBoxes() {
 		
-		Point size = getDisplaySize(getWindowManager().getDefaultDisplay());
-		
+		Point size = new Point();
+		Display display = getWindowManager().getDefaultDisplay();
+		if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
+			size.set(display.getWidth(), display.getHeight());			
+		} else 
+			getWindowManager().getDefaultDisplay().getSize(size);
 		
 		//Point size = new Point();
 		//getWindowManager().getDefaultDisplay().getSize(size);

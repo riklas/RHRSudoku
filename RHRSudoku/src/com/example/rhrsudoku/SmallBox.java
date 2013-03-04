@@ -155,8 +155,8 @@ public class SmallBox extends View {
 				selectedPaint = paints[5];
 			else
 				selectedPaint = paints[0];
-			xpos = canvas.getWidth()/2;
-			ypos = (int) ((canvas.getHeight() / 2) - ((selectedPaint.descent() + selectedPaint.ascent()) / 2)) ;
+			xpos = View.MeasureSpec.getSize(getWidth())/2;
+			ypos = (int) ((View.MeasureSpec.getSize(getHeight()) / 2) - ((selectedPaint.descent() + selectedPaint.ascent()) / 2)) ;
 			
 			s = Integer.toString(cell1.getValue());
 			canvas.drawText(s, xpos, ypos, selectedPaint);
@@ -169,8 +169,8 @@ public class SmallBox extends View {
 			else
 				selectedPaint = paints[4];
 			s = possibleValuesS;
-			xpos = canvas.getWidth()/2;
-			ypos = (int) ((canvas.getHeight() / 2) - ((selectedPaint.descent() + selectedPaint.ascent()) / 2)) ;
+			xpos = View.MeasureSpec.getSize(getWidth())/2;
+			ypos = (int) ((View.MeasureSpec.getSize(getHeight()) / 2) - ((selectedPaint.descent() + selectedPaint.ascent()) / 2)) ;
 
 			String[] lines1 = s.split("\n");
 			Rect bounds = new Rect();

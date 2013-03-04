@@ -1,16 +1,16 @@
 package com.example.rhrsudoku;
 
-import com.example.rhrsudoku.GameActivity.StateInfo;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.Button;
+
+import com.example.rhrsudoku.GameActivity.StateInfo;
 
 public class DigitButton extends Button {
 	Paint paint1, paint2, paint3, paint4, paint5, paint6;
@@ -50,8 +50,9 @@ public class DigitButton extends Button {
 				else
 					canvas.drawPaint(paint4);
 		}
-		int xpos = canvas.getWidth()/2;
-		int ypos = (int) ((canvas.getHeight() / 2) - ((paint6.descent() + paint6.ascent()) / 2)) ; 
+		int xpos = View.MeasureSpec.getSize(getWidth())/2;
+		int ypos = (int) ((View.MeasureSpec.getSize(getHeight()) / 2) - ((paint6.descent() + paint6.ascent()) / 2)) ;
+		System.out.println("x:" + xpos + " y:" + ypos );
 		//((textPaint.descent() + textPaint.ascent()) / 2) is the distance from the baseline to the center.
 		canvas.drawText(Integer.toString(number1), xpos, ypos, paint6);
 	}
