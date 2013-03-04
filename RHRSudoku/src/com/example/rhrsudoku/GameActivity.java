@@ -125,6 +125,8 @@ public class GameActivity extends Activity {
 		super.onRestoreInstanceState(bundle);
 		stateInfo.restoreInstanceState(bundle);
 	}
+	
+	
 	/*
 	 * END CALLBACKS
 	 * BEGIN CREATION METHODS
@@ -224,28 +226,41 @@ public class GameActivity extends Activity {
 		 * invalidate the digitbuttons
 		 */
 		
+		boolean hadSelectedSmallBox = stateInfo.hasSelectedSmallBox;
 		stateInfo.selectedSmallBox = sb2;
 		stateInfo.hasSelectedSmallBox = true;
 		stateInfo.selectingState = StateInfo.SELECTING_FINAL_VALUE;
-		if (sb1 != null)
+		if (hadSelectedSmallBox)
 			sb1.invalidate();
 		sb2.invalidate();
-		for (DigitButton db : digits1)
+		for (DigitButton db : digits1) {
 			db.invalidate();
+			if (sb2.cell1.isEditable)
+					db.setClickable(true);
+			else
+				db.setClickable(false);
+		}
 	}
 	
 	public void smallBoxLongClicked(View v) {
 		SmallBox sb2 = (SmallBox) v;
 		SmallBox sb1 = stateInfo.selectedSmallBox;
+		boolean hadSelectedSmallBox = stateInfo.hasSelectedSmallBox;
 		stateInfo.selectedSmallBox = sb2;
 		stateInfo.hasSelectedSmallBox = true;
 		stateInfo.selectingState = StateInfo.SELECTING_POSSIBLE_VALUE;
+		
 
-		if (sb1 != null)
+		if (hadSelectedSmallBox)
 			sb1.invalidate();
 		sb2.invalidate();
-		for (DigitButton db : digits1)
+		for (DigitButton db : digits1) {
 			db.invalidate();
+			if (sb2.cell1.isEditable)
+				db.setClickable(true);
+			else
+				db.setClickable(false);
+		}
 	}
 	
 	public void digitButtonClicked(View v) {
@@ -295,6 +310,19 @@ public class GameActivity extends Activity {
 		/*
 		 * this would better be replaced by 3 functions for each function button
 		 */
+	}
+	
+	public void blankAreaClicked(View v) {
+		boolean hadSelectedSmallBox = stateInfo.hasSelectedSmallBox;
+		stateInfo.hasSelectedSmallBox = false;
+		if (hadSelectedSmallBox) {
+			stateInfo.selectedSmallBox.invalidate();
+			for (DigitButton db : digits1) {
+				db.invalidate();
+				db.setClickable(false);
+			}
+		}
+		
 	}
 	/*
 	 * END LISTENER METHODS
@@ -352,9 +380,9 @@ outer2:			for (int row=0; row<9; row++) {
 			return;
 		}
 		stateInfo.selectedSmallBox.clearFinalValue();
-		
 		stateInfo.selectedSmallBox.removePossibleValues();
-	
+		for (DigitButton db : digits1)
+			db.invalidate();
 	}
 	
 	public void clearAll(View v) {

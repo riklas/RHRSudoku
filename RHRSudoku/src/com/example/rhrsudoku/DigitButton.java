@@ -19,6 +19,7 @@ public class DigitButton extends Button {
 	int number1;
 	SudokuPuzzleCell cell2;
 	/*
+	 * paint
 	 * paint1	default background colour
 	 * paint2	entering final value
 	 * paint3	entering final value + selected
@@ -36,6 +37,8 @@ public class DigitButton extends Button {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		if (!state1.hasSelectedSmallBox)
+			canvas.drawPaint(paint1);
+		else if (state1.selectedSmallBox.cell1.isEditable == false)
 			canvas.drawPaint(paint1);
 		else {
 			cell2 = state1.selectedSmallBox.cell1;
@@ -59,9 +62,9 @@ public class DigitButton extends Button {
 	
 	
 	final private void createPaints() {
+		//this.setClickable(false);
 		// Get the screen's density scale
 		final float scale = getResources().getDisplayMetrics().density;
-		
 		paint1 = new Paint();
 		paint2 = new Paint();
 		paint3 = new Paint();
