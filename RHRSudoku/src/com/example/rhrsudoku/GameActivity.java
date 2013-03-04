@@ -1,5 +1,6 @@
 package com.example.rhrsudoku;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import android.app.Activity;
@@ -37,7 +38,7 @@ public class GameActivity extends Activity {
 	 */
 	SudokuPuzzle puzzle;
 	SudokuSolver solver;
-	StateInfo state1;
+	StateInfo stateInfo;
 	DigitButton[] digits1 = new DigitButton[9];
 	/*
 	 * BEGIN CALLBACKS
@@ -66,7 +67,7 @@ public class GameActivity extends Activity {
 		 */
 		Intent intent = getIntent();
 		int difficulty = intent.getIntExtra(DifficultyChooser.DIFFICULTY, 0);
-		state1 = new StateInfo();
+		stateInfo = new StateInfo();
 		
 		SudokuGenerator hardcode = new HardcodedPuzzles();
 		puzzle = hardcode.getPuzzle(difficulty);
@@ -110,11 +111,20 @@ public class GameActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-//	@Override
-//	protected void onSaveInstanceState(Bundle bundle) {
-//		
-//	}
+	@Override
+	protected void onSaveInstanceState(Bundle bundle) {
+		super.onSaveInstanceState(bundle);
+		/*
+		 * need to save StateInfo
+		 */
+		stateInfo.saveInstanceState(bundle);
+	}
 	
+	@Override
+	protected void onRestoreInstanceState(Bundle bundle) {
+		super.onRestoreInstanceState(bundle);
+		stateInfo.restoreInstanceState(bundle);
+	}
 	/*
 	 * END CALLBACKS
 	 * BEGIN CREATION METHODS
@@ -155,7 +165,7 @@ public class GameActivity extends Activity {
 		digits1[8] = (DigitButton) findViewById(R.id.nine);
 		
 		for(int i=0; i<digits1.length;i++) {
-			digits1[i].state1 = this.state1;
+			digits1[i].state1 = this.stateInfo;
 			digits1[i].number1 = (i+1);
 		}
 	}
@@ -189,7 +199,7 @@ public class GameActivity extends Activity {
 		//creating small boxes
 		for(int row=0; row<9; row++) {
 			for(int col=0; col<9; col++) {
-				SmallBox box1 = new SmallBox(this, this.state1, puzzle.puzzle[row][col], row, col, cellSize);
+				SmallBox box1 = new SmallBox(this, this.stateInfo, puzzle.puzzle[row][col], row, col, cellSize);
 				box1.setOnClickListener(listener1);
 				box1.setOnLongClickListener(listener2);
 				grid1.addView(box1);
@@ -205,7 +215,7 @@ public class GameActivity extends Activity {
 	
 	public void smallBoxClicked(View v) {
 		SmallBox sb2 = (SmallBox) v;
-		SmallBox sb1 = state1.selectedSmallBox;
+		SmallBox sb1 = stateInfo.selectedSmallBox;
 		/*
 		 * set has selected to true
 		 * set the selected box
@@ -214,9 +224,9 @@ public class GameActivity extends Activity {
 		 * invalidate the digitbuttons
 		 */
 		
-		state1.selectedSmallBox = sb2;
-		state1.hasSelectedSmallBox = true;
-		state1.selectingState = StateInfo.SELECTING_FINAL_VALUE;
+		stateInfo.selectedSmallBox = sb2;
+		stateInfo.hasSelectedSmallBox = true;
+		stateInfo.selectingState = StateInfo.SELECTING_FINAL_VALUE;
 		if (sb1 != null)
 			sb1.invalidate();
 		sb2.invalidate();
@@ -226,10 +236,10 @@ public class GameActivity extends Activity {
 	
 	public void smallBoxLongClicked(View v) {
 		SmallBox sb2 = (SmallBox) v;
-		SmallBox sb1 = state1.selectedSmallBox;
-		state1.selectedSmallBox = sb2;
-		state1.hasSelectedSmallBox = true;
-		state1.selectingState = StateInfo.SELECTING_POSSIBLE_VALUE;
+		SmallBox sb1 = stateInfo.selectedSmallBox;
+		stateInfo.selectedSmallBox = sb2;
+		stateInfo.hasSelectedSmallBox = true;
+		stateInfo.selectingState = StateInfo.SELECTING_POSSIBLE_VALUE;
 
 		if (sb1 != null)
 			sb1.invalidate();
@@ -240,12 +250,12 @@ public class GameActivity extends Activity {
 	
 	public void digitButtonClicked(View v) {
 		DigitButton db2 = (DigitButton) v;
-		if (!state1.hasSelectedSmallBox) {
+		if (!stateInfo.hasSelectedSmallBox) {
 			System.err.println("ERROR: No SmallBox selected");
 			return;
 		}
 		
-		if (state1.selectingState == StateInfo.SELECTING_FINAL_VALUE) {
+		if (stateInfo.selectingState == StateInfo.SELECTING_FINAL_VALUE) {
 			/*
 			 * if cell already has same final value to be set, clear it instead
 			 * otherwise set has final value on cell
@@ -253,30 +263,30 @@ public class GameActivity extends Activity {
 			 * set final value on cell
 			 * call invalidate on all digit buttons
 			 */
-			boolean wasConflicting = state1.selectedSmallBox.cell1.isConflicting();
+			boolean wasConflicting = stateInfo.selectedSmallBox.cell1.isConflicting();
 			
-			if (state1.selectedSmallBox.cell1.hasValue && 
-					state1.selectedSmallBox.cell1.getValue() == db2.number1) {
-				state1.selectedSmallBox.clearFinalValue();
+			if (stateInfo.selectedSmallBox.cell1.hasValue && 
+					stateInfo.selectedSmallBox.cell1.getValue() == db2.number1) {
+				stateInfo.selectedSmallBox.clearFinalValue();
 			}
 			
 			else {
-				state1.selectedSmallBox.setFinalValue(db2.number1, SudokuPuzzleCell.USER_INPUT);
+				stateInfo.selectedSmallBox.setFinalValue(db2.number1, SudokuPuzzleCell.USER_INPUT);
 				for (DigitButton db : digits1)
 					db.invalidate();
 			}
 			
-			if (wasConflicting || state1.selectedSmallBox.cell1.isConflicting()) {
-				for (SudokuPuzzleCell cell2 : state1.selectedSmallBox.cell1.neighbours) {
+			if (wasConflicting || stateInfo.selectedSmallBox.cell1.isConflicting()) {
+				for (SudokuPuzzleCell cell2 : stateInfo.selectedSmallBox.cell1.neighbours) {
 					cell2.box1.invalidate();
 				}
 			}
 		}
-		else if (state1.selectingState == StateInfo.SELECTING_POSSIBLE_VALUE) {
-			if(state1.selectedSmallBox.containsPossibleValue(db2.number1))
-				state1.selectedSmallBox.removePossibleValue(db2.number1);
+		else if (stateInfo.selectingState == StateInfo.SELECTING_POSSIBLE_VALUE) {
+			if(stateInfo.selectedSmallBox.containsPossibleValue(db2.number1))
+				stateInfo.selectedSmallBox.removePossibleValue(db2.number1);
 			else
-				state1.selectedSmallBox.addPossibleValue(db2.number1);
+				stateInfo.selectedSmallBox.addPossibleValue(db2.number1);
 		}
 		db2.invalidate();
 	}
@@ -337,13 +347,13 @@ outer2:			for (int row=0; row<9; row++) {
 	}
 	
 	public void clearBox(View v) {
-		if (!state1.hasSelectedSmallBox) {
+		if (!stateInfo.hasSelectedSmallBox) {
 			System.err.println("ERROR: No SmallBox selected");
 			return;
 		}
-		state1.selectedSmallBox.clearFinalValue();
+		stateInfo.selectedSmallBox.clearFinalValue();
 		
-		state1.selectedSmallBox.removePossibleValues();
+		stateInfo.selectedSmallBox.removePossibleValues();
 	
 	}
 	
@@ -380,6 +390,25 @@ outer2:			for (int row=0; row<9; row++) {
 		boolean hasSelectedSmallBox;
 		SmallBox selectedSmallBox;
 		int selectingState = NONE;
+		
+		void saveInstanceState(Bundle bundle) {
+			bundle.putBoolean("hasSelectedSmallBox", hasSelectedSmallBox);
+			bundle.putInt("selectingState", selectingState);
+//			bundle.putInt("selectedSmallBox_row", selectedSmallBox.cell1.row);
+//			bundle.putInt("selectedSmallBox_col", selectedSmallBox.cell1.col);
+			if (hasSelectedSmallBox)
+				bundle.putInt("selectedSmallBox_ID", selectedSmallBox.getId());
+		}
+		
+		void restoreInstanceState(Bundle bundle) {
+			hasSelectedSmallBox = bundle.getBoolean("hasSelectedSmallBox");
+			selectingState = bundle.getInt("selectingState");
+//			int row = bundle.getInt("selectedSmallBox_row");
+//			int col = bundle.getInt("selectedSmallBox_col");
+			int selectedSmallBox_ID = bundle.getInt("selectedSmallBox_ID");
+			if (hasSelectedSmallBox)
+				selectedSmallBox = (SmallBox) findViewById(selectedSmallBox_ID);
+		}
 	}
 
 }
