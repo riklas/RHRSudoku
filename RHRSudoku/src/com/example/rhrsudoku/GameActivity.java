@@ -110,6 +110,11 @@ public class GameActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+//	@Override
+//	protected void onSaveInstanceState(Bundle bundle) {
+//		
+//	}
+	
 	/*
 	 * END CALLBACKS
 	 * BEGIN CREATION METHODS
@@ -162,7 +167,7 @@ public class GameActivity extends Activity {
 		Point size = new Point();
 		Display display = getWindowManager().getDefaultDisplay();
 		if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
-			size.set(display.getWidth(), display.getHeight());			
+			size.set(display.getWidth(), display.getHeight());	
 		} else 
 			getWindowManager().getDefaultDisplay().getSize(size);
 		

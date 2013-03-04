@@ -13,11 +13,18 @@ public class SudokuPuzzleCell {
 	static final int HINT_GENERATED = 4;
 	static final int SOLVER_GENERATED = 5;
 	
+	/* 
+	 * BEGIN STATE INFO TO SAVE
+	 */
 	int row, col;// from 0-8
 	boolean hasValue = false;
 	boolean isEditable = true;
 	private int value;
 	int inputMethod = NONE;			// change when set by a generator or the user resp.
+	
+	/*
+	 * END STATE INFO TO SAVE
+	 */
 	SudokuPuzzleCell[] neighbours;
 	SmallBox box1;
 	

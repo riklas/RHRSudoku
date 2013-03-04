@@ -10,7 +10,7 @@ import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
 import android.graphics.drawable.ShapeDrawable;
-import android.os.Bundle;
+import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.View;
 
@@ -33,9 +33,16 @@ public class SmallBox extends View {
 	final static float possibleValueTextSize1 = 16f;
 	static float scale;
 	
+	/*
+	 * BEGIN STATE INFO TO SAVE
+	 */
 	private int displayState = NONE;
+	
+	/*
+	 * END STATE INFO TO SAVE
+	 */
 	int size1 = 60;
-	int row, col;
+	//int row, col;
 	SudokuPuzzleCell cell1;
 	SortedSet<Integer> possibleValues = new TreeSet<Integer>();
 	String possibleValuesS = new String();
@@ -48,8 +55,8 @@ public class SmallBox extends View {
 		super(context);
 		this.state1 = state1;
 		this.cell1 = cell1;
-		this.row = row;
-		this.col = col;
+//		this.row = row;
+//		this.col = col;
 		this.size1 = size;
 		//setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 		createPaints();
@@ -198,8 +205,8 @@ public class SmallBox extends View {
 		drawBorder2(canvas, edge);
 	}
 	private void drawBorder2(Canvas canvas, Paint paint) {
-		drawBorder3(canvas, row, VERTICAL, paint);
-		drawBorder3(canvas, col, HORIZONTAL, paint);
+		drawBorder3(canvas, cell1.row, VERTICAL, paint);
+		drawBorder3(canvas, cell1.col, HORIZONTAL, paint);
 	}
 	private void drawBorder3(Canvas canvas, int rowcol, int orientation, Paint p) {
 		int head, tail;
@@ -238,43 +245,114 @@ public class SmallBox extends View {
 		}
 	}
 	
-	@Override
-	protected Parcelable onSaveInstanceState() {
-		/**
-		 * has final value
-		 * final value
-		 * possiblevalue
-		 * isEditable
-		 * row,column
-		 * 
-		 */
-		Bundle bundle = new Bundle();
-		bundle.putBoolean("hasFinalValue", cell1.hasValue);
-		bundle.putInt("finalValue", cell1.getValue());
-		bundle.putInt("intputMethod", cell1.inputMethod);
-		bundle.putString("possibleValuesS", this.possibleValuesS);
-		return bundle;
-		
-	}
+
+	  @Override
+	  public Parcelable onSaveInstanceState() {
+	    Parcelable superState = super.onSaveInstanceState();
+	    SavedState ss = new SavedState(superState);
+	    ss.row = this.cell1.row;
+	    ss.col = this.cell1.col;
+	    ss.hasValue = this.cell1.hasValue;
+	    ss.isEditable = this.cell1.isEditable;
+	    if (this.cell1.hasValue)
+	    	ss.value = this.cell1.getValue();
+	    ss.inputMethod = this.cell1.inputMethod;
+	    ss.displayState = this.displayState;
+
+	    return ss;
+	  }
+
+	  @Override
+	  public void onRestoreInstanceState(Parcelable state) {
+	    //begin boilerplate code so parent classes can restore state
+	    if(!(state instanceof SavedState)) {
+	      super.onRestoreInstanceState(state);
+	      return;
+	    }
+
+	    SavedState ss = (SavedState)state;
+	    super.onRestoreInstanceState(ss.getSuperState());
+	    //end
+
+	    this.cell1.col = ss.col;
+	    this.cell1.row = ss.row;
+	    this.cell1.isEditable = true;
+	    this.cell1.setValue(ss.value);
+	    this.cell1.hasValue = ss.hasValue;
+	    this.cell1.setInput(ss.inputMethod);
+	    this.cell1.isEditable = ss.isEditable;
+	    this.displayState = ss.displayState;
+
+	  }
+
+	  static class SavedState extends BaseSavedState {
+		  final static int TRUE = 0;
+		  final static int FALSE = 1;
+	   int row, col;
+	   boolean hasValue;
+	   boolean isEditable;
+	   int value;
+	   int inputMethod;
+	   int displayState;
+	   
+
+	    SavedState(Parcelable superState) {
+	      super(superState);
+	    }
+
+	    private SavedState(Parcel in) {
+	      super(in);
+	      this.row = in.readInt();
+	      this.col = in.readInt();
+	      if (in.readInt() == TRUE)
+	    	  this.hasValue = true;
+	      else
+	    	  this.hasValue = false;
+	      if (in.readInt() == TRUE)
+	    	  this.isEditable = true;
+	      else
+	    	  this.isEditable = false;
+	      this.value = in.readInt();
+	      this.inputMethod = in.readInt();
+	      this.displayState = in.readInt();
+	    }
+
+	    @Override
+	    public void writeToParcel(Parcel out, int flags) {
+	      super.writeToParcel(out, flags);
+	      out.writeInt(this.row);
+	      out.writeInt(this.col);
+	      if (this.hasValue)
+	    	  out.writeInt(SavedState.TRUE);
+	      else
+	    	  out.writeInt(SavedState.FALSE);
+	      if (this.isEditable)
+	    	  out.writeInt(SavedState.TRUE);
+	      else
+	    	  out.writeInt(SavedState.FALSE);
+	      out.writeInt(this.value);
+	      out.writeInt(this.inputMethod);
+	      out.writeInt(this.displayState);
+	      
+	    }
+
+	    //required field that makes Parcelables from a Parcel
+	    public static final Parcelable.Creator<SavedState> CREATOR =
+	        new Parcelable.Creator<SavedState>() {
+	          public SavedState createFromParcel(Parcel in) {
+	            return new SavedState(in);
+	          }
+	          public SavedState[] newArray(int size) {
+	            return new SavedState[size];
+	          }
+	    };
+	  }
+	
 	
 	/*
 	 * END CALLBACKS
 	 * BEGIN BUILDER METHODS
 	 */
-	
-	private ShapeDrawable createBorder() {
-		// UNUSED
-		ShapeDrawable border = new ShapeDrawable();
-		border.setBounds(0,0,size1,size1);
-		Paint paint = border.getPaint();
-		paint.setStyle(Paint.Style.STROKE);
-		if (row == 0 || row == 3 || row == 6) {
-			//TODO
-			// add a thick border to the top
-		}
-		
-		return border;		
-	}
 	
 	private static void createPaints() {
 		/*
