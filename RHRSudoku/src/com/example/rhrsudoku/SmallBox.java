@@ -37,14 +37,13 @@ public class SmallBox extends View {
 	 * BEGIN STATE INFO TO SAVE
 	 */
 	private int displayState = NONE;
-	
+	SortedSet<Integer> possibleValues = new TreeSet<Integer>();
 	/*
 	 * END STATE INFO TO SAVE
 	 */
 	int size1 = 60;
 	//int row, col;
 	SudokuPuzzleCell cell1;
-	SortedSet<Integer> possibleValues = new TreeSet<Integer>();
 	String possibleValuesS = new String();
 	private static Paint[] paints = new Paint[16];
 	private static Paint[] gridLinePaintList = new Paint[10];
@@ -258,7 +257,11 @@ public class SmallBox extends View {
 	    	ss.value = this.cell1.getValue();
 	    ss.inputMethod = this.cell1.inputMethod;
 	    ss.displayState = this.displayState;
-
+	    String possibleValuesS2 = new String();
+	    for (int i : this.possibleValues) {
+	    	possibleValuesS2 = possibleValuesS2.concat(Integer.toString(i));
+	    }
+	    ss.possibleValuesS = possibleValuesS2;
 	    return ss;
 	  }
 
@@ -282,7 +285,14 @@ public class SmallBox extends View {
 	    this.cell1.setInput(ss.inputMethod);
 	    this.cell1.isEditable = ss.isEditable;
 	    this.displayState = ss.displayState;
-
+	    this.possibleValues.clear();
+	    
+	    for (int i=0;i<ss.possibleValuesS.length();i++) {
+	    	int pv = Integer.parseInt(String.valueOf(ss.possibleValuesS.charAt(i)));
+	    //	int pv = Integer.parseInt(possibleValuesS.substring(i, i+1));
+	    	this.possibleValues.add(pv);
+	    }
+	    this.calculatePossibleValuesS();
 	  }
 
 	  static class SavedState extends BaseSavedState {
@@ -294,7 +304,8 @@ public class SmallBox extends View {
 	   int value;
 	   int inputMethod;
 	   int displayState;
-	   
+	   String possibleValuesS;
+
 
 	    SavedState(Parcelable superState) {
 	      super(superState);
@@ -315,6 +326,7 @@ public class SmallBox extends View {
 	      this.value = in.readInt();
 	      this.inputMethod = in.readInt();
 	      this.displayState = in.readInt();
+	      this.possibleValuesS = in.readString();
 	    }
 
 	    @Override
@@ -333,6 +345,7 @@ public class SmallBox extends View {
 	      out.writeInt(this.value);
 	      out.writeInt(this.inputMethod);
 	      out.writeInt(this.displayState);
+	      out.writeString(this.possibleValuesS);
 	      
 	    }
 
