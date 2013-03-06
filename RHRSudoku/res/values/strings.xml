@@ -25,4 +25,5 @@
 	<string name="yes">Yes</string>
 	<string name="no">No</string>
 	<string name="confirm_clear_all">Are you sure you want to reset the puzzle?</string>
+	<string name="user_made_mistake">You have made a mistake</string>
 </resources>

@@ -53,7 +53,10 @@ public class SudokuPuzzleCell {
 	public void setValue(int value) {
 		if (this.isEditable) {
 			this.value = value;
-			this.hasValue = true;
+			if ((value > 0) && (value < 10))
+				this.hasValue = true;
+			else
+				this.hasValue = false;
 		}
 	}
 	

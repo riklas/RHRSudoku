@@ -19,7 +19,7 @@ public class GeneratedPuzzles implements SudokuGenerator {
 	}
 
 	@Override
-	public SudokuPuzzle getPuzzle(int difficulty) {
+	public SudokuPuzzleWithSolution getPuzzle(int difficulty) {
 		switch(difficulty) {
 		case 0: floorCount = 32; 
 				ceilingCount = 40;
@@ -48,7 +48,7 @@ public class GeneratedPuzzles implements SudokuGenerator {
 		//this returns puzzle with values taken out
 		puzzle = setValues(puzzle);
 		SudokuPuzzleWithSolution puzzle2 = new SudokuPuzzleWithSolution(puzzle, solver.solvePuzzle(puzzle));
-		return puzzle;
+		return puzzle2;
 	}
 
 	

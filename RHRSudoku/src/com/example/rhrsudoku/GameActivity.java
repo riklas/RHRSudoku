@@ -20,28 +20,15 @@ import android.widget.TextView;
 
 public class GameActivity extends Activity {
 	
-	/*
-	 * TO IMPLEMENT
-	 * ===============
-	 * 		* onSaveInstanceState(), onRestoreInstanceState()
-	 * 		* onCreate() -- setContentView(), onDestroy(), other callbacks
-	 * 		* creation of the SmallBox Grid
-	 * 				* set each id/row/column
-	 * 				* create paint arguments
-	 * 				* create + set onClick listeners
-	 * 		* configure manifest.xml
-	 * 		* finish() -- called when user has given up or solved
-	 * 		* View.onSaveInstanceState() -- could save instance state in each view
-	 */
-	
 	
 	/*
 	 * GLOBAL MEMBERS
 	 */
-	SudokuPuzzle puzzle;
+	SudokuPuzzleWithSolution puzWithSol;
 	SudokuSolver solver;
 	StateInfo stateInfo;
 	DigitButton[] digits1 = new DigitButton[9];
+	Random randomGen = new Random();
 	/*
 	 * BEGIN CALLBACKS
 	 */
@@ -50,29 +37,12 @@ public class GameActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		/*
-		 * Game Activity Creation
-		 * =======================
-		 * 		* get SudokuPuzzle from generator, using difficulty level passed in
-		 * 		* create SmallBoxes
-		 * 		* create root view/inflate from xml
-		 * 		* add smallboxes to root
-		 * 		* add buttons, 1-9, hint, clear, clear all
-		 * 		* call setContentView()
-		 * 
-		 * 
-		 * Logic
-		 * ==========
-		 * 		* onClickListener for small boxes
-		 * 		* onClickListener for Hint, Clear, Clear All
-		 * 		* 
-		 */
 		Intent intent = getIntent();
 		int difficulty = intent.getIntExtra(DifficultyChooser.DIFFICULTY, 0);
 		stateInfo = new StateInfo();
 		
 		SudokuGenerator hardcode = new HardcodedPuzzles();
-		puzzle = hardcode.getPuzzle(difficulty);
+		puzWithSol = hardcode.getPuzzle(difficulty);
 		
 		
 		
@@ -203,7 +173,7 @@ public class GameActivity extends Activity {
 		for(int row=0; row<9; row++) {
 			for(int col=0; col<9; col++) {
 				SmallBox box1 = new SmallBox(this, this.stateInfo, 
-						puzzle.puzzle[row][col], row, col, cellSize);
+						puzWithSol.puzzle.puzzle[row][col], row, col, cellSize);
 				box1.setOnClickListener(listener1);
 				box1.setOnLongClickListener(listener2);
 				grid1.addView(box1);
@@ -330,11 +300,26 @@ public class GameActivity extends Activity {
 	}
 	
 	private void testPuzzleCompletion() {
-		if (puzzle.isFilled() && puzzle.isSolved()) {
+		if (puzWithSol.puzzle.isFilled() && puzWithSol.puzzle.isSolved()) {
 			new AlertDialog.Builder(this)
 		    .setMessage(R.string.puzzle_completed)
 		     .show();
 		}
+	}
+	
+	private boolean userHasMadeError() {
+		for (int row=0;row<9;row++) {
+			for (int col=0;col<9;col++) {
+				if (puzWithSol.puzzle.isConflicting())
+					return true;
+				if (puzWithSol.puzzle.puzzle[row][col].hasValue) {
+					if (puzWithSol.puzzle.puzzle[row][col].getValue() !=
+							puzWithSol.solution.puzzle[row][col].getValue())
+						return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 //	private void testPuzzleCompletion() {
@@ -357,50 +342,78 @@ public class GameActivity extends Activity {
 	 * END LISTENER METHODS
 	 * BEGIN LOGIC METHODS
 	 */
-
+//
+//	public void showHint(View v) {
+//		solver = new SudokuSolver();
+//		//crashing --possibly because of returning null ! 
+//		SudokuPuzzle solvedPuzzle = solver.solvePuzzle(puzWithSol);
+//		if (solvedPuzzle == null) {
+//			System.err.println("cannot solve the puzzle");
+//			return;
+//		}
+//		Random randomGenerator = new Random();
+//		int randx;
+//		int randy;
+//		boolean finalset = false;
+//		
+//		randx = randomGenerator.nextInt(9);
+//		randy = randomGenerator.nextInt(9);
+//		int trandy = randy;
+//
+//outer:		for(int row=randx;row<9;row++) {
+//				for (int col=randy; col<9; col++) {
+//					if (solvedPuzzle.puzzle[row][col].getInput() == SudokuPuzzleCell.SOLVER_GENERATED) {
+//						int value = solvedPuzzle.puzzle[row][col].getValue();
+//						puzWithSol.puzzle[row][col].box1.setFinalValue(value, SudokuPuzzleCell.HINT_GENERATED);					
+//						finalset = true;
+//						break outer;
+//					}
+//				}
+//				if (row == randx) randy = 0; 	//when the random index is about to reach the next row, start from col index 0
+//			}
+//			//if loop doesn't find SOLVER GENERATED VALUE start from beginning index of puzzle 
+//
+//			if (!finalset) {
+//outer2:			for (int row=0; row<9; row++) {
+//					for (int col=0; col<9; col++) {
+//						if (row == randx && col == trandy) break outer2;
+//						
+//						if (solvedPuzzle.puzzle[row][col].getInput() == SudokuPuzzleCell.SOLVER_GENERATED) {
+//							int value = solvedPuzzle.puzzle[row][col].getValue();
+//							puzWithSol.puzzle[row][col].box1.setFinalValue(value, SudokuPuzzleCell.HINT_GENERATED);					
+//							break outer2;
+//						}
+//					}	
+//				}
+//			}		
+//	}
+	
 	public void showHint(View v) {
-		solver = new SudokuSolver();
-		//crashing --possibly because of returning null ! 
-		SudokuPuzzle solvedPuzzle = solver.solvePuzzle(puzzle);
-		if (solvedPuzzle == null) {
-			System.err.println("cannot solve the puzzle");
-			return;
+		if (userHasMadeError()) {
+			new AlertDialog.Builder(this)
+		    .setMessage(R.string.user_made_mistake)
+		     .show();
 		}
-		Random randomGenerator = new Random();
-		int randx;
-		int randy;
-		boolean finalset = false;
 		
-		randx = randomGenerator.nextInt(9);
-		randy = randomGenerator.nextInt(9);
-		int trandy = randy;
-
-outer:		for(int row=randx;row<9;row++) {
-				for (int col=randy; col<9; col++) {
-					if (solvedPuzzle.puzzle[row][col].getInput() == SudokuPuzzleCell.SOLVER_GENERATED) {
-						int value = solvedPuzzle.puzzle[row][col].getValue();
-						puzzle.puzzle[row][col].box1.setFinalValue(value, SudokuPuzzleCell.HINT_GENERATED);					
-						finalset = true;
-						break outer;
-					}
+		int[][] list1 = new int[81][2];
+		int count = 0;
+		for (int row=0;row<9;row++) {
+			for (int col=0;col<9;col++) {
+				if (!puzWithSol.puzzle.puzzle[row][col].hasValue) {
+					list1[count][0] = row;
+					list1[count][1] = col;
+					count++;
 				}
-				if (row == randx) randy = 0; 	//when the random index is about to reach the next row, start from col index 0
 			}
-			//if loop doesn't find SOLVER GENERATED VALUE start from beginning index of puzzle 
+		}
+		int rand = randomGen.nextInt(count);
+		int row = list1[rand][0];
+		int col = list1[rand][1];
+		int answer = puzWithSol.solution.puzzle[row][col].getValue();
+		puzWithSol.puzzle.puzzle[row][col].setValue(answer);
+		puzWithSol.puzzle.puzzle[row][col].setInput(SudokuPuzzleCell.HINT_GENERATED);
+		puzWithSol.puzzle.puzzle[row][col].box1.invalidate();
 
-			if (!finalset) {
-outer2:			for (int row=0; row<9; row++) {
-					for (int col=0; col<9; col++) {
-						if (row == randx && col == trandy) break outer2;
-						
-						if (solvedPuzzle.puzzle[row][col].getInput() == SudokuPuzzleCell.SOLVER_GENERATED) {
-							int value = solvedPuzzle.puzzle[row][col].getValue();
-							puzzle.puzzle[row][col].box1.setFinalValue(value, SudokuPuzzleCell.HINT_GENERATED);					
-							break outer2;
-						}
-					}	
-				}
-			}		
 	}
 	
 	public void clearBox(View v) {
@@ -437,11 +450,11 @@ outer2:			for (int row=0; row<9; row++) {
 		private void clearAll2() {
 			for(int row=0;row<9;row++) {
 				for (int col=0; col<9; col++) {
-					if (puzzle.puzzle[row][col].getInput() != SudokuPuzzleCell.GENERATED) {					
-						puzzle.puzzle[row][col].removeValue();
-						puzzle.puzzle[row][col].setInput(SudokuPuzzleCell.NONE);
-						puzzle.puzzle[row][col].box1.invalidate();
-						puzzle.puzzle[row][col].box1.removePossibleValues();
+					if (puzWithSol.puzzle.puzzle[row][col].getInput() != SudokuPuzzleCell.GENERATED) {					
+						puzWithSol.puzzle.puzzle[row][col].removeValue();
+						puzWithSol.puzzle.puzzle[row][col].setInput(SudokuPuzzleCell.NONE);
+						puzWithSol.puzzle.puzzle[row][col].box1.invalidate();
+						puzWithSol.puzzle.puzzle[row][col].box1.removePossibleValues();
 					}
 				}
 			}
