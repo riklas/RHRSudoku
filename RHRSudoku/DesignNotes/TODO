@@ -3,11 +3,8 @@ TODO List
 
 Minor Stuff
 ========================
-* Make back button undo changes
 * Design a Color Scheme
 * Design a logo
 * HINT feedback
 		* if the user has made an error; the puzzle isnt solvable the hint should give feedback
-* Puzzle completion feedback
-	* when puzzle is completed (by user input, not hint) confirm it is correct or not, and say congrats
 * get harcoded puzzles working, with solutions

@@ -27,41 +27,41 @@ public class FunctionButton extends Button {
 			topDown = true;
 	}
 	
-	@Override
-	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
-		if (!textOrientation.equals("vertical")) {
-			super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-			return;
-		}
-		super.onMeasure(heightMeasureSpec, widthMeasureSpec);
-		setMeasuredDimension(getMeasuredHeight(), getMeasuredWidth());
-	}
-
-	@Override
-	protected void onDraw(Canvas canvas){	
-		if (!textOrientation.equals("vertical")) {
-			super.onDraw(canvas);
-			return;
-		}
-			
-		TextPaint textPaint = getPaint(); 
-		textPaint.setColor(getCurrentTextColor());
-		textPaint.drawableState = getDrawableState();
-
-		canvas.save();
-
-		if(topDown){
-			canvas.translate(getWidth(), 0);
-			canvas.rotate(90);
-		}else {
-			canvas.translate(0, getHeight());
-			canvas.rotate(-90);
-		}
-
-		canvas.translate(getCompoundPaddingLeft(), getExtendedPaddingTop());
-		getLayout().draw(canvas);
-		canvas.restore();
-	}
+//	@Override
+//	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
+//		if (!textOrientation.equals("vertical")) {
+//			super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+//			return;
+//		}
+//		super.onMeasure(heightMeasureSpec, widthMeasureSpec);
+//		setMeasuredDimension(getMeasuredHeight(), getMeasuredWidth());
+//	}
+//
+//	@Override
+//	protected void onDraw(Canvas canvas){	
+//		if (!textOrientation.equals("vertical")) {
+//			super.onDraw(canvas);
+//			return;
+//		}
+//			
+//		TextPaint textPaint = getPaint(); 
+//		textPaint.setColor(getCurrentTextColor());
+//		textPaint.drawableState = getDrawableState();
+//
+//		canvas.save();
+//
+//		if(topDown){
+//			canvas.translate(getWidth(), 0);
+//			canvas.rotate(90);
+//		}else {
+//			canvas.translate(0, getHeight());
+//			canvas.rotate(-90);
+//		}
+//
+//		canvas.translate(getCompoundPaddingLeft(), getExtendedPaddingTop());
+//		getLayout().draw(canvas);
+//		canvas.restore();
+//	}
 	
 
 }
