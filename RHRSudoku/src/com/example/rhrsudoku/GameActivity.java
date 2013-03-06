@@ -3,17 +3,19 @@ package com.example.rhrsudoku;
 import java.util.Random;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.util.DisplayMetrics;
-import android.view.Display;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.TextView;
 
 
 public class GameActivity extends Activity {
@@ -105,8 +107,10 @@ public class GameActivity extends Activity {
 			//
 			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
 			//
-			NavUtils.navigateUpFromSameTask(this);
-			return true;
+			//NavUtils.navigateUpFromSameTask(this);
+		case R.id.menu_new_game:
+			startNewGame();
+			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -289,6 +293,7 @@ public class GameActivity extends Activity {
 				stateInfo.selectedSmallBox.addPossibleValue(db2.number1);
 		}
 		db2.invalidate();
+		testPuzzleCompletion();
 	}
 	
 	public void functionButtonClicked(View v) {
@@ -317,6 +322,37 @@ public class GameActivity extends Activity {
 		}
 		
 	}
+	
+	private void startNewGame() {
+		Intent intent = new Intent(this, DifficultyChooser.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(intent);
+	}
+	
+	private void testPuzzleCompletion() {
+		if (puzzle.isFilled() && puzzle.isSolved()) {
+			new AlertDialog.Builder(this)
+		    .setMessage(R.string.puzzle_completed)
+		     .show();
+		}
+	}
+	
+//	private void testPuzzleCompletion() {
+//		if (puzzle.isFilled() && puzzle.isSolved()) {
+//			AlertDialog.Builder popupBuilder = new AlertDialog.Builder(this);
+//			TextView myMsg = new TextView(this);
+//			myMsg.setText(R.string.puzzle_completed);
+//			myMsg.setGravity(Gravity.CENTER_HORIZONTAL);
+//			myMsg.setPadding(0, 12, 0, 12);
+//			//myMsg.setTextSize(30f);
+//			myMsg.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, 
+//					LayoutParams.WRAP_CONTENT));
+//			popupBuilder.setView(myMsg);
+//			
+//			popupBuilder.show();
+//	}
+
+	
 	/*
 	 * END LISTENER METHODS
 	 * BEGIN LOGIC METHODS
@@ -377,27 +413,41 @@ outer2:			for (int row=0; row<9; row++) {
 		refreshDigitButtons();
 		}
 	
-	public void clearAll(View v) {
-		
-		for(int row=0;row<9;row++) {
-			for (int col=0; col<9; col++) {
-				if (puzzle.puzzle[row][col].getInput() != SudokuPuzzleCell.GENERATED) {					
-					puzzle.puzzle[row][col].removeValue();
-					puzzle.puzzle[row][col].setInput(SudokuPuzzleCell.NONE);
-					puzzle.puzzle[row][col].box1.invalidate();
-					puzzle.puzzle[row][col].box1.removePossibleValues();
+	public void clearAll1(View v) {
+		new AlertDialog.Builder(this)
+			.setMessage(R.string.confirm_clear_all)
+			.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					clearAll2();
 				}
-
+			})
+			.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+				}
+			})
+			.show();
+	}
+		
+		
+		
+		private void clearAll2() {
+			for(int row=0;row<9;row++) {
+				for (int col=0; col<9; col++) {
+					if (puzzle.puzzle[row][col].getInput() != SudokuPuzzleCell.GENERATED) {					
+						puzzle.puzzle[row][col].removeValue();
+						puzzle.puzzle[row][col].setInput(SudokuPuzzleCell.NONE);
+						puzzle.puzzle[row][col].box1.invalidate();
+						puzzle.puzzle[row][col].box1.removePossibleValues();
+					}
+				}
 			}
+			refreshDigitButtons();
 		}
 	
-		/*for(int row=0; row<9; row++) {
-			for(int col=0; col<9; col++) {
-				puzzle.puzzle[row][col].box1.invalidate();
-			}
-		}*/
-		refreshDigitButtons();
-	}
 	
 	/*
 	 * END LOGIC METHODS

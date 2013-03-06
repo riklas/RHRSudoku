@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:id="@+id/linearLayout1"
     android:orientation="vertical"
-    android:background="@drawable/border"
+    android:background="@drawable/black_back"
     >
     
     <FrameLayout 
@@ -19,10 +19,7 @@
         android:id="@+id/gridLayout1"
         grid:rowCount="9"
         grid:columnCount="9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="10dp"
+        style="@style/gridLayout"
         >
     </android.support.v7.widget.GridLayout>
     </FrameLayout>
@@ -108,7 +105,7 @@
             android:text="@string/clearAll"
             android:id="@+id/clearAllButton"
             style="@style/functionButton"
-            android:onClick="clearAll"
+            android:onClick="clearAll1"
             custom:textOrientation="horizontal"
             />
     </LinearLayout>

@@ -50,5 +50,12 @@
      <style name="gridLayoutFrame">
          <item name="android:onClick">blankAreaClicked</item>
      </style>
+     <style name="gridLayout">
+         <item name="android:padding">4px</item>
+         <item name="android:background">#CCFFFFFF</item>
+         <item name="android:layout_width">wrap_content</item>
+         <item name="android:layout_height">wrap_content</item>
+         <item name="android:layout_gravity">center</item>
+     </style>
     
 </resources>
