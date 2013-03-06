@@ -7,17 +7,18 @@ public class Puzzles {
 	int[][] hardcodePuzzle;
 	
 	public Puzzles(int difficulty) {		
-		//setPuz(difficulty);	
+		setPuz(difficulty);	
 	}
 
-/*
+
 private void setPuz(int difficulty) {
 	
 	Random randomGenerator = new Random();
 	int randno = randomGenerator.nextInt(20);	
 
 	if (difficulty == 0) hardcodePuzzle = EasyPuzzles[randno];
-	else hardcodePuzzle = HardPuzzles[randno];
+	//else hardcodePuzzle = HardPuzzles[randno];
+	else hardcodePuzzle = EasyPuzzles[randno];
 }
 	
 private int[][][] EasyPuzzles = new int[][][] {
@@ -1122,7 +1123,7 @@ private int[][][] EasyPuzzles = new int[][][] {
 			{9,0,6,0,0,0,2,0,8},
 			},
 };
-
+/*
 private int[][][] EasySolved = new int[][][] {	
 		{
 			{9,3,4,2,1,5,7,8,6},
