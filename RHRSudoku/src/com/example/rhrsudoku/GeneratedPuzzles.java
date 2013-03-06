@@ -69,8 +69,8 @@ public class GeneratedPuzzles implements SudokuGenerator {
 	}
 	
 	public SudokuPuzzle removeValue(SudokuPuzzle targetPuzzle) {
-		System.out.println("floor count " + floorCount);
-		System.out.println("ceiling count " + ceilingCount);
+		//System.out.println("floor count " + floorCount);
+		//System.out.println("ceiling count " + ceilingCount);
 		Quant compar = Quant.ONE;
 		
 		if(multiSol) compar = Quant.MULTIPLE;
@@ -112,7 +112,7 @@ public class GeneratedPuzzles implements SudokuGenerator {
 			else break;				//only break when number of values is <= count
 		}
 	
-		System.out.println("counter: " + counter);
+		//System.out.println("counter: " + counter);
 		return targetPuzzle;	//return the puzzle
 		}			
 };

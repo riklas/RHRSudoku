@@ -363,6 +363,14 @@ public class GameActivity extends Activity {
 		//crashing --possibly because of returning null ! 
 		SudokuPuzzle solvedPuzzle = solver.solvePuzzle(puzzle);
 		if (solvedPuzzle == null) {
+			new AlertDialog.Builder(this)
+			.setMessage(R.string.error)
+			.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {												
+				public void onClick(DialogInterface dialog, int which) {
+					// User clicked ok					
+				}
+			})
+			.show();
 			System.err.println("cannot solve the puzzle");
 			return;
 		}

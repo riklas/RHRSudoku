@@ -22,7 +22,9 @@
 	<string name="clearAll">Clear All</string>
 	<string name="menu_new_game">New Game</string>
 	<string name="puzzle_completed">Puzzle Completed!</string>
+	<string name="ok">OK</string>
 	<string name="yes">Yes</string>
 	<string name="no">No</string>
 	<string name="confirm_clear_all">Are you sure you want to reset the puzzle?</string>
+	<string name="error">Whoops. You\'ve made an error</string>
 </resources>
