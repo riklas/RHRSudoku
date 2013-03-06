@@ -413,8 +413,8 @@ public class GameActivity extends Activity {
 		puzWithSol.puzzle.puzzle[row][col].setValue(answer);
 		puzWithSol.puzzle.puzzle[row][col].setInput(SudokuPuzzleCell.HINT_GENERATED);
 		puzWithSol.puzzle.puzzle[row][col].box1.invalidate();
-
 	}
+	
 	
 	public void clearBox(View v) {
 		if (!stateInfo.hasSelectedSmallBox) {

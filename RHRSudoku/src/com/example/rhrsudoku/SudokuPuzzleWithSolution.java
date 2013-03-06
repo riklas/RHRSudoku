@@ -15,7 +15,7 @@ public class SudokuPuzzleWithSolution {
 			System.err.println("Error: bad puzzle received");
 			System.exit(1);
 		}
-		for (int row=0;row<9;row++)
+		for (int row=0;row<9;row++) {
 			for (int col=0;col<9;col++) {
 				if (puzzle.puzzle[row][col].hasValue)
 					if (puzzle.puzzle[row][col].getValue() != solution.puzzle[row][col].getValue()) {
@@ -23,6 +23,7 @@ public class SudokuPuzzleWithSolution {
 						System.exit(1);
 					}
 			}
+		}
 		
 		for (int row=0;row<9;row++) {
 			for (int col=0;col<9;col++) {
@@ -32,5 +33,4 @@ public class SudokuPuzzleWithSolution {
 			}
 		}
 	}
-
 }

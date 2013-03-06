@@ -23,7 +23,7 @@ public class PuzzleTester1 {
 		SudokuPuzzleWithSolution puzzle4 = HCP.getPuzzle(3);
 		SudokuPuzzle puzzle1 = puzzle4.puzzle;
 		puzzle1.printPuzzle();
-		System.out.println("SOLVING......");
+		//System.out.println("SOLVING......");
 		SudokuPuzzle puzzle2 = solver1.solvePuzzle(puzzle1);
 		puzzle2.printPuzzle();
 	}
