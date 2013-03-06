@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.drawable.ShapeDrawable;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 
@@ -62,9 +63,19 @@ public class DigitButton extends Button {
 	
 	
 	final private void createPaints() {
-		//this.setClickable(false);
-		// Get the screen's density scale
-		final float scale = getResources().getDisplayMetrics().density;
+		DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+		final float textSize1 = 40.0f;
+		final float density = displayMetrics.scaledDensity;
+		int width = displayMetrics.widthPixels;
+		int height = displayMetrics.heightPixels;
+		int smallestSize;
+		if (width<height)
+			smallestSize = width;
+		else
+			smallestSize = height;
+		int scale = smallestSize/800;
+		float orientationScale = 1f;
+
 		paint1 = new Paint();
 		paint2 = new Paint();
 		paint3 = new Paint();
@@ -86,12 +97,19 @@ public class DigitButton extends Button {
 		paint5.setStyle(Style.FILL);
 		
 		paint6.setTextAlign(Paint.Align.CENTER);
+		paint6.setTextSize(textSize1);
 		
 		// TextSize expressed in DP
-		final float textSize1 = 40.0f;
 		// Convert the dps to pixels, based on density scale
-		int textSize2 = (int) (textSize1 * scale + 0.5f);
+
+		
+		if (width>height)
+			orientationScale = 0.75f;
+		int textSize2 = (int) (textSize1 * density * 
+				(scale) * orientationScale + 0.5f);
+		
 		paint6.setTextSize(textSize2);
+
 	}
 	
 }

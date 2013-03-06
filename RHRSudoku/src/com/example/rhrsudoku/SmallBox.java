@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -29,9 +30,10 @@ public class SmallBox extends View {
 	private static final int VERTICAL = 9;
 		
 	final static float finalValueTextSize1 = 36f;
-	final static float generatedValueTextSize1 = 42f;
+	final static float generatedValueTextSize1 = 36f;
 	final static float possibleValueTextSize1 = 16f;
-	static float scale;
+	final static float scale = 1.4f;
+	static float density;
 	
 	/*
 	 * BEGIN STATE INFO TO SAVE
@@ -41,7 +43,7 @@ public class SmallBox extends View {
 	/*
 	 * END STATE INFO TO SAVE
 	 */
-	int size1 = 60;
+	static int size1 = 60;
 	//int row, col;
 	SudokuPuzzleCell cell1;
 	String possibleValuesS = new String();
@@ -66,7 +68,7 @@ public class SmallBox extends View {
 		}
 		if (cell1.hasValue)
 			displayState = FINAL_VALUE;
-		scale = getResources().getDisplayMetrics().density;
+		density = getResources().getDisplayMetrics().density;
 		cell1.setSmallBox(this);
 	}
 	
@@ -175,10 +177,16 @@ public class SmallBox extends View {
 			else
 				selectedPaint = paints[4];
 			s = possibleValuesS;
-			xpos = View.MeasureSpec.getSize(getWidth())/2;
-			ypos = (int) ((View.MeasureSpec.getSize(getHeight()) / 2) - ((selectedPaint.descent() + selectedPaint.ascent()) / 2)) ;
-
 			String[] lines1 = s.split("\n");
+			xpos = View.MeasureSpec.getSize(getWidth())/2;
+			
+			if (lines1.length == 1)
+				ypos = (int) ((View.MeasureSpec.getSize(getHeight()) / 2) - 
+						((selectedPaint.descent() + selectedPaint.ascent()) / 2)) ;
+			else
+				ypos = (int) ((View.MeasureSpec.getSize(getHeight())/2));
+			
+
 			Rect bounds = new Rect();
 			int yoff = 0;
 			for (int i=0;i<lines1.length;i++) {
@@ -390,9 +398,9 @@ public class SmallBox extends View {
 		 */
 		
 		// Get the screen's density scale
-		int finalValueTextSize2 = (int) (finalValueTextSize1 * scale + 0.5f);
-		int generatedValueTextSize2 = (int) (generatedValueTextSize1 * scale + 0.5f);
-		int possibleValueTextSize2 = (int) (possibleValueTextSize1 * scale + 0.5f);
+		int finalValueTextSize2 = (int) (finalValueTextSize1 * density * scale * (size1/100f) + 0.5f);
+		int generatedValueTextSize2 = (int) (generatedValueTextSize1 * density * scale * (size1/100f) + 0.5f);
+		int possibleValueTextSize2 = (int) (possibleValueTextSize1 * density * scale * (size1/100f) + 0.5f);
 		
 		for (int i=0;i<paints.length;i++) {
 			paints[i] = new Paint();
@@ -418,9 +426,13 @@ public class SmallBox extends View {
 		paints[14].setColor(Color.BLACK);
 		paints[15].setColor(Color.BLACK);
 		
+		paints[0].setTextSize(finalValueTextSize2);
 		paints[2].setTextSize(generatedValueTextSize2);
 		paints[4].setTextSize(possibleValueTextSize2);
 		paints[6].setTextSize(possibleValueTextSize2);
+		
+		//paints[0].setTypeface(Typeface.DEFAULT_BOLD);
+		paints[2].setTypeface(Typeface.DEFAULT_BOLD);
 		
 		paints[13].setStyle(Paint.Style.STROKE);
 		paints[14].setStyle(Paint.Style.STROKE);

@@ -47,6 +47,7 @@ public class GeneratedPuzzles implements SudokuGenerator {
 		//puzzle.printPuzzle();
 		//this returns puzzle with values taken out
 		puzzle = setValues(puzzle);
+		SudokuPuzzleWithSolution puzzle2 = new SudokuPuzzleWithSolution(puzzle, solver.solvePuzzle(puzzle));
 		return puzzle;
 	}
 

@@ -1,6 +1,5 @@
 package com.example.rhrsudoku;
 
-import java.io.Serializable;
 import java.util.Random;
 
 import android.app.Activity;
@@ -9,6 +8,7 @@ import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -173,35 +173,33 @@ public class GameActivity extends Activity {
 	}
 	
 		
-	@SuppressWarnings("deprecation")
 	private void createSmallBoxes() {
 		
-		Point size = new Point();
-		Display display = getWindowManager().getDefaultDisplay();
-		if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
-			size.set(display.getWidth(), display.getHeight());	
-		} else 
-			getWindowManager().getDefaultDisplay().getSize(size);
+		final ViewGroup grid1 = (ViewGroup) findViewById(R.id.gridLayout1);
+		DisplayMetrics displayMetrics = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 		
-		//Point size = new Point();
-		//getWindowManager().getDefaultDisplay().getSize(size);
+		int screenWidth = displayMetrics.widthPixels;
+		int screenHeight = displayMetrics.heightPixels;
 		
-		
-		int screenWidth = size.x;
-		int screenHeight = size.y;
+		int divisor = 10;
 		int screenSmallest;
-		if (screenWidth<screenHeight)
+		if (screenWidth<screenHeight) {
 			screenSmallest = screenWidth;
-		else
+			divisor = 10;
+		}
+		else {
 			screenSmallest = screenHeight;
-		int cellSize = screenSmallest/10;
-		ViewGroup grid1 = (ViewGroup) findViewById(R.id.gridLayout1);
+			divisor = 12;
+		}
+		int cellSize = screenSmallest/divisor;
 		View.OnClickListener listener1 = getSmallBoxOnClickListener();
 		View.OnLongClickListener listener2 = getSmallBoxOnLongClickListener();
 		//creating small boxes
 		for(int row=0; row<9; row++) {
 			for(int col=0; col<9; col++) {
-				SmallBox box1 = new SmallBox(this, this.stateInfo, puzzle.puzzle[row][col], row, col, cellSize);
+				SmallBox box1 = new SmallBox(this, this.stateInfo, 
+						puzzle.puzzle[row][col], row, col, cellSize);
 				box1.setOnClickListener(listener1);
 				box1.setOnLongClickListener(listener2);
 				grid1.addView(box1);

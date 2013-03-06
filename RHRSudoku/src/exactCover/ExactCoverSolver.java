@@ -162,7 +162,6 @@ public class ExactCoverSolver<E> {
 	
 	Quant solveMatrix2(Matrix matrix, SolutionPackage solutions) {
 		MatrixCellHeader chosenColumn = matrix.columnStarter.findSmallestColumn();
-//		MatrixCellHeader chosenColumn = matrix.columnStarter.starter;
 		if (PRINT_WORKING)
 			System.out.println("chosenColumn with ID: " + chosenColumn.id);
 		return solveMatrix3(matrix, solutions, chosenColumn);
