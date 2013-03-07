@@ -41,7 +41,7 @@ public class GameActivity extends Activity {
 		int difficulty = intent.getIntExtra(DifficultyChooser.DIFFICULTY, 0);
 		stateInfo = new StateInfo();
 		
-		SudokuGenerator hardcode = new HardcodedPuzzles();
+		SudokuGenerator hardcode = new HardcodedPuzzles2();
 		puzWithSol = hardcode.getPuzzle(difficulty);
 		
 		
@@ -321,21 +321,6 @@ public class GameActivity extends Activity {
 		}
 		return false;
 	}
-	
-//	private void testPuzzleCompletion() {
-//		if (puzzle.isFilled() && puzzle.isSolved()) {
-//			AlertDialog.Builder popupBuilder = new AlertDialog.Builder(this);
-//			TextView myMsg = new TextView(this);
-//			myMsg.setText(R.string.puzzle_completed);
-//			myMsg.setGravity(Gravity.CENTER_HORIZONTAL);
-//			myMsg.setPadding(0, 12, 0, 12);
-//			//myMsg.setTextSize(30f);
-//			myMsg.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, 
-//					LayoutParams.WRAP_CONTENT));
-//			popupBuilder.setView(myMsg);
-//			
-//			popupBuilder.show();
-//	}
 
 	
 	/*
@@ -395,6 +380,9 @@ public class GameActivity extends Activity {
 		     .show();
 		}
 		
+		if (puzWithSol.puzzle.isSolved())
+			return;
+		
 		int[][] list1 = new int[81][2];
 		int count = 0;
 		for (int row=0;row<9;row++) {
@@ -410,9 +398,7 @@ public class GameActivity extends Activity {
 		int row = list1[rand][0];
 		int col = list1[rand][1];
 		int answer = puzWithSol.solution.puzzle[row][col].getValue();
-		puzWithSol.puzzle.puzzle[row][col].setValue(answer);
-		puzWithSol.puzzle.puzzle[row][col].setInput(SudokuPuzzleCell.HINT_GENERATED);
-		puzWithSol.puzzle.puzzle[row][col].box1.invalidate();
+		puzWithSol.puzzle.puzzle[row][col].box1.setFinalValue(answer, SudokuPuzzleCell.HINT_GENERATED);
 	}
 	
 	

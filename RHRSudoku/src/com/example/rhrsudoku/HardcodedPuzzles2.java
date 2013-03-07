@@ -2,7 +2,7 @@ package com.example.rhrsudoku;
 
 import java.util.Random;
 
-public class HardcodedPuzzles2  {
+public class HardcodedPuzzles2 implements SudokuGenerator  {
 	final static int puzzlesM = 1;
 	final static int difficultyLevelsM = 4;
 	Random randGen;
