@@ -15,7 +15,6 @@ public class HardcodedPuzzles2 implements SudokuGenerator  {
 		initHardcodedValues();
 	}
 	
-
 	public SudokuPuzzleWithSolution getPuzzle(int difficulty) {
 		if (!(difficulty < difficultyLevelsM)) {
 			System.err.println("Invalid Difficulty!");
