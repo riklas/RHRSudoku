@@ -57,5 +57,9 @@
          <item name="android:layout_height">wrap_content</item>
          <item name="android:layout_gravity">center</item>
      </style>
+     <style name="dfChooser">
+         <item name="android:background">@drawable/black_back</item>
+         <item name="android:gravity">center_vertical</item>
+     </style>
     
 </resources>

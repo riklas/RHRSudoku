@@ -378,6 +378,7 @@ public class GameActivity extends Activity {
 			new AlertDialog.Builder(this)
 		    .setMessage(R.string.user_made_mistake)
 		     .show();
+			return;
 		}
 		
 		if (puzWithSol.puzzle.isSolved())
