@@ -1,0 +1,431 @@
+
+<database>
+    <puzzles difficulty="0">
+        <bundle id=0>
+            <puzzle>
+                <cell row="0" col="0" value="2" />
+                <cell row="0" col="1" value="5" />
+            </puzzle>
+            <solution>
+                <cell row="0" col="0" value="2" />
+                <cell row="0" col="1" value="5" />
+                <cell row="0" col="2" value="2" />
+                <cell row="0" col="3" value="2" />
+                <cell row="0" col="4" value="8" />
+                <cell row="0" col="5" value="7" />   
+                <cell row="0" col="6" value="2" />
+                <cell row="0" col="7" value="5" />
+                <cell row="0" col="8" value="7" />
+                <cell row="1" col="0" value="5" />
+                <cell row="1" col="1" value="7" />
+                <cell row="1" col="2" value="1" />
+                <cell row="1" col="3" value="9" />
+                <cell row="1" col="4" value="6" />
+                <cell row="1" col="5" value="4" />   
+                <cell row="1" col="6" value="2" />
+                <cell row="1" col="7" value="5" />
+                <cell row="1" col="8" value="1" />   
+                <cell row="2" col="0" value="3" />
+                <cell row="2" col="1" value="7" />
+                <cell row="2" col="2" value="8" />
+                <cell row="2" col="3" value="9" />
+                <cell row="2" col="4" value="3" />
+                <cell row="2" col="5" value="2" />   
+                <cell row="2" col="6" value="5" />
+                <cell row="2" col="7" value="4" />
+                <cell row="2" col="8" value="1" />            
+            </solution>
+        </bundle>
+        <bundle id=1>
+            <puzzle>
+                <cell row="0" col="0" value="2" />
+                <cell row="0" col="1" value="5" />
+            </puzzle>
+            <solution>
+                <cell row="0" col="0" value="2" />
+                <cell row="0" col="1" value="5" />
+                <cell row="0" col="2" value="2" />
+                <cell row="0" col="3" value="2" />
+                <cell row="0" col="4" value="8" />
+                <cell row="0" col="5" value="7" />   
+                <cell row="0" col="6" value="2" />
+                <cell row="0" col="7" value="5" />
+                <cell row="0" col="8" value="7" />
+                <cell row="1" col="0" value="5" />
+                <cell row="1" col="1" value="7" />
+                <cell row="1" col="2" value="1" />
+                <cell row="1" col="3" value="9" />
+                <cell row="1" col="4" value="6" />
+                <cell row="1" col="5" value="4" />   
+                <cell row="1" col="6" value="2" />
+                <cell row="1" col="7" value="5" />
+                <cell row="1" col="8" value="1" />   
+                <cell row="2" col="0" value="3" />
+                <cell row="2" col="1" value="7" />
+                <cell row="2" col="2" value="8" />
+                <cell row="2" col="3" value="9" />
+                <cell row="2" col="4" value="3" />
+                <cell row="2" col="5" value="2" />   
+                <cell row="2" col="6" value="5" />
+                <cell row="2" col="7" value="4" />
+                <cell row="2" col="8" value="1" />            
+            </solution>
+        </bundle>
+        <bundle id=2>
+            <puzzle>
+                <cell row="0" col="0" value="2" />
+                <cell row="0" col="1" value="5" />
+            </puzzle>
+            <solution>
+                <cell row="0" col="0" value="2" />
+                <cell row="0" col="1" value="5" />
+                <cell row="0" col="2" value="2" />
+                <cell row="0" col="3" value="2" />
+                <cell row="0" col="4" value="8" />
+                <cell row="0" col="5" value="7" />   
+                <cell row="0" col="6" value="2" />
+                <cell row="0" col="7" value="5" />
+                <cell row="0" col="8" value="7" />
+                <cell row="1" col="0" value="5" />
+                <cell row="1" col="1" value="7" />
+                <cell row="1" col="2" value="1" />
+                <cell row="1" col="3" value="9" />
+                <cell row="1" col="4" value="6" />
+                <cell row="1" col="5" value="4" />   
+                <cell row="1" col="6" value="2" />
+                <cell row="1" col="7" value="5" />
+                <cell row="1" col="8" value="1" />   
+                <cell row="2" col="0" value="3" />
+                <cell row="2" col="1" value="7" />
+                <cell row="2" col="2" value="8" />
+                <cell row="2" col="3" value="9" />
+                <cell row="2" col="4" value="3" />
+                <cell row="2" col="5" value="2" />   
+                <cell row="2" col="6" value="5" />
+                <cell row="2" col="7" value="4" />
+                <cell row="2" col="8" value="1" />            
+            </solution>
+        </bundle>
+    </puzzles>    
+    <puzzles difficulty="1">
+        <bundle id=0>
+            <puzzle>
+                <cell row="0" col="0" value="2" />
+                <cell row="0" col="1" value="5" />
+            </puzzle>
+            <solution>
+                <cell row="0" col="0" value="2" />
+                <cell row="0" col="1" value="5" />
+                <cell row="0" col="2" value="2" />
+                <cell row="0" col="3" value="2" />
+                <cell row="0" col="4" value="8" />
+                <cell row="0" col="5" value="7" />   
+                <cell row="0" col="6" value="2" />
+                <cell row="0" col="7" value="5" />
+                <cell row="0" col="8" value="7" />
+                <cell row="1" col="0" value="5" />
+                <cell row="1" col="1" value="7" />
+                <cell row="1" col="2" value="1" />
+                <cell row="1" col="3" value="9" />
+                <cell row="1" col="4" value="6" />
+                <cell row="1" col="5" value="4" />   
+                <cell row="1" col="6" value="2" />
+                <cell row="1" col="7" value="5" />
+                <cell row="1" col="8" value="1" />   
+                <cell row="2" col="0" value="3" />
+                <cell row="2" col="1" value="7" />
+                <cell row="2" col="2" value="8" />
+                <cell row="2" col="3" value="9" />
+                <cell row="2" col="4" value="3" />
+                <cell row="2" col="5" value="2" />   
+                <cell row="2" col="6" value="5" />
+                <cell row="2" col="7" value="4" />
+                <cell row="2" col="8" value="1" />            
+            </solution>
+        </bundle>
+        <bundle id=1>
+            <puzzle>
+                <cell row="0" col="0" value="2" />
+                <cell row="0" col="1" value="5" />
+            </puzzle>
+            <solution>
+                <cell row="0" col="0" value="2" />
+                <cell row="0" col="1" value="5" />
+                <cell row="0" col="2" value="2" />
+                <cell row="0" col="3" value="2" />
+                <cell row="0" col="4" value="8" />
+                <cell row="0" col="5" value="7" />   
+                <cell row="0" col="6" value="2" />
+                <cell row="0" col="7" value="5" />
+                <cell row="0" col="8" value="7" />
+                <cell row="1" col="0" value="5" />
+                <cell row="1" col="1" value="7" />
+                <cell row="1" col="2" value="1" />
+                <cell row="1" col="3" value="9" />
+                <cell row="1" col="4" value="6" />
+                <cell row="1" col="5" value="4" />   
+                <cell row="1" col="6" value="2" />
+                <cell row="1" col="7" value="5" />
+                <cell row="1" col="8" value="1" />   
+                <cell row="2" col="0" value="3" />
+                <cell row="2" col="1" value="7" />
+                <cell row="2" col="2" value="8" />
+                <cell row="2" col="3" value="9" />
+                <cell row="2" col="4" value="3" />
+                <cell row="2" col="5" value="2" />   
+                <cell row="2" col="6" value="5" />
+                <cell row="2" col="7" value="4" />
+                <cell row="2" col="8" value="1" />            
+            </solution>
+        </bundle>
+        <bundle id=2>
+            <puzzle>
+                <cell row="0" col="0" value="2" />
+                <cell row="0" col="1" value="5" />
+            </puzzle>
+            <solution>
+                <cell row="0" col="0" value="2" />
+                <cell row="0" col="1" value="5" />
+                <cell row="0" col="2" value="2" />
+                <cell row="0" col="3" value="2" />
+                <cell row="0" col="4" value="8" />
+                <cell row="0" col="5" value="7" />   
+                <cell row="0" col="6" value="2" />
+                <cell row="0" col="7" value="5" />
+                <cell row="0" col="8" value="7" />
+                <cell row="1" col="0" value="5" />
+                <cell row="1" col="1" value="7" />
+                <cell row="1" col="2" value="1" />
+                <cell row="1" col="3" value="9" />
+                <cell row="1" col="4" value="6" />
+                <cell row="1" col="5" value="4" />   
+                <cell row="1" col="6" value="2" />
+                <cell row="1" col="7" value="5" />
+                <cell row="1" col="8" value="1" />   
+                <cell row="2" col="0" value="3" />
+                <cell row="2" col="1" value="7" />
+                <cell row="2" col="2" value="8" />
+                <cell row="2" col="3" value="9" />
+                <cell row="2" col="4" value="3" />
+                <cell row="2" col="5" value="2" />   
+                <cell row="2" col="6" value="5" />
+                <cell row="2" col="7" value="4" />
+                <cell row="2" col="8" value="1" />            
+            </solution>
+        </bundle>
+    </puzzles>
+    <puzzles difficulty="2">
+        <bundle id=0>
+            <puzzle>
+                <cell row="0" col="0" value="2" />
+                <cell row="0" col="1" value="5" />
+            </puzzle>
+            <solution>
+                <cell row="0" col="0" value="2" />
+                <cell row="0" col="1" value="5" />
+                <cell row="0" col="2" value="2" />
+                <cell row="0" col="3" value="2" />
+                <cell row="0" col="4" value="8" />
+                <cell row="0" col="5" value="7" />   
+                <cell row="0" col="6" value="2" />
+                <cell row="0" col="7" value="5" />
+                <cell row="0" col="8" value="7" />
+                <cell row="1" col="0" value="5" />
+                <cell row="1" col="1" value="7" />
+                <cell row="1" col="2" value="1" />
+                <cell row="1" col="3" value="9" />
+                <cell row="1" col="4" value="6" />
+                <cell row="1" col="5" value="4" />   
+                <cell row="1" col="6" value="2" />
+                <cell row="1" col="7" value="5" />
+                <cell row="1" col="8" value="1" />   
+                <cell row="2" col="0" value="3" />
+                <cell row="2" col="1" value="7" />
+                <cell row="2" col="2" value="8" />
+                <cell row="2" col="3" value="9" />
+                <cell row="2" col="4" value="3" />
+                <cell row="2" col="5" value="2" />   
+                <cell row="2" col="6" value="5" />
+                <cell row="2" col="7" value="4" />
+                <cell row="2" col="8" value="1" />            
+            </solution>
+        </bundle>
+        <bundle id=1>
+            <puzzle>
+                <cell row="0" col="0" value="2" />
+                <cell row="0" col="1" value="5" />
+            </puzzle>
+            <solution>
+                <cell row="0" col="0" value="2" />
+                <cell row="0" col="1" value="5" />
+                <cell row="0" col="2" value="2" />
+                <cell row="0" col="3" value="2" />
+                <cell row="0" col="4" value="8" />
+                <cell row="0" col="5" value="7" />   
+                <cell row="0" col="6" value="2" />
+                <cell row="0" col="7" value="5" />
+                <cell row="0" col="8" value="7" />
+                <cell row="1" col="0" value="5" />
+                <cell row="1" col="1" value="7" />
+                <cell row="1" col="2" value="1" />
+                <cell row="1" col="3" value="9" />
+                <cell row="1" col="4" value="6" />
+                <cell row="1" col="5" value="4" />   
+                <cell row="1" col="6" value="2" />
+                <cell row="1" col="7" value="5" />
+                <cell row="1" col="8" value="1" />   
+                <cell row="2" col="0" value="3" />
+                <cell row="2" col="1" value="7" />
+                <cell row="2" col="2" value="8" />
+                <cell row="2" col="3" value="9" />
+                <cell row="2" col="4" value="3" />
+                <cell row="2" col="5" value="2" />   
+                <cell row="2" col="6" value="5" />
+                <cell row="2" col="7" value="4" />
+                <cell row="2" col="8" value="1" />            
+            </solution>
+        </bundle>
+        <bundle id=2>
+            <puzzle>
+                <cell row="0" col="0" value="2" />
+                <cell row="0" col="1" value="5" />
+            </puzzle>
+            <solution>
+                <cell row="0" col="0" value="2" />
+                <cell row="0" col="1" value="5" />
+                <cell row="0" col="2" value="2" />
+                <cell row="0" col="3" value="2" />
+                <cell row="0" col="4" value="8" />
+                <cell row="0" col="5" value="7" />   
+                <cell row="0" col="6" value="2" />
+                <cell row="0" col="7" value="5" />
+                <cell row="0" col="8" value="7" />
+                <cell row="1" col="0" value="5" />
+                <cell row="1" col="1" value="7" />
+                <cell row="1" col="2" value="1" />
+                <cell row="1" col="3" value="9" />
+                <cell row="1" col="4" value="6" />
+                <cell row="1" col="5" value="4" />   
+                <cell row="1" col="6" value="2" />
+                <cell row="1" col="7" value="5" />
+                <cell row="1" col="8" value="1" />   
+                <cell row="2" col="0" value="3" />
+                <cell row="2" col="1" value="7" />
+                <cell row="2" col="2" value="8" />
+                <cell row="2" col="3" value="9" />
+                <cell row="2" col="4" value="3" />
+                <cell row="2" col="5" value="2" />   
+                <cell row="2" col="6" value="5" />
+                <cell row="2" col="7" value="4" />
+                <cell row="2" col="8" value="1" />            
+            </solution>
+        </bundle>
+    </puzzles>
+    <puzzles difficulty="3">
+        <bundle id=0>
+            <puzzle>
+                <cell row="0" col="0" value="2" />
+                <cell row="0" col="1" value="5" />
+            </puzzle>
+            <solution>
+                <cell row="0" col="0" value="2" />
+                <cell row="0" col="1" value="5" />
+                <cell row="0" col="2" value="2" />
+                <cell row="0" col="3" value="2" />
+                <cell row="0" col="4" value="8" />
+                <cell row="0" col="5" value="7" />   
+                <cell row="0" col="6" value="2" />
+                <cell row="0" col="7" value="5" />
+                <cell row="0" col="8" value="7" />
+                <cell row="1" col="0" value="5" />
+                <cell row="1" col="1" value="7" />
+                <cell row="1" col="2" value="1" />
+                <cell row="1" col="3" value="9" />
+                <cell row="1" col="4" value="6" />
+                <cell row="1" col="5" value="4" />   
+                <cell row="1" col="6" value="2" />
+                <cell row="1" col="7" value="5" />
+                <cell row="1" col="8" value="1" />   
+                <cell row="2" col="0" value="3" />
+                <cell row="2" col="1" value="7" />
+                <cell row="2" col="2" value="8" />
+                <cell row="2" col="3" value="9" />
+                <cell row="2" col="4" value="3" />
+                <cell row="2" col="5" value="2" />   
+                <cell row="2" col="6" value="5" />
+                <cell row="2" col="7" value="4" />
+                <cell row="2" col="8" value="1" />            
+            </solution>
+        </bundle>
+        <bundle id=1>
+            <puzzle>
+                <cell row="0" col="0" value="2" />
+                <cell row="0" col="1" value="5" />
+            </puzzle>
+            <solution>
+                <cell row="0" col="0" value="2" />
+                <cell row="0" col="1" value="5" />
+                <cell row="0" col="2" value="2" />
+                <cell row="0" col="3" value="2" />
+                <cell row="0" col="4" value="8" />
+                <cell row="0" col="5" value="7" />   
+                <cell row="0" col="6" value="2" />
+                <cell row="0" col="7" value="5" />
+                <cell row="0" col="8" value="7" />
+                <cell row="1" col="0" value="5" />
+                <cell row="1" col="1" value="7" />
+                <cell row="1" col="2" value="1" />
+                <cell row="1" col="3" value="9" />
+                <cell row="1" col="4" value="6" />
+                <cell row="1" col="5" value="4" />   
+                <cell row="1" col="6" value="2" />
+                <cell row="1" col="7" value="5" />
+                <cell row="1" col="8" value="1" />   
+                <cell row="2" col="0" value="3" />
+                <cell row="2" col="1" value="7" />
+                <cell row="2" col="2" value="8" />
+                <cell row="2" col="3" value="9" />
+                <cell row="2" col="4" value="3" />
+                <cell row="2" col="5" value="2" />   
+                <cell row="2" col="6" value="5" />
+                <cell row="2" col="7" value="4" />
+                <cell row="2" col="8" value="1" />            
+            </solution>
+        </bundle>
+        <bundle id=2>
+            <puzzle>
+                <cell row="0" col="0" value="2" />
+                <cell row="0" col="1" value="5" />
+            </puzzle>
+            <solution>
+                <cell row="0" col="0" value="2" />
+                <cell row="0" col="1" value="5" />
+                <cell row="0" col="2" value="2" />
+                <cell row="0" col="3" value="2" />
+                <cell row="0" col="4" value="8" />
+                <cell row="0" col="5" value="7" />   
+                <cell row="0" col="6" value="2" />
+                <cell row="0" col="7" value="5" />
+                <cell row="0" col="8" value="7" />
+                <cell row="1" col="0" value="5" />
+                <cell row="1" col="1" value="7" />
+                <cell row="1" col="2" value="1" />
+                <cell row="1" col="3" value="9" />
+                <cell row="1" col="4" value="6" />
+                <cell row="1" col="5" value="4" />   
+                <cell row="1" col="6" value="2" />
+                <cell row="1" col="7" value="5" />
+                <cell row="1" col="8" value="1" />   
+                <cell row="2" col="0" value="3" />
+                <cell row="2" col="1" value="7" />
+                <cell row="2" col="2" value="8" />
+                <cell row="2" col="3" value="9" />
+                <cell row="2" col="4" value="3" />
+                <cell row="2" col="5" value="2" />   
+                <cell row="2" col="6" value="5" />
+                <cell row="2" col="7" value="4" />
+                <cell row="2" col="8" value="1" />            
+            </solution>
+        </bundle>
+    </puzzles>
+</database>
