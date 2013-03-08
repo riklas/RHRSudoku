@@ -25,7 +25,7 @@ public class PuzzleTester1 {
 		puzzle1.printPuzzle();
 		//System.out.println("SOLVING......");
 		SudokuPuzzle puzzle2 = solver1.solvePuzzle(puzzle1);
-		puzzle2.printPuzzle();
+		puzzle2.printSolution();
 	}
 	
 	void runHintandClear() {
