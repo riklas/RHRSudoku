@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation='PuzzleDatabaseSchema.xsd'>
     <puzzleBundles difficulty="0">
-        <bundle id=0>
+        <bundle id="0">
             <puzzle>
                 <cell row="0" col="0" value="2" />
                 <cell row="0" col="1" value="5" />
@@ -92,7 +92,7 @@
                 <cell row="2" col="8" value="1" />            
             </solution>
         </bundle>
-        <bundle id=1>
+        <bundle id="1">
             <puzzle>
                 <cell row="0" col="0" value="2" />
                 <cell row="0" col="1" value="5" />
@@ -181,7 +181,7 @@
                 <cell row="2" col="8" value="1" />            
             </solution>
         </bundle>
-        <bundle id=2>
+        <bundle id="2">
             <puzzle>
                 <cell row="0" col="0" value="2" />
                 <cell row="0" col="1" value="5" />
@@ -272,7 +272,7 @@
         </bundle>
     </puzzleBundles>    
     <puzzleBundles difficulty="1">
-        <bundle id=0>
+        <bundle id="0">
             <puzzle>
                 <cell row="0" col="0" value="2" />
                 <cell row="0" col="1" value="5" />
@@ -361,7 +361,7 @@
                 <cell row="2" col="8" value="1" />
             </solution>
         </bundle>
-        <bundle id=1>
+        <bundle id="1">
             <puzzle>
                 <cell row="0" col="0" value="2" />
                 <cell row="0" col="1" value="5" />
@@ -450,7 +450,7 @@
                 <cell row="2" col="8" value="1" />
             </solution>
         </bundle>
-        <bundle id=2>
+        <bundle id="2">
             <puzzle>
                 <cell row="0" col="0" value="2" />
                 <cell row="0" col="1" value="5" />
@@ -541,7 +541,7 @@
         </bundle>
     </puzzleBundles>
     <puzzleBundles difficulty="2">
-        <bundle id=0>
+        <bundle id="0">
             <puzzle>
                 <cell row="0" col="0" value="2" />
                 <cell row="0" col="1" value="5" />
@@ -630,7 +630,7 @@
                 <cell row="2" col="8" value="1" />
             </solution>
         </bundle>
-        <bundle id=1>
+        <bundle id="1">
             <puzzle>
                 <cell row="0" col="0" value="2" />
                 <cell row="0" col="1" value="5" />
@@ -719,7 +719,7 @@
                 <cell row="2" col="8" value="1" />
             </solution>
         </bundle>
-        <bundle id=2>
+        <bundle id="2">
             <puzzle>
                 <cell row="0" col="0" value="2" />
                 <cell row="0" col="1" value="5" />
@@ -810,7 +810,7 @@
         </bundle>
     </puzzleBundles>
     <puzzleBundles difficulty="3">
-        <bundle id=0>
+        <bundle id="0">
             <puzzle>
                 <cell row="0" col="0" value="2" />
                 <cell row="0" col="1" value="5" />
@@ -899,7 +899,7 @@
                 <cell row="2" col="8" value="1" />
             </solution>
         </bundle>
-        <bundle id=1>
+        <bundle id="1">
             <puzzle>
                 <cell row="0" col="0" value="2" />
                 <cell row="0" col="1" value="5" />
@@ -988,7 +988,7 @@
                 <cell row="2" col="8" value="1" />
             </solution>
         </bundle>
-        <bundle id=2>
+        <bundle id="2">
             <puzzle>
                 <cell row="0" col="0" value="2" />
                 <cell row="0" col="1" value="5" />

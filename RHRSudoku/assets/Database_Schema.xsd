@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<!-- definition of simpleTypes -->
+<xs:simpleType name="RowColType">
+	<xs:restriction base="xs:integer">
+		<xs:minInclusive value="0" />
+		<xs:maxInclusive value="8" />
+	</xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="ValueType">
+	<xs:restriction base="xs:integer">
+		<xs:minInclusive value="1" />
+		<xs:maxInclusive value="9" />
+	</xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="difficultyType">
+	<xs:restriction base="xs:integer">
+		<xs:minInclusive value="0" />
+		<xs:maxInclusive value="3" />
+	</xs:restriction>
+</xs:simpleType>
+
+<!-- definition of simple elements -->
+
+<!-- definition of attributes -->
+<xs:attribute name="id" type="xs:nonNegativeInteger"/>
+<xs:attribute name="difficulty" type="difficultyType" />
+<xs:attribute name="row" type="RowColType" />
+<xs:attribute name="col" type="RowColType" />
+<xs:attribute name="value" type="ValueType" />
+
+<!-- definition of complex elements -->
+<xs:element name="cell">
+	<xs:complexType>
+		<xs:attribute ref="row" use="required"/>
+		<xs:attribute ref="col" use="required" />
+		<xs:attribute ref="value" use="required" />
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="puzzle">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element ref="cell" minOccurs="0" maxOccurs="81" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="solution">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element ref="cell" minOccurs="81" maxOccurs="81" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="bundle">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element ref="puzzle" />
+			<xs:element ref="solution" />
+		</xs:sequence>
+		<xs:attribute ref="id" use="required" />
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="puzzleBundles">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element ref="bundle" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute ref="difficulty" use="required" />
+	</xs:complexType>
+</xs:element>
+
+<xs:element name="database">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element ref="puzzleBundles" minOccurs="4" maxOccurs="4" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+</xs:schema>
+
