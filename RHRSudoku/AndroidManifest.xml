@@ -28,7 +28,9 @@
             android:parentActivityName="com.example.rhrsudoku.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.rhrsudoku.MainActivity" />
+                android:value="com.example.rhrsudoku.MainActivity"    
+                android:hardwareAccelerated="false" 
+                />
         </activity>
     </application>
 
