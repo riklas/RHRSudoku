@@ -144,12 +144,12 @@ public class SudokuPuzzle {
 	}*/
 
 	void printPuzzle() {
-	System.out.println("{");
+	System.out.println("        <puzzle>");
 	for (int row1=0;row1<9;row1++) {
+		System.out.println("            <row" + row1 + ">");
 		//if (row1==3 || row1==6)
 			//System.out.println("------------------------");
-		for (int col1=0;col1<9;col1++) {
-			if (col1 == 0) System.out.print("{");			
+		for (int col1=0;col1<9;col1++) {					
 			//if (col1==3 || col1==6)
 			//	System.out.print("| ");
 			String value;
@@ -157,13 +157,33 @@ public class SudokuPuzzle {
 				 value = Integer.toString(puzzle[row1][col1].getValue());
 			else
 				value = "0";
-			if (col1 == 8) System.out.print(value);
-			else System.out.print(value + ",");
-			if (col1 == 8) System.out.println("},");
+			System.out.println("                <col" + col1 + ">" + value + "</col" + col1 + ">");
 		}
-		if (row1 == 8) System.out.println("},");
+		System.out.println("            </row" + row1 + ">");
 	}
+	System.out.println("        </puzzle>");
 	}
+	
+	void printSolution() {
+		System.out.println("        <solution>");
+		for (int row1=0;row1<9;row1++) {
+			System.out.println("            <row" + row1 + ">");
+			//if (row1==3 || row1==6)
+				//System.out.println("------------------------");
+			for (int col1=0;col1<9;col1++) {					
+				//if (col1==3 || col1==6)
+				//	System.out.print("| ");
+				String value;
+				if (puzzle[row1][col1].hasValue)
+					 value = Integer.toString(puzzle[row1][col1].getValue());
+				else
+					value = "0";
+				System.out.println("                <col" + col1 + ">" + value + "</col" + col1 + ">");
+			}
+			System.out.println("            </row" + row1 + ">");
+		}
+		System.out.println("        </solution>");
+		}
 
 }
 

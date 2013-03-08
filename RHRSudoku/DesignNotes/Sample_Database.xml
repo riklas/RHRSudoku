@@ -9,7 +9,7 @@
                 <cell row="0" col="1" value="5" />
             </puzzle>
             <solution>
-                <cell row="0" col="0" value="2" />
+                <cell row="0" col="0" value="2" /> 
                 <cell row="0" col="1" value="5" />
                 <cell row="0" col="2" value="2" />
                 <cell row="0" col="3" value="2" />
