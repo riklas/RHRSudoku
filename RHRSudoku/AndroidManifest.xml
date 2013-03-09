@@ -25,10 +25,13 @@
         <activity
             android:name="com.example.rhrsudoku.GameActivity"
             android:label="@string/title_activity_game"
-            android:parentActivityName="com.example.rhrsudoku.MainActivity" >
+            android:parentActivityName="com.example.rhrsudoku.MainActivity"
+            android:hardwareAccelerated="false" 
+             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.rhrsudoku.MainActivity" />
+                android:value="com.example.rhrsudoku.MainActivity"    
+                />
         </activity>
     </application>
 

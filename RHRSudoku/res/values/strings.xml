@@ -7,7 +7,7 @@
     <string name="skilled">SKILLED</string>
     <string name="master">MASTER</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_game">GameActivity</string>
+    <string name="title_activity_game">RHR Sudoku</string>
     <string name="one">1</string>
     <string name="two">2</string>
     <string name="three">3</string>
@@ -27,5 +27,4 @@
 	<string name="no">No</string>
 	<string name="confirm_clear_all">Are you sure you want to reset the puzzle?</string>
 	<string name="user_made_mistake">You have made a mistake</string>
-	<string name="error">Whoops. You\'ve made an error</string>
 </resources>

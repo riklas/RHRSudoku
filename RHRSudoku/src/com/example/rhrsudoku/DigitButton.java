@@ -54,11 +54,12 @@ public class DigitButton extends Button {
 				else
 					canvas.drawPaint(paint4);
 		}
+
 		int xpos = View.MeasureSpec.getSize(getWidth())/2;
 		int ypos = (int) ((View.MeasureSpec.getSize(getHeight()) / 2) - ((paint6.descent() + paint6.ascent()) / 2)) ;
-		//System.out.println("x:" + xpos + " y:" + ypos );
-		//((textPaint.descent() + textPaint.ascent()) / 2) is the distance from the baseline to the center.
+		
 		canvas.drawText(Integer.toString(number1), xpos, ypos, paint6);
+		
 	}
 	
 	
