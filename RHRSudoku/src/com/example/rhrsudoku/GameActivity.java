@@ -27,6 +27,7 @@ public class GameActivity extends Activity {
 	/*
 	 * GLOBAL MEMBERS
 	 */
+	boolean areRestarting = false;
 	SudokuPuzzle puzWithSol;
 	SudokuSolver solver;
 	StateInfo stateInfo;
@@ -44,10 +45,14 @@ public class GameActivity extends Activity {
 		int difficulty = intent.getIntExtra(DifficultyChooser.DIFFICULTY, 0);
 		stateInfo = new StateInfo();
 		HardCodedPuzzles3 puzzleGenerator = null;
-		puzzleGenerator = new HardCodedPuzzles3(getResources());
-		puzWithSol = puzzleGenerator.getRandomPuzzle(difficulty);
-		
-		
+		if (savedInstanceState != null && 
+				savedInstanceState.getBoolean("areRestarting", false)) {
+			puzWithSol = new SudokuPuzzle();
+		}
+		else {
+			puzzleGenerator = new HardCodedPuzzles3(getResources());
+			puzWithSol = puzzleGenerator.getRandomPuzzle(difficulty);
+		}
 		
 		//GeneratedPuzzles generate = new GeneratedPuzzles();
 		//puzzle = generate.getPuzzle(difficulty);
@@ -94,6 +99,8 @@ public class GameActivity extends Activity {
 		/*
 		 * need to save StateInfo
 		 */
+		this.areRestarting = true;
+		bundle.putBoolean("areRestarting", areRestarting);
 		stateInfo.saveInstanceState(bundle);
 	}
 	
@@ -101,6 +108,7 @@ public class GameActivity extends Activity {
 	protected void onRestoreInstanceState(Bundle bundle) {
 		super.onRestoreInstanceState(bundle);
 		stateInfo.restoreInstanceState(bundle);
+		this.areRestarting = bundle.getBoolean("areRestarting");
 	}
 	
 	

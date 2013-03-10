@@ -13,6 +13,8 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 
 public class HardCodedPuzzles3 {
+	final static boolean calculatePuzzlesMdynamically = false;
+	static int[] puzzlesMhandWritten = {300,300,300,300};
 	static Resources resources;
 	final static int difficultiesM = 4;
 	static int[] puzzlesM = new int[difficultiesM];
@@ -30,7 +32,10 @@ public class HardCodedPuzzles3 {
 		}
 		factory.setNamespaceAware(true);
 		try {
-			calculatePuzzlesM();
+			if (this.calculatePuzzlesMdynamically)
+				calculatePuzzlesM();
+			else
+				this.puzzlesM = this.puzzlesMhandWritten;
 		} catch (XmlPullParserException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -98,7 +103,9 @@ public class HardCodedPuzzles3 {
 					count++;
 			}
 			if (eventType == XmlPullParser.END_TAG && xpp.getName().equals("puzzleBundles")) {
-				System.err.println("Error: didnt find enough bundles to match this id");
+				System.err.println("Error: didnt find enough bundles to match this id,\n" +
+						"Perhaps you have entered the wrong numbers for puzzlesMhandWritten\n" +
+						"Or try setting calculatePuzzlesMdynamically=true");
 				System.exit(1);
 			}
 			eventType = xpp.next();
