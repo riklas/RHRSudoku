@@ -339,7 +339,7 @@ public class GameActivity extends Activity {
 			return;
 		}
 		
-		if (puzWithSol.puzzle.isSolved())
+		if (puzWithSol.puzzle.isFilled() && puzWithSol.puzzle.isSolved())
 			return;
 		
 		int[][] list1 = new int[81][2];

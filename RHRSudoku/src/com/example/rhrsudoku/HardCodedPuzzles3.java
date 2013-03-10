@@ -45,7 +45,7 @@ public class HardCodedPuzzles3 {
 	
 	
 	public SudokuPuzzleWithSolution getRandomPuzzle(int difficulty) {
-		xpp = resources.getXml(R.xml.puzzle_database_sample);
+		xpp = resources.getXml(R.xml.db);
 		int eventType = -43243;
 		try {
 			eventType = xpp.getEventType();
@@ -146,7 +146,7 @@ public class HardCodedPuzzles3 {
 					System.exit(1);
 				}
 				if ((!xpp.getAttributeName(0).equals("row")) || (!xpp.getAttributeName(1).equals("col")) ||
-						(!xpp.getAttributeName(2).equals("value"))) {
+						(!xpp.getAttributeName(2).equals("val"))) {
 					System.err.println("Error: Attributes are in wrong order:" +
 							xpp.getAttributeName(0)+ ":"+xpp.getAttributeName(1)+ ":"+xpp.getAttributeName(2));
 					System.exit(1);
@@ -175,7 +175,7 @@ public class HardCodedPuzzles3 {
 	}
 	
 	private static void calculatePuzzlesM() throws XmlPullParserException, IOException {
-		XmlResourceParser xpp = resources.getXml(R.xml.puzzle_database_sample);
+		XmlResourceParser xpp = resources.getXml(R.xml.db);
 		int eventType = xpp.getEventType();
 		for (int i=0;i<difficultiesM;i++) {
 			int count=0;
