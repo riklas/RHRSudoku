@@ -1,6 +1,9 @@
 package com.example.rhrsudoku;
 
+import java.io.IOException;
 import java.util.Random;
+
+import org.xmlpull.v1.XmlPullParserException;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -40,9 +43,9 @@ public class GameActivity extends Activity {
 		Intent intent = getIntent();
 		int difficulty = intent.getIntExtra(DifficultyChooser.DIFFICULTY, 0);
 		stateInfo = new StateInfo();
-		
-		SudokuGenerator hardcode = new HardcodedPuzzles2();
-		puzWithSol = hardcode.getPuzzle(difficulty);
+		HardCodedPuzzles3 puzzleGenerator = null;
+		puzzleGenerator = new HardCodedPuzzles3(getResources());
+		puzWithSol = puzzleGenerator.getRandomPuzzle(difficulty);
 		
 		
 		
@@ -327,51 +330,6 @@ public class GameActivity extends Activity {
 	 * END LISTENER METHODS
 	 * BEGIN LOGIC METHODS
 	 */
-//
-//	public void showHint(View v) {
-//		solver = new SudokuSolver();
-//		//crashing --possibly because of returning null ! 
-//		SudokuPuzzle solvedPuzzle = solver.solvePuzzle(puzWithSol);
-//		if (solvedPuzzle == null) {
-//			System.err.println("cannot solve the puzzle");
-//			return;
-//		}
-//		Random randomGenerator = new Random();
-//		int randx;
-//		int randy;
-//		boolean finalset = false;
-//		
-//		randx = randomGenerator.nextInt(9);
-//		randy = randomGenerator.nextInt(9);
-//		int trandy = randy;
-//
-//outer:		for(int row=randx;row<9;row++) {
-//				for (int col=randy; col<9; col++) {
-//					if (solvedPuzzle.puzzle[row][col].getInput() == SudokuPuzzleCell.SOLVER_GENERATED) {
-//						int value = solvedPuzzle.puzzle[row][col].getValue();
-//						puzWithSol.puzzle[row][col].box1.setFinalValue(value, SudokuPuzzleCell.HINT_GENERATED);					
-//						finalset = true;
-//						break outer;
-//					}
-//				}
-//				if (row == randx) randy = 0; 	//when the random index is about to reach the next row, start from col index 0
-//			}
-//			//if loop doesn't find SOLVER GENERATED VALUE start from beginning index of puzzle 
-//
-//			if (!finalset) {
-//outer2:			for (int row=0; row<9; row++) {
-//					for (int col=0; col<9; col++) {
-//						if (row == randx && col == trandy) break outer2;
-//						
-//						if (solvedPuzzle.puzzle[row][col].getInput() == SudokuPuzzleCell.SOLVER_GENERATED) {
-//							int value = solvedPuzzle.puzzle[row][col].getValue();
-//							puzWithSol.puzzle[row][col].box1.setFinalValue(value, SudokuPuzzleCell.HINT_GENERATED);					
-//							break outer2;
-//						}
-//					}	
-//				}
-//			}		
-//	}
 	
 	public void showHint(View v) {
 		if (userHasMadeError()) {
