@@ -99,6 +99,14 @@ public class SudokuPuzzle {
 		return true;
 	}
 	
+	boolean solutionIsFilled() {
+		for (SudokuPuzzleCell[] row1 : puzzle)
+			for (SudokuPuzzleCell cell2 : row1)
+				if (!cell2.hasSolution)
+					return false;
+		return true;
+	}
+	
 	boolean isValid() {
 		for (SudokuPuzzleCell[] row1 : puzzle)
 			for (SudokuPuzzleCell cell2 : row1)

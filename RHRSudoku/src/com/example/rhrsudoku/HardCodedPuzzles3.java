@@ -44,7 +44,7 @@ public class HardCodedPuzzles3 {
 	}
 	
 	
-	public SudokuPuzzleWithSolution getRandomPuzzle(int difficulty) {
+	public SudokuPuzzle getRandomPuzzle(int difficulty) {
 		xpp = resources.getXml(R.xml.db);
 		int eventType = -43243;
 		try {
@@ -87,7 +87,7 @@ public class HardCodedPuzzles3 {
 		return null;
 	}
 	
-	public SudokuPuzzleWithSolution getSpecificPuzzle(int difficulty, int id) throws XmlPullParserException, IOException {
+	public SudokuPuzzle getSpecificPuzzle(int difficulty, int id) throws XmlPullParserException, IOException {
 		int eventType = xpp.next();
 		int count=0;
 		while (eventType != XmlPullParser.END_DOCUMENT) {
@@ -106,39 +106,35 @@ public class HardCodedPuzzles3 {
 		return null;
 	}
 	
-	private SudokuPuzzleWithSolution createNext1() throws XmlPullParserException, IOException {
+	private SudokuPuzzle createNext1() throws XmlPullParserException, IOException {
 		int eventType = xpp.next();
 		SudokuPuzzle puzzle = null;
-		SudokuPuzzle solution = null;
-		while (true) {
+		while (eventType != XmlPullParser.END_DOCUMENT) {
 			if (eventType == XmlPullParser.START_TAG && xpp.getName().equals("puzzle")) {
-				puzzle = createPuzOrSol(false);
-			}
-			if (eventType == XmlPullParser.START_TAG && xpp.getName().equals("solution")) {
-				solution = createPuzOrSol(true);
+				puzzle = createPuzOrSol();
 				break;
 			}
 			eventType = xpp.next();
 		}
-		if (puzzle == null || solution == null) {
+		if (puzzle == null) {
 			System.err.println("ERROR: puzzle and/or solution are null");
 			System.exit(1);
 		}
-		return new SudokuPuzzleWithSolution(puzzle, solution);
+		
+		return puzzle;
 	}
 	
-	private static SudokuPuzzle createPuzOrSol(boolean isSolution) throws XmlPullParserException, IOException {
+	private static SudokuPuzzle createPuzOrSol() throws XmlPullParserException, IOException {
 		SudokuPuzzle puzzle = new SudokuPuzzle();
 		int eventType = xpp.next();
-		String endTag;
-		if (isSolution)
-			endTag = "solution";
-		else
-			endTag = "puzzle";
+		boolean gettingSolution = false;
 		while(eventType != XmlPullParser.END_DOCUMENT) {
-			if (eventType == XmlPullParser.END_TAG && xpp.getName().equals(endTag)) {
-				eventType=xpp.next();
+			if (eventType == XmlPullParser.END_TAG && xpp.getName().equals("solution")) {
+				eventType = xpp.next();
 				break;
+			}
+			if (eventType == XmlPullParser.END_TAG && xpp.getName().equals("puzzle")) {
+				gettingSolution = true;
 			}
 			if (eventType == XmlPullParser.START_TAG && xpp.getName().equals("cell")) {
 				if (xpp.getAttributeCount() != 3) {
@@ -158,17 +154,19 @@ public class HardCodedPuzzles3 {
 					System.err.println("Error: Invalid values: row:"+ row + " col:"+col+" value:"+value);
 					System.exit(1);
 				}
-				puzzle.puzzle[row][col].setValue(value);
-				//System.out.println("Added row="+row+",col="+col+",value="+value);
-				if (isSolution)
-					puzzle.puzzle[row][col].setInput(SudokuPuzzleCell.SOLVER_GENERATED);
-				else
+				if (!gettingSolution) {
+					puzzle.puzzle[row][col].setValue(value);
 					puzzle.puzzle[row][col].setInput(SudokuPuzzleCell.GENERATED);
+				}
+				else {
+					puzzle.puzzle[row][col].setSolution(value);
+				}
+				//System.out.println("Added row="+row+",col="+col+",value="+value);
 			}
 			eventType = xpp.next();
 		}
-		if (isSolution && !puzzle.isSolved()) {
-			System.err.println("Error: solution is not solved!");
+		if (!puzzle.solutionIsFilled()) {
+			System.err.println("Error: solution is not filled!");
 			System.exit(1);
 		}
 		return puzzle;

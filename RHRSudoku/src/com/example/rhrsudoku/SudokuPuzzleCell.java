@@ -19,6 +19,8 @@ public class SudokuPuzzleCell {
 	int row, col;// from 0-8
 	boolean hasValue = false;
 	boolean isEditable = true;
+	int solution = 0;
+	boolean hasSolution = false;
 	private int value;
 	int inputMethod = NONE;			// change when set by a generator or the user resp.
 	
@@ -33,7 +35,7 @@ public class SudokuPuzzleCell {
 			System.err.println("Invalid (row,column)");
 			return;
 		}
-		this.row = row;
+		this.row = row;	
 		this.col = column;
 	}
 	
@@ -107,4 +109,13 @@ public class SudokuPuzzleCell {
 			return true;
 	}
 	
+	public void setSolution(int solution) {
+		this.solution = solution;
+		this.hasSolution = true;
+		if (solution == 0) {
+			System.err.println("Error: Set an invalid solution");
+			System.exit(1);
+		}
+	}
+
 }

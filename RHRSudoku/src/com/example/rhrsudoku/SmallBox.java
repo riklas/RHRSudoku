@@ -257,6 +257,8 @@ public class SmallBox extends View {
 	  public Parcelable onSaveInstanceState() {
 	    Parcelable superState = super.onSaveInstanceState();
 	    SavedState ss = new SavedState(superState);
+	    ss.solution = this.cell1.solution;
+	    ss.hasSolution = this.cell1.hasSolution;
 	    ss.row = this.cell1.row;
 	    ss.col = this.cell1.col;
 	    ss.hasValue = this.cell1.hasValue;
@@ -294,6 +296,8 @@ public class SmallBox extends View {
 	    this.cell1.isEditable = ss.isEditable;
 	    this.displayState = ss.displayState;
 	    this.possibleValues.clear();
+	    this.cell1.hasSolution = ss.hasSolution;
+	    this.cell1.solution = ss.solution;
 	    
 	    for (int i=0;i<ss.possibleValuesS.length();i++) {
 	    	int pv = Integer.parseInt(String.valueOf(ss.possibleValuesS.charAt(i)));
@@ -313,6 +317,8 @@ public class SmallBox extends View {
 	   int inputMethod;
 	   int displayState;
 	   String possibleValuesS;
+	   boolean hasSolution;
+	   int solution;
 
 
 	    SavedState(Parcelable superState) {
@@ -335,6 +341,11 @@ public class SmallBox extends View {
 	      this.inputMethod = in.readInt();
 	      this.displayState = in.readInt();
 	      this.possibleValuesS = in.readString();
+	      if (in.readInt() == TRUE)
+	    	  this.hasSolution = true;
+	      else
+	    	  this.hasSolution = false;
+	      this.solution = in.readInt();
 	    }
 
 	    @Override
@@ -354,6 +365,11 @@ public class SmallBox extends View {
 	      out.writeInt(this.inputMethod);
 	      out.writeInt(this.displayState);
 	      out.writeString(this.possibleValuesS);
+	      if (this.hasSolution)
+	    	  out.writeInt(TRUE);
+	      else
+	    	  out.writeInt(FALSE);
+	      out.writeInt(solution);
 	      
 	    }
 

@@ -27,7 +27,7 @@ public class GameActivity extends Activity {
 	/*
 	 * GLOBAL MEMBERS
 	 */
-	SudokuPuzzleWithSolution puzWithSol;
+	SudokuPuzzle puzWithSol;
 	SudokuSolver solver;
 	StateInfo stateInfo;
 	DigitButton[] digits1 = new DigitButton[9];
@@ -176,7 +176,7 @@ public class GameActivity extends Activity {
 		for(int row=0; row<9; row++) {
 			for(int col=0; col<9; col++) {
 				SmallBox box1 = new SmallBox(this, this.stateInfo, 
-						puzWithSol.puzzle.puzzle[row][col], row, col, cellSize);
+						puzWithSol.puzzle[row][col], row, col, cellSize);
 				box1.setOnClickListener(listener1);
 				box1.setOnLongClickListener(listener2);
 				grid1.addView(box1);
@@ -303,7 +303,7 @@ public class GameActivity extends Activity {
 	}
 	
 	private void testPuzzleCompletion() {
-		if (puzWithSol.puzzle.isFilled() && puzWithSol.puzzle.isSolved()) {
+		if (puzWithSol.isFilled() && puzWithSol.isSolved()) {
 			new AlertDialog.Builder(this)
 		    .setMessage(R.string.puzzle_completed)
 		     .show();
@@ -313,11 +313,11 @@ public class GameActivity extends Activity {
 	private boolean userHasMadeError() {
 		for (int row=0;row<9;row++) {
 			for (int col=0;col<9;col++) {
-				if (puzWithSol.puzzle.isConflicting())
+				if (puzWithSol.isConflicting())
 					return true;
-				if (puzWithSol.puzzle.puzzle[row][col].hasValue) {
-					if (puzWithSol.puzzle.puzzle[row][col].getValue() !=
-							puzWithSol.solution.puzzle[row][col].getValue())
+				if (puzWithSol.puzzle[row][col].hasValue) {
+					if (puzWithSol.puzzle[row][col].getValue() !=
+							puzWithSol.puzzle[row][col].solution)
 						return true;
 				}
 			}
@@ -339,14 +339,14 @@ public class GameActivity extends Activity {
 			return;
 		}
 		
-		if (puzWithSol.puzzle.isFilled() && puzWithSol.puzzle.isSolved())
+		if (puzWithSol.isFilled() && puzWithSol.isSolved())
 			return;
 		
 		int[][] list1 = new int[81][2];
 		int count = 0;
 		for (int row=0;row<9;row++) {
 			for (int col=0;col<9;col++) {
-				if (!puzWithSol.puzzle.puzzle[row][col].hasValue) {
+				if (!puzWithSol.puzzle[row][col].hasValue) {
 					list1[count][0] = row;
 					list1[count][1] = col;
 					count++;
@@ -356,8 +356,8 @@ public class GameActivity extends Activity {
 		int rand = randomGen.nextInt(count);
 		int row = list1[rand][0];
 		int col = list1[rand][1];
-		int answer = puzWithSol.solution.puzzle[row][col].getValue();
-		puzWithSol.puzzle.puzzle[row][col].box1.setFinalValue(answer, SudokuPuzzleCell.HINT_GENERATED);
+		int answer = puzWithSol.puzzle[row][col].solution;
+		puzWithSol.puzzle[row][col].box1.setFinalValue(answer, SudokuPuzzleCell.HINT_GENERATED);
 	}
 	
 	
@@ -395,11 +395,11 @@ public class GameActivity extends Activity {
 		private void clearAll2() {
 			for(int row=0;row<9;row++) {
 				for (int col=0; col<9; col++) {
-					if (puzWithSol.puzzle.puzzle[row][col].getInput() != SudokuPuzzleCell.GENERATED) {					
-						puzWithSol.puzzle.puzzle[row][col].removeValue();
-						puzWithSol.puzzle.puzzle[row][col].setInput(SudokuPuzzleCell.NONE);
-						puzWithSol.puzzle.puzzle[row][col].box1.invalidate();
-						puzWithSol.puzzle.puzzle[row][col].box1.removePossibleValues();
+					if (puzWithSol.puzzle[row][col].getInput() != SudokuPuzzleCell.GENERATED) {					
+						puzWithSol.puzzle[row][col].removeValue();
+						puzWithSol.puzzle[row][col].setInput(SudokuPuzzleCell.NONE);
+						puzWithSol.puzzle[row][col].box1.invalidate();
+						puzWithSol.puzzle[row][col].box1.removePossibleValues();
 					}
 				}
 			}
