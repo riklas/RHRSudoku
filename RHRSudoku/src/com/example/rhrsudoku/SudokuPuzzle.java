@@ -146,20 +146,19 @@ public class SudokuPuzzle {
 	void printPuzzle() {
 	System.out.println("        <puzzle>");
 	for (int row1=0;row1<9;row1++) {
-		System.out.println("            <row" + row1 + ">");
 		//if (row1==3 || row1==6)
 			//System.out.println("------------------------");
 		for (int col1=0;col1<9;col1++) {					
 			//if (col1==3 || col1==6)
 			//	System.out.print("| ");
 			String value;
-			if (puzzle[row1][col1].hasValue)
+			if (puzzle[row1][col1].hasValue) {
 				 value = Integer.toString(puzzle[row1][col1].getValue());
+				 System.out.println("                <cell row=\"" + row1 + "\" col=\"" + col1 + "\" val=\"" + value + "\" />");
+			}
 			else
-				value = "0";
-			System.out.println("                <col" + col1 + ">" + value + "</col" + col1 + ">");
+				value = "0";			
 		}
-		System.out.println("            </row" + row1 + ">");
 	}
 	System.out.println("        </puzzle>");
 	}
@@ -167,7 +166,6 @@ public class SudokuPuzzle {
 	void printSolution() {
 		System.out.println("        <solution>");
 		for (int row1=0;row1<9;row1++) {
-			System.out.println("            <row" + row1 + ">");
 			//if (row1==3 || row1==6)
 				//System.out.println("------------------------");
 			for (int col1=0;col1<9;col1++) {					
@@ -178,9 +176,8 @@ public class SudokuPuzzle {
 					 value = Integer.toString(puzzle[row1][col1].getValue());
 				else
 					value = "0";
-				System.out.println("                <col" + col1 + ">" + value + "</col" + col1 + ">");
+				System.out.println("                <cell row=\"" + row1 + "\" col=\"" + col1 + "\" val=\"" + value + "\" />");
 			}
-			System.out.println("            </row" + row1 + ">");
 		}
 		System.out.println("        </solution>");
 		}
