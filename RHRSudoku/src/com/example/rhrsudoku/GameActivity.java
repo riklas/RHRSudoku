@@ -89,6 +89,9 @@ public class GameActivity extends Activity {
 		case R.id.menu_new_game:
 			startNewGame();
 			break;
+		case R.id.menu_rules:
+			showRules();
+			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -368,6 +371,9 @@ public class GameActivity extends Activity {
 		puzWithSol.puzzle[row][col].box1.setFinalValue(answer, SudokuPuzzleCell.HINT_GENERATED);
 	}
 	
+	public void showRules() {
+		
+	}
 	
 	public void clearBox(View v) {
 		if (!stateInfo.hasSelectedSmallBox) {

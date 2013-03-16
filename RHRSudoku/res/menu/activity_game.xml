@@ -6,5 +6,11 @@
         android:showAsAction="never"
         android:title="@string/menu_new_game"
         />
+    <item
+        android:id="@+id/menu_rules"
+        android:orderInCategory="101"
+        android:showAsAction="never"
+        android:title="@string/menu_result"
+        />
 
 </menu>
