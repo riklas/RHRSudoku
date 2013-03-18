@@ -17,39 +17,39 @@ public class GeneratedPuzzles {
 	
 	public GeneratedPuzzles() {
 	}
-//
-//	public SudokuPuzzleWithSolution getPuzzle(int difficulty) {
-//		switch(difficulty) {
-//		case 0: floorCount = 32; 
-//				ceilingCount = 40;
-//				break;
-//		case 1: floorCount = 28; 
-//				ceilingCount = 32;
-//				break;
-//		case 2: floorCount = 22; 
-//				ceilingCount = 28;
-//				break;
-//		case 3: floorCount = 18; 
-//				ceilingCount = 22;
-//				multiSol = true;
-//				break;
-//		default:floorCount = 32; 
-//				ceilingCount = 40;
-//				break;
-//		}
-//		
-//		
-//		
-//		//puzzle.printPuzzle();
-//		//this returns a solved puzzle
-//		puzzle = solver.solvePuzzle(puzzle);		
-//		//puzzle.printPuzzle();
-//		//this returns puzzle with values taken out
-//		puzzle = setValues(puzzle);
-//		//SudokuPuzzleWithSolution puzzle2 = new SudokuPuzzleWithSolution(puzzle, solver.solvePuzzle(puzzle));
-//		SudokuPuzzleWithSolution puzzle2 = null;
-//		return puzzle2;
-//	}
+
+	public SudokuPuzzle getPuzzle(int difficulty) {
+		switch(difficulty) {
+		case 0: floorCount = 32; 
+				ceilingCount = 40;
+				break;
+		case 1: floorCount = 28; 
+				ceilingCount = 32;
+				break;
+		case 2: floorCount = 22; 
+				ceilingCount = 28;
+				break;
+		case 3: floorCount = 18; 
+				ceilingCount = 22;
+				multiSol = true;
+				break;
+		default:floorCount = 32; 
+				ceilingCount = 40;
+				break;
+		}
+		
+		
+		
+		//puzzle.printPuzzle();
+		//this returns a solved puzzle
+		puzzle = solver.solvePuzzle(puzzle);		
+		//puzzle.printPuzzle();
+		//this returns puzzle with values taken out
+		puzzle = setValues(puzzle);
+		//SudokuPuzzleWithSolution puzzle2 = new SudokuPuzzleWithSolution(puzzle, solver.solvePuzzle(puzzle));
+		//SudokuPuzzleWithSolution puzzle2 = null;
+		return puzzle;
+	}
 
 	
 	public SudokuPuzzle setValues(SudokuPuzzle targetPuzzle) {

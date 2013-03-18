@@ -20,9 +20,7 @@ public class PuzzleTester1 {
 		PuzzleTester1 tester1 = new PuzzleTester1();
 		SudokuSolver solver1 = new SudokuSolver();
 		GeneratedPuzzles HCP = new GeneratedPuzzles();
-		//SudokuPuzzleWithSolution puzzle4 = HCP.getPuzzle(3);
-		//SudokuPuzzle puzzle1 = puzzle4.puzzle;
-		SudokuPuzzle puzzle1 = null;
+		SudokuPuzzle puzzle1 = HCP.getPuzzle(1);				
 		puzzle1.printPuzzle();
 		//System.out.println("SOLVING......");
 		SudokuPuzzle puzzle2 = solver1.solvePuzzle(puzzle1);
