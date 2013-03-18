@@ -10,7 +10,7 @@
         android:id="@+id/menu_rules"
         android:orderInCategory="101"
         android:showAsAction="never"
-        android:title="@string/menu_result"
+        android:title="@string/menu_rules"
         />
 
 </menu>
