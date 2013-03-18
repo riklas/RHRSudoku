@@ -15,10 +15,7 @@
         style="@style/gridLayoutFrame"
         >
   <android.support.v7.widget.GridLayout
-        xmlns:grid="http://schemas.android.com/apk/res-auto"
         android:id="@+id/gridLayout1"
-        grid:rowCount="9"
-        grid:columnCount="9"
         style="@style/gridLayout"
         >
     </android.support.v7.widget.GridLayout>
