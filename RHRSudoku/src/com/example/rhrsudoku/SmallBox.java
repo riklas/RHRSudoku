@@ -34,6 +34,8 @@ public class SmallBox extends View {
 	final static float possibleValueTextSize1 = 16f;
 	final static float scale = 1.4f;
 	static float density;
+	final static boolean areUsingAIC = false;
+	boolean areIndicatingConflicts = false;
 	
 	/*
 	 * BEGIN STATE INFO TO SAVE
@@ -157,8 +159,10 @@ public class SmallBox extends View {
 				selectedPaint = paints[2];
 			else if (cell1.inputMethod == SudokuPuzzleCell.HINT_GENERATED)
 				selectedPaint = paints[1];
-			else if (cell1.isConflicting())
+			else if ((areUsingAIC && areIndicatingConflicts && cell1.isConflicting()) ||
+					!areUsingAIC && cell1.isConflicting()) {
 				selectedPaint = paints[3];
+			}
 			else if (state1.hasSelectedSmallBox && state1.selectedSmallBox == this)
 				selectedPaint = paints[5];
 			else
@@ -247,8 +251,9 @@ public class SmallBox extends View {
 			state1.hasSelectedSmallBox = true;
 			state1.selectedSmallBox = this;
 		}
-		
 		else {
+			if (this.areIndicatingConflicts && !cell1.isConflicting())
+				this.areIndicatingConflicts = false;
 		}
 	}
 	

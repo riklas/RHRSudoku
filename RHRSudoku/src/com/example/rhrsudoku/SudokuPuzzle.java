@@ -115,6 +115,12 @@ public class SudokuPuzzle {
 		return true;
 	}
 	
+//	public void invalidateAll() {
+//		for (int row=0;row<9;row++)
+//			for (int col=0;col<9;col++)
+//				
+//	}
+	
 	boolean isSolved() {
 		if (!isFilled()) {
 			System.err.println("Error: Puzzle not filled");
