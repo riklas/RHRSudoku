@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -114,6 +115,37 @@ public class GameActivity extends Activity {
 		stateInfo.restoreInstanceState(bundle);
 		this.areRestarting = bundle.getBoolean("areRestarting");
 	}
+	
+	@Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getRepeatCount() == 0) {
+        	onBackPressed();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void onBackPressed() {
+    	if (!puzWithSol.isSolved()) {
+	    	new AlertDialog.Builder(this)
+			.setMessage(R.string.confirm_new_game)
+			.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					startNewGame();
+				}
+			})
+			.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					return;
+				}
+			})
+			.show();
+	        return;
+    	}
+    	startNewGame();
+    }   
 	
 	
 	/*
@@ -323,10 +355,10 @@ public class GameActivity extends Activity {
 	}
 	
 	private boolean userHasMadeError() {
+		if (puzWithSol.isConflicting())
+			return true;
 		for (int row=0;row<9;row++) {
 			for (int col=0;col<9;col++) {
-				if (puzWithSol.isConflicting())
-					return true;
 				if (puzWithSol.puzzle[row][col].hasValue) {
 					if (puzWithSol.puzzle[row][col].getValue() !=
 							puzWithSol.puzzle[row][col].solution)
@@ -344,6 +376,20 @@ public class GameActivity extends Activity {
 	 */
 	
 	public void showHint(View v) {
+		if (puzWithSol.isConflicting()) {
+			new AlertDialog.Builder(this)
+		    .setMessage(R.string.puzzle_is_conflicting)
+		     .show();
+			for (int row=0;row<9;row++) {
+				for (int col=0;col<9;col++) {
+					if (puzWithSol.puzzle[row][col].isConflicting()) {
+						puzWithSol.puzzle[row][col].box1.areIndicatingConflicts = true;
+						puzWithSol.puzzle[row][col].box1.invalidate();
+					}
+				}
+			}
+			return;
+		}
 		if (userHasMadeError()) {
 			new AlertDialog.Builder(this)
 		    .setMessage(R.string.user_made_mistake)
@@ -373,7 +419,10 @@ public class GameActivity extends Activity {
 	}
 	
 	public void showRules() {
-		
+		new AlertDialog.Builder(this)
+	    .setMessage(R.string.user_guide)
+	     .show();
+		return;
 	}
 	
 	public void clearBox(View v) {
