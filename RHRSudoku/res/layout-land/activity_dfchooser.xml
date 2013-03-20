@@ -14,7 +14,7 @@
     >
     <Button
         android:id="@+id/kids"
-        style="@style/diffButton"        
+        style="@style/diffButton"  
         android:text="@string/kids"
         android:onClick="setKids"
         android:layout_gravity="center"  
@@ -47,8 +47,8 @@
     
     <Button
         android:id="@+id/hard"
-        style="@style/diffButton"                       
-        android:text="@string/master" 
+        style="@style/diffButton"         
+        android:text="@string/master"
         android:onClick="setHard"
         android:layout_gravity="center"
         />
