@@ -10,19 +10,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     style="@style/dfChooser"
+    android:layout_weight="1"
     >
     <Button
         android:id="@+id/kids"
         style="@style/diffButton"        
         android:text="@string/kids"
-        android:onClick="setKids"       
+        android:onClick="setKids"
+        android:layout_gravity="center"  
          />
     
     <Button
         android:id="@+id/easy"
         style="@style/diffButton"             
         android:text="@string/easy"   
-        android:onClick="setEasy"     
+        android:onClick="setEasy"
+        android:layout_gravity="center"       
         />
     </LinearLayout>
     
@@ -31,6 +34,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     style="@style/dfChooser"
+    android:layout_weight="1"
     >
     
     <Button
@@ -38,13 +42,15 @@
         style="@style/diffButton"             
         android:text="@string/skilled"
         android:onClick="setMedium" 
+        android:layout_gravity="center"  
         />    
     
     <Button
         android:id="@+id/hard"
         style="@style/diffButton"                       
         android:text="@string/master" 
-        android:onClick="setHard"        
+        android:onClick="setHard"
+        android:layout_gravity="center"          
         />
     </LinearLayout>
 
