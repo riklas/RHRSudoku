@@ -32,11 +32,13 @@
 	<string name="puzzle_is_conflicting">Some of your numbers are conflicting.</string>
 	<string name="user_guide">
 	    The aim of the game is to fill in the grid such that each row, column and 3x3 box contains the numbers 1-9.\n\n
+	    <i>
 	    >> Touch an empty cell to fill it in.\n\n
 	    >> You can enter notes by holding down on the cell and then toggling the numbers.\n\n
 	    >> Each puzzle has exactly one solution, except for Master level, where multiple solutions are possible.\n\n
 	    >> A number highlighted in red indicates that it conflicts with another number elsewhere in the puzzle.\n\n
 		>> If you are stuck, use the "Hint" button to fill in a random box.\n\n\n
-		Good Luck!	    
+		</i>
+		Good Luck!
 	</string>
 </resources>

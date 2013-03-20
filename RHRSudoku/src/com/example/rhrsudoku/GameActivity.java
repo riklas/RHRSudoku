@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -420,7 +421,9 @@ public class GameActivity extends Activity {
 	
 	public void showRules() {
 		new AlertDialog.Builder(this)
+		//.setMessage(Html.fromHtml(getResources().getString(R.string.user_guide)))
 	    .setMessage(R.string.user_guide)
+		//.setMessage(getResources().getText(R.string.user_guide))
 	     .show();
 		return;
 	}
