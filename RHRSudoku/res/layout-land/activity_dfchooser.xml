@@ -17,7 +17,7 @@
         style="@style/diffButton"  
         android:text="@string/kids"
         android:onClick="setKids"
-        android:layout_gravity="center"  
+        android:layout_gravity="center"
          />
     
     <Button
