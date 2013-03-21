@@ -2,8 +2,9 @@ package exactCover;
 
 import java.util.*;
 
-import com.example.rhrsudoku.SudokuSolver;
-import com.example.rhrsudoku.SudokuSolver.Choice;
+import rhrstudios.rhrsudoku.SudokuSolver;
+import rhrstudios.rhrsudoku.SudokuSolver.Choice;
+
 import com.google.common.base.Optional;
 import com.google.common.collect.*;
 

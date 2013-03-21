@@ -1,4 +1,4 @@
-package com.example.rhrsudoku;
+package rhrstudios.rhrsudoku;
 
 public class SudokuPuzzle {
 	/*

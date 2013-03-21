@@ -1,4 +1,4 @@
-package com.example.rhrsudoku;
+package rhrstudios.rhrsudoku;
 
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
@@ -10,6 +10,8 @@ import java.util.Random;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
+
+import com.example.rhrsudoku.R;
 
 
 public class HardCodedPuzzles3 {

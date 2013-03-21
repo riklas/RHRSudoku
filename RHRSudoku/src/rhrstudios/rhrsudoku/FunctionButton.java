@@ -1,4 +1,6 @@
-package com.example.rhrsudoku;
+package rhrstudios.rhrsudoku;
+
+import com.example.rhrsudoku.R;
 
 import android.content.Context;
 import android.content.res.TypedArray;

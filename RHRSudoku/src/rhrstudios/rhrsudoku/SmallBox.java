@@ -1,7 +1,9 @@
-package com.example.rhrsudoku;
+package rhrstudios.rhrsudoku;
 
 import java.util.SortedSet;
 import java.util.TreeSet;
+
+import rhrstudios.rhrsudoku.GameActivity.StateInfo;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -15,7 +17,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.View;
 
-import com.example.rhrsudoku.GameActivity.StateInfo;
 
 public class SmallBox extends View {	
 	

@@ -37,47 +37,47 @@
         android:layout_gravity="center"
         >
 
-        <com.example.rhrsudoku.DigitButton
+        <rhrstudios.rhrsudoku.DigitButton
             android:id="@+id/one"
             style="@style/numpadButton"
             android:text="@string/one" />
 
-        <com.example.rhrsudoku.DigitButton
+        <rhrstudios.rhrsudoku.DigitButton
             android:id="@+id/two"
             style="@style/numpadButton"
             android:text="@string/two" />
 
-        <com.example.rhrsudoku.DigitButton
+        <rhrstudios.rhrsudoku.DigitButton
             android:id="@+id/three"
             style="@style/numpadButton"
             android:text="@string/three" />
 
-        <com.example.rhrsudoku.DigitButton
+        <rhrstudios.rhrsudoku.DigitButton
             android:id="@+id/four"
             style="@style/numpadButton"
             android:text="@string/four" />
             
-        <com.example.rhrsudoku.DigitButton
+        <rhrstudios.rhrsudoku.DigitButton
             android:id="@+id/five"
             style="@style/numpadButton"
             android:text="@string/five" />
 
-        <com.example.rhrsudoku.DigitButton
+        <rhrstudios.rhrsudoku.DigitButton
             android:id="@+id/six"
             style="@style/numpadButton"
             android:text="@string/six" />
 
-        <com.example.rhrsudoku.DigitButton
+        <rhrstudios.rhrsudoku.DigitButton
             android:id="@+id/seven"
             style="@style/numpadButton"
             android:text="@string/seven" />
 
-        <com.example.rhrsudoku.DigitButton
+        <rhrstudios.rhrsudoku.DigitButton
             android:id="@+id/eight"
             style="@style/numpadButton"
             android:text="@string/eight" />
 
-        <com.example.rhrsudoku.DigitButton
+        <rhrstudios.rhrsudoku.DigitButton
             android:id="@+id/nine"
             style="@style/numpadButton"
             android:text="@string/nine" />
@@ -91,14 +91,14 @@
         android:layout_gravity="center" 
         >
         
-        <com.example.rhrsudoku.FunctionButton
+        <rhrstudios.rhrsudoku.FunctionButton
             android:text="@string/hint"
             android:id="@+id/hintButton"
             style="@style/functionButton"
             android:onClick="showHint"
             custom:textOrientation="horizontal"
             />
-        <com.example.rhrsudoku.FunctionButton
+        <rhrstudios.rhrsudoku.FunctionButton
             android:text="@string/clear"
             android:id="@+id/clearButton"
             style="@style/functionButton"
@@ -106,7 +106,7 @@
             custom:textOrientation="horizontal"
  
             />
-        <com.example.rhrsudoku.FunctionButton
+        <rhrstudios.rhrsudoku.FunctionButton
             android:text="@string/clearAll"
             android:id="@+id/clearAllButton"
             style="@style/functionButton"

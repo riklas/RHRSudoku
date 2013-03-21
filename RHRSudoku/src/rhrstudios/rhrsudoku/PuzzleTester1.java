@@ -1,10 +1,11 @@
-package com.example.rhrsudoku;
+package rhrstudios.rhrsudoku;
 
 import java.util.Random;
 import java.util.Set;
+
+import rhrstudios.rhrsudoku.SudokuSolver.Choice;
 import static exactCover.ExactCoverSolver.*;
 
-import com.example.rhrsudoku.SudokuSolver.Choice;
 
 import exactCover.ExactCoverProblem;
 import exactCover.ExactCoverSolver;

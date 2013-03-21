@@ -1,5 +1,6 @@
-package com.example.rhrsudoku;
+package rhrstudios.rhrsudoku;
 
+import rhrstudios.rhrsudoku.GameActivity.StateInfo;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -11,7 +12,6 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.rhrsudoku.GameActivity.StateInfo;
 
 public class DigitButton extends Button {
 	Paint paint1, paint2, paint3, paint4, paint5, paint6;
