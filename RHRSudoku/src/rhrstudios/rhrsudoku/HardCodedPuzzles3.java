@@ -11,7 +11,8 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import com.example.rhrsudoku.R;
+import rhrstudios.rhrsudoku.R;
+
 
 
 public class HardCodedPuzzles3 {

@@ -5,7 +5,8 @@ import java.util.Random;
 
 import org.xmlpull.v1.XmlPullParserException;
 
-import com.example.rhrsudoku.R;
+import rhrstudios.rhrsudoku.R;
+
 
 import android.app.Activity;
 import android.app.AlertDialog;

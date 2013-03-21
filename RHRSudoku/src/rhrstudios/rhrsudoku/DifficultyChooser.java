@@ -1,6 +1,6 @@
 package rhrstudios.rhrsudoku;
 
-import com.example.rhrsudoku.R;
+import rhrstudios.rhrsudoku.R;
 
 import android.app.Activity;
 import android.content.Intent;
