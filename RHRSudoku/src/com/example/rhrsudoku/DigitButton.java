@@ -57,7 +57,6 @@ public class DigitButton extends Button {
 
 		int xpos = View.MeasureSpec.getSize(getWidth())/2;
 		int ypos = (int) ((View.MeasureSpec.getSize(getHeight()) / 2) - ((paint6.descent() + paint6.ascent()) / 2)) ;
-		
 		canvas.drawText(Integer.toString(number1), xpos, ypos, paint6);
 		
 	}
