@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import exactCover.*;
+import exactCover.ExactCoverSolver.Quant;
 
 public class SudokuSolver {
 	public static class Choice {

@@ -1,15 +1,7 @@
 package rhrstudios.rhrsudoku;
 
 import java.util.Random;
-import java.util.Set;
-
-import rhrstudios.rhrsudoku.SudokuSolver.Choice;
-import static exactCover.ExactCoverSolver.*;
-
-
-import exactCover.ExactCoverProblem;
-import exactCover.ExactCoverSolver;
-import exactCover.Quant;
+import exactCover.ExactCoverSolver.Quant;
 
 public class PuzzleTester1 {
 	public static void main(String[] args) {

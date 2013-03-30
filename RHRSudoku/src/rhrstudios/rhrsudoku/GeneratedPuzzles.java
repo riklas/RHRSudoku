@@ -2,8 +2,7 @@ package rhrstudios.rhrsudoku;
 
 
 import java.util.Random;
-
-import exactCover.Quant;
+import exactCover.ExactCoverSolver.Quant;
 
 public class GeneratedPuzzles {
 

@@ -2,9 +2,6 @@ package exactCover;
 
 import java.util.*;
 
-import rhrstudios.rhrsudoku.SudokuSolver;
-import rhrstudios.rhrsudoku.SudokuSolver.Choice;
-
 import com.google.common.base.Optional;
 import com.google.common.collect.*;
 
@@ -36,7 +33,7 @@ public class ExactCoverSolver<E> {
 		return result2;
 	}
 	
-	public SolutionPackage solve(ExactCoverProblem<E> problem, SolutionPackage solutions) {
+	public SolutionPackage<E> solve(ExactCoverProblem<E> problem, SolutionPackage<E> solutions) {
 			 /* we will use the dancing links implementation.
 			 * columns represent elements
 			 * rows represent subsets of S
@@ -689,5 +686,9 @@ public class ExactCoverSolver<E> {
 			solutions = new HashSet<Integer>();
 			solutionsQuant = Quant.NONE;
 		}
+	}
+	
+	public enum Quant {
+		NONE, ONE, MULTIPLE
 	}
 }

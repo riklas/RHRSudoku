@@ -3,6 +3,8 @@ package exactCover;
 import java.util.HashSet;
 import java.util.Set;
 
+import exactCover.ExactCoverSolver.Quant;
+
 public class ExactCoverSolverTester {
 	static final int ELEMENTS_M = 12; // number of element
 	
@@ -12,7 +14,7 @@ public class ExactCoverSolverTester {
 		{12,13,30}, {2,6,17,14}, {11,7,9,21,38,40}, {13,26,25,29,10}, {5,8,37,21,2}, 
 		{7,5,9,28,35,33,38}, {6}, {16,2}, {3,2}, {29}, {31,30}};
 	*/
-	static int[][] setWarray = {};
+	//static int[][] setWarray = {};
 	
 	
 	static int[][] setSarray = {{2,8,12},{6,11},{3,1,4},{10,9},{5,7},{6,12},
@@ -22,7 +24,7 @@ public class ExactCoverSolverTester {
 	public static void main(String[] args) {
 		Set<Integer> setX = buildSetX();
 		Set<Set<Integer>> setS = buildSetS();
-		Set<Set<Integer>> setW = buildSetW();
+		//Set<Set<Integer>> setW = buildSetW();
 		//Set<Set<Integer>> setW = null;
 		ExactCoverProblem<Integer> problem = new ExactCoverProblem<Integer>(setX, setS, null);
 		ExactCoverSolver<Integer> solver = new ExactCoverSolver<Integer>();
@@ -53,16 +55,16 @@ public class ExactCoverSolverTester {
 		return setS;
 	}
 	
-	private static Set<Set<Integer>> buildSetW() {
-		Set<Set<Integer>> setW = new HashSet<Set<Integer>>();
-		for (int[] i : setWarray) {
-			Set<Integer> subset = new HashSet<Integer>();
-			for (int j : i)
-				subset.add(j);
-			setW.add(subset);
-		}				
-		return setW;
-	}
+//	private static Set<Set<Integer>> buildSetW() {
+//		Set<Set<Integer>> setW = new HashSet<Set<Integer>>();
+//		for (int[] i : setWarray) {
+//			Set<Integer> subset = new HashSet<Integer>();
+//			for (int j : i)
+//				subset.add(j);
+//			setW.add(subset);
+//		}				
+//		return setW;
+//	}
 
 	private static Set<Integer> buildSetX() {
 		Set<Integer> setX = new HashSet<Integer>();
